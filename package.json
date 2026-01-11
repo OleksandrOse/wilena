@@ -2,6 +2,7 @@
   "name": "wilena",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://oleksandrose.github.io/wilena/",
   "dependencies": {
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
