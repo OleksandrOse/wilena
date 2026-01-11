@@ -15,14 +15,14 @@ const locations: Location[] = [
     id: "piran",
     title: "Piran",
     description: "Meeresurlaub in einer gemütlichen Küstenstadt mit malerischen Straßen und Stränden.",
-    img: "/Wilena/piran/WhatsApp Image 2025-12-26 at 12.47.08.jpeg",
+    img: `${process.env.PUBLIC_URL}/Wilena/piran/WhatsApp Image 2025-12-26 at 12.47.08.jpeg`,
     path: "/piran",
   },
   {
     id: "villach",
     title: "Villach",
     description: "Natur und Erholung in Kärnten: Seen, Berge und endlose Waldflächen zum Entspannen.",
-    img: "/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg",
+    img: `${process.env.PUBLIC_URL}/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg`,
     path: "/villach",
   },
 ];

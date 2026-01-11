@@ -16,10 +16,26 @@ export default function Intro() {
         </div>
 
         <div className="intro__photo-container">
-          <img className="intro__photo" src="/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg" alt="1" />
-          <img className="intro__photo" src="/Wilena/villach/WhatsApp Image 2025-10-27 at 21.24.17_3aa5e4f1.jpg" alt="2" />
-          <img className="intro__photo" src="/Wilena/villach/WhatsApp Image 2025-10-27 at 21.24.17_c2bb1028.jpg" alt="3" />
-          <img className="intro__photo" src="/Wilena/piran/WhatsApp Image 2025-12-40 at 22.39.57.jpeg" alt="4" />
+          <img
+            className="intro__photo"
+            src={`${process.env.PUBLIC_URL}/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg`}
+            alt="1"
+          />
+          <img
+            className="intro__photo" 
+            src={`${process.env.PUBLIC_URL}/Wilena/villach/WhatsApp Image 2025-10-27 at 21.24.17_3aa5e4f1.jpg`} 
+            alt="2"
+          />
+          <img 
+            className="intro__photo" 
+            src={`${process.env.PUBLIC_URL}/Wilena/villach/WhatsApp Image 2025-10-27 at 21.24.17_c2bb1028.jpg`} 
+            alt="3" 
+          />
+          <img 
+            className="intro__photo" 
+            src={`${process.env.PUBLIC_URL}/Wilena/piran/WhatsApp Image 2025-12-40 at 22.39.57.jpeg`}
+            alt="4" 
+          />
         </div>
       </div>
 
