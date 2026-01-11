@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/static/css/main.fa087f56.css",
+    "main.js": "/static/js/main.a50cf40c.js",
+    "static/media/NanumBrushScript-Regular.ttf": "/static/media/NanumBrushScript-Regular.8f807e660f1af7da3aa7.ttf",
+    "static/media/10.png": "/static/media/10.e6e43a1a02bc68942e35.png",
+    "static/media/Roboto-VariableFont_wdthwght.ttf": "/static/media/Roboto-VariableFont_wdthwght.3c9d0f6513f7cfe91016.ttf",
+    "static/media/AlexBrush-Regular.ttf": "/static/media/AlexBrush-Regular.c8f6ee8046b4517ab6d7.ttf",
+    "static/media/SpecialGothic-Regular.ttf": "/static/media/SpecialGothic-Regular.2effe0b07ebd059d4dff.ttf",
+    "static/media/BrushScriptOpti-Regular.otf": "/static/media/BrushScriptOpti-Regular.62521cd4c7d3b1c9ba7b.otf",
+    "static/media/phone.svg": "/static/media/phone.fd056294959adc9cfbb0.svg",
+    "index.html": "/index.html",
+    "static/media/Vector.svg": "/static/media/Vector.456f6513b4f7e7999065.svg",
+    "static/media/menu_hover.svg": "/static/media/menu_hover.e98a21dc8c7f2e1fa099.svg",
+    "static/media/menu.svg": "/static/media/menu.b5032f24ff02b8b24840.svg",
+    "main.fa087f56.css.map": "/static/css/main.fa087f56.css.map",
+    "main.a50cf40c.js.map": "/static/js/main.a50cf40c.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fa087f56.css",
+    "static/js/main.a50cf40c.js"
+  ]
+}
