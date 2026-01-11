@@ -1,0 +1,22 @@
+.offers {
+  padding: 80px 20px;
+
+  &__list {
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}
+
+.offer-card {
+  border: 1px solid #ddd;
+  padding: 24px;
+
+  &__title {
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    color: #666;
+  }
+}

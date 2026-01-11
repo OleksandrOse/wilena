@@ -1,0 +1,17 @@
+.footer {
+  background: #111;
+  color: #fff;
+  padding: 60px 20px;
+
+  &__content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    gap: 32px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  &__title {
+    margin-bottom: 10px;
+  }
+}

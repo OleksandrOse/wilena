@@ -1,0 +1,39 @@
+.room-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .room-image {
+    transition: transform 0.3s ease;
+    &:hover {
+      transform: scale(1.05); // Зум на hover
+    }
+  }
+
+  .room-footer .room-book {
+    background: #0078d4;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 0.9rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background: #005fa3;
+      transform: scale(1.05);
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.room-slider {
+  padding: 80px 20px;
+  text-align: center;
+
+  &__wrapper {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+
+  &__slide {
+    display: none;
+    background: #f5f5f5;
+    padding: 40px;
+
+    &--active {
+      display: block;
+    }
+  }
+
+  &__image {
+    height: 260px;
+    background: #ccc;
+    margin-bottom: 20px;
+  }
+
+  &__room-title {
+    margin-bottom: 10px;
+  }
+
+  &__text {
+    color: #666;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  &__button {
+    padding: 10px 18px;
+    border: 1px solid #111;
+    background: transparent;
+    cursor: pointer;
+  }
+}

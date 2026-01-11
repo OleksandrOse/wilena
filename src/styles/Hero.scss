@@ -1,0 +1,215 @@
+@import './utils.scss';
+$header-height: 40px;
+
+.hero {
+  box-sizing: border-box;
+  font-family: 'Roboto', cursive;
+  //background: #e6e1d9;
+  padding: 0 20px;
+  background-image: url(../../public/Wilena/villach/10.png);
+  background-size: cover;
+  background-position: bottom -10px right;
+  background-repeat: no-repeat;
+  width: 100%;
+  //background: gray;
+  height: 100vh;
+  color: #433C2F;
+
+  &__top {
+    box-sizing: border-box;
+    @include top-actions;
+    //background-color: #777;
+  }
+
+  &__content {
+    box-sizing: border-box;
+    height: calc(100vh - #{$header-height});
+    padding: 40px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    //padding-bottom: 80px;
+  }
+
+  &__container-button {
+    padding-top: 20px;
+  }
+
+  
+
+  &__title {
+    margin-top: 105px;
+    font-family: 'Brush';
+    font-size: 76px;
+    letter-spacing: 16px;
+    line-height: 0.55;
+    margin: 20px 0 5px;
+    text-align: center;
+  }
+
+  &__logo {
+    height: $header-height;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin: 0;
+    text-decoration: none;
+  }
+
+  &__logo-title {
+    margin-top: 105px;
+    font-family: 'Brush';
+    font-size: 26px;
+    color: #433C2F;
+    margin: 0;
+    text-align: center;
+  }
+
+  &__subtitle {
+    font-family: 'Gothic', cursive;
+    transform: translateX(5px);
+    font-size: 38px;
+    line-height: 0.75;
+    letter-spacing: 8px;
+    margin: 0 0 20px;
+    //margin-top: -40px;
+    text-align: center;
+
+  }
+
+  &__logo-subtitle {
+    font-family: 'Gothic', cursive;
+
+    font-size: 13px;
+    color: #433C2F;
+    line-height: 0.55;
+    margin: 0;
+    margin-top: -5px;
+    text-align: center;
+  }
+
+  &__slogan {
+    margin-bottom: 30px;
+  }
+
+  &__address {
+    margin-bottom: 0;
+  }
+
+  @include onTablet {
+    &__title {
+      margin-top: 105px;
+      font-family: 'Brush';
+      font-size: 176px;
+      letter-spacing: 16px;
+      line-height: 0.55;
+      margin: 20px 0 0px;
+      text-align: center;
+    }
+
+    &__subtitle {
+      font-family: 'Gothic', cursive;
+      transform: translateX(10px);
+      font-size: 92px;
+      line-height: 0.75;
+      letter-spacing: 8px;
+      margin: 0 0 20px;
+      text-align: center;
+    }
+
+    &__eyebrow {
+    letter-spacing: 2px;
+    color: #777;
+    //margin-bottom: -35px;
+  }
+  }
+
+  @include onDekstop {
+     &__title {
+      margin-top: 105px;
+      font-family: 'Brush';
+      font-size: 256px;
+      letter-spacing: 16px;
+      line-height: 0.55;
+      margin: 20px 0 0px;
+      text-align: center;
+    }
+
+    &__subtitle {
+      font-family: 'Gothic', cursive;
+      transform: translateX(10px);
+      font-size: 126px;
+      line-height: 0.75;
+      letter-spacing: 8px;
+      margin: 0 0 20px;
+      text-align: center;
+    }
+
+    &__eyebrow {
+    letter-spacing: 2px;
+    color: #777;
+    //margin-bottom: -35px;
+  }
+    
+  }
+}
+
+.icon {
+  position: relative;
+
+  display: block;
+  width: 100%;
+  padding-bottom: 100%;
+
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  text-decoration: none;
+
+  &__tooltip {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: max-content;
+    padding-right: 20px;
+
+    font-size: 12px;
+    line-height: 16px;
+    color: #433C2F;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  @include onDekstop {
+    &:hover &__tooltip {
+      opacity: 1;
+      pointer-events: auto;
+    }
+  }
+
+
+
+  &--menu {
+    background-image: url(../../public/images/menu.svg);
+
+    &:hover {
+      background-image: url(../../public/images/menu_hover.svg);
+
+    }
+  }
+
+  &--phone {
+    background-image: url(../../public/images/phone.svg);
+  }
+
+  &--vector {
+    background-image: url(../../public/images/Vector.svg);
+  }
+}

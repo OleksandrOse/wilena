@@ -1,0 +1,44 @@
+.choose {
+  padding: 60px 0;
+  background-color: #f8f8f8;
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+
+  &__images {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+
+  &__img {
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  &__title {
+    font-size: 36px;
+    color: $primary-blue;
+    font-family: serif;
+    margin-bottom: 30px;
+  }
+
+  &__text {
+    font-size: 16px;
+    color: $primary-blue;
+    margin-bottom: 12px;
+  }
+
+  @media (max-width: 968px) {
+    &__grid {
+      grid-template-columns: 1fr;
+    }
+    &__images {
+      order: 2;
+    }
+  }
+}

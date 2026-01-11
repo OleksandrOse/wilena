@@ -1,0 +1,26 @@
+.button {
+  padding: 12px 24px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+
+  &--primary {
+    background: #111;
+    color: #fff;
+  }
+
+  &--secondary {
+    background: transparent;
+    border: 1px solid #111;
+    color: #111;
+  }
+}
+
+.booking-button {
+  padding: 12px 24px;
+  background-color: #2b7cff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}

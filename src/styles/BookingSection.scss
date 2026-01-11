@@ -1,0 +1,15 @@
+.booking-button {
+  background: #0078d4;
+  color: white;
+  padding: 0.7rem 1.5rem;
+  border-radius: 4px;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background: #005fa3;
+    transform: scale(1.05); // Підсвічування та легкий збільшений ефект
+  }
+}

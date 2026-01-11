@@ -1,0 +1,65 @@
+.testimonials {
+  padding: 60px 16px;
+
+  &__title {
+    text-align: center;
+    font-size: 32px;
+    margin-bottom: 40px;
+  }
+
+  &__carousel {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+
+  &__track {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    align-items: stretch;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  &__add {
+    display: block;
+    margin: 32px auto 0;
+    padding: 12px 24px;
+    background: #2b7cff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  &__arrow {
+    font-size: 32px;
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    cursor: pointer;
+    z-index: 5;
+
+    @media (min-width: 768px) {
+      position: static;
+      background: none;
+    }
+
+    @media (max-width: 767px) {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    &:first-child {
+      left: -8px;
+    }
+
+    &:last-child {
+      right: -8px;
+    }
+  }
+}

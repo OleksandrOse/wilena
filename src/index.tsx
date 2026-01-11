@@ -1,19 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './index.css';
+import {
+  HashRouter as Router,
+  Navigate,
+  Route,
+  Routes,
+} from 'react-router-dom';
+import './index.scss';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { HomePage } from './pages/homePage';
+
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
+  // <React.StrictMode>
+    <Router>
+      <Routes>
+        <Route path="/" element={<App />}>
+          <Route index element={<HomePage />} />
+          <Route path="home" element={<Navigate to="/" replace />} />
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+          {/* <Route path="/phones" element={<CatalogList title="Mobile Phones" />} />
+          <Route path="/phones/*" element={<ProductDetailsPage />} />
+          <Route path="/tablets" element={<CatalogList title="Tablets" />} />
+          <Route path="/tablets/*" element={<ProductDetailsPage />} /> */}
+          {/* <Route
+            path="/accessories"
+            element={<CatalogList title="Accessories" />}
+          /> */}
+          {/* <Route path="/accessories/*" element={<ProductDetailsPage />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/favorites" element={<FavouritesPage />} />
+
+          <Route path="*" element={<NotFoundPage />} /> */}
+        </Route>
+      </Routes>
+    </Router>,
+  // </React.StrictMode>
+);
