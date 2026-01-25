@@ -9,6 +9,7 @@ import {
 import './index.scss';
 import App from './App';
 import { HomePage } from './pages/homePage';
+import { VillachPage } from './pages/VillachPage';
 
 
 const root = ReactDOM.createRoot(
@@ -19,7 +20,7 @@ root.render(
     <Router>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route index element={<HomePage />} />
+          <Route index element={<VillachPage />} />
           <Route path="home" element={<Navigate to="/" replace />} />
 
           {/* <Route path="/phones" element={<CatalogList title="Mobile Phones" />} />

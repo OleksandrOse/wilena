@@ -1,0 +1,15 @@
+.benefits {
+  padding: 120px 0;
+  text-align: center;
+
+  &__list {
+    max-width: 700px;
+    margin: 40px auto 0;
+    display: grid;
+    gap: 20px;
+  }
+
+  &__item {
+    font-size: 18px;
+  }
+}

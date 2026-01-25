@@ -1,0 +1,37 @@
+.rooms-slider {
+  padding: 120px 0;
+  text-align: center;
+
+
+  &__wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+  }
+
+
+  &__slide {
+    width: 420px;
+  }
+
+
+  &__pagination {
+    margin-top: 24px;
+
+
+    span {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: #ccc;
+      display: inline-block;
+      margin: 0 6px;
+
+
+      &.is-active {
+        background: #000;
+      }
+    }
+  }
+}
