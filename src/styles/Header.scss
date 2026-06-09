@@ -9,7 +9,7 @@ $header-height: 60px;
   background: #fff;
   z-index: 100;
   border-bottom: 1px solid #eee;
-  height: $header-height;
+  min-height: $header-height;
 
   &__container {
     max-width: $page-max;
@@ -20,6 +20,7 @@ $header-height: 60px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    overflow: visible;
   }
 
   // ─── Logo ─────────────────────────────────────────────────────────────
@@ -70,7 +71,9 @@ $header-height: 60px;
     align-items: center;
     gap: 24px;
 
-    @media (max-width: 992px) { display: none; }
+    @media (max-width: 992px) {
+      display: none;
+    }
 
     &-item {
       text-decoration: none;
@@ -93,7 +96,10 @@ $header-height: 60px;
 
       &:hover {
         color: #008cff;
-        &::after { width: 100%; }
+
+        &::after {
+          width: 100%;
+        }
       }
 
       &--dropdown {
@@ -107,12 +113,18 @@ $header-height: 60px;
   }
 
   // ─── Dropdown ─────────────────────────────────────────────────────────
-  &__dropdown-wrap { position: relative; }
+  &__dropdown-wrap {
+    position: relative;
+  }
 
   &__chevron {
     transition: transform 0.2s;
     opacity: 0.6;
-    &.is-open { transform: rotate(180deg); opacity: 1; }
+
+    &.is-open {
+      transform: rotate(180deg);
+      opacity: 1;
+    }
   }
 
   &__dropdown {
@@ -158,14 +170,21 @@ $header-height: 60px;
     &:hover {
       background: rgba(255, 255, 255, 0.07);
       color: #fff;
-      .header-place__dropdown-title { color: #fff; }
+
+      .header-place__dropdown-title {
+        color: #fff;
+      }
     }
 
-    &:not(:last-child) { margin-bottom: 2px; }
+    &:not(:last-child) {
+      margin-bottom: 2px;
+    }
   }
 
   // іконки прибрані — залишаємо тільки текст
-  &__dropdown-icon { display: none; }
+  &__dropdown-icon {
+    display: none;
+  }
 
   &__dropdown-title {
     font-size: 14px;
@@ -200,11 +219,21 @@ $header-height: 60px;
       transition: 0.3s;
     }
 
-    &.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-    &.is-open span:nth-child(2) { opacity: 0; }
-    &.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+    &.is-open span:nth-child(1) {
+      transform: translateY(8px) rotate(45deg);
+    }
 
-    @media (max-width: 992px) { display: flex; }
+    &.is-open span:nth-child(2) {
+      opacity: 0;
+    }
+
+    &.is-open span:nth-child(3) {
+      transform: translateY(-8px) rotate(-45deg);
+    }
+
+    @media (max-width: 992px) {
+      display: flex;
+    }
   }
 
   // ─── Mobile menu ──────────────────────────────────────────────────────
@@ -216,14 +245,17 @@ $header-height: 60px;
     background: #fff;
     border-top: 1px solid #eee;
 
-    > a {
+    >a {
       text-decoration: none;
       color: #333;
       font-size: 1rem;
       padding: 12px 0;
       border-bottom: 1px solid #f0f0f0;
       transition: color 0.2s;
-      &:hover { color: #000; }
+
+      &:hover {
+        color: #000;
+      }
     }
   }
 
@@ -257,15 +289,22 @@ $header-height: 60px;
     border-bottom: none !important;
     transition: background 0.2s;
 
-    &:hover { background: rgba(0,0,0,0.04) !important; }
+    &:hover {
+      background: rgba(0, 0, 0, 0.04) !important;
+    }
 
     // прапорець / мітка локації
     &::before {
       font-size: 16px;
     }
 
-    &--piran::before { content: '🌊'; }
-    &--villach::before { content: '🏔️'; }
+    &--piran::before {
+      content: '🌊';
+    }
+
+    &--villach::before {
+      content: '🏔️';
+    }
   }
 
   &__cta {
@@ -280,7 +319,9 @@ $header-height: 60px;
     text-decoration: none;
     display: block;
 
-    &:hover { background: #433c2f !important; }
+    &:hover {
+      background: #433c2f !important;
+    }
   }
 }
 
@@ -316,7 +357,11 @@ $header-height: 60px;
     transition: opacity 0.3s;
   }
 
-  @media (max-width: 992px) { display: none; }
+  @media (max-width: 992px) {
+    display: -webkit-flex !important;
+    display: flex !important;
+    display: none;
+  }
 
   @include onDekstop {
     &:hover &__tooltip {
