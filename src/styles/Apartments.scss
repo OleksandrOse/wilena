@@ -1,0 +1,48 @@
+.apartments-swiper {
+  padding-bottom: 55px; // місце під круги
+}
+
+/* pagination position */
+.apartments-swiper .swiper-pagination {
+  bottom: 0;
+}
+
+/* dots style */
+.apartments-swiper .swiper-pagination-bullet {
+  width: 10px;
+  height: 10px;
+  background: #ccc;
+  opacity: 1;
+  margin: 0 6px;
+}
+
+.apartments-swiper .swiper-pagination-bullet-active {
+  background: #ff7a00;
+}
+
+/* CARD */
+
+.card {
+  border: 1px solid #ddd;
+  padding: 16px;
+  text-align: center;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &__image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    margin-bottom: 12px;
+  }
+
+  button {
+    background: #ff7a00;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 6px;
+  }
+}

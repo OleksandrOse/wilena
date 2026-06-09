@@ -10,18 +10,6 @@ const Hero: React.FC<Props> = ({ setIsOpen }) => {
   
   return (
     <header className="hero">
-      <div className="hero__top">
-        <a href="#" className="hero__logo">
-          <div className="hero__logo-title">Wilena</div>
-          <div className="hero__logo-subtitle">apartments</div>
-        </a>
-
-        <a href="tel:+12345555555" className="icon icon--phone">
-          <div className="icon__tooltip">+43 664 73784888</div>
-        </a>
-
-        <a href="#menu" className="icon icon--menu"></a>
-      </div>
       <div className="hero__content">
         <div className="hero__eyebrow-container">
           <p className="hero__eyebrow">APARTMENTS</p>

@@ -1,49 +1,325 @@
-.header {
-  @include onTablet {
-    background-position: center;
-    background-size: cover;
-  }
+$page-max: 1200px;
+$headerTopPadding: 40px;
+@import './utils.scss';
+$header-height: 60px;
 
-  @include onDekstop {
-    width: 100%;
-    background-size: cover;
-  }
-  
+.header-place {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 100;
+  border-bottom: 1px solid #eee;
+  height: $header-height;
+
   &__container {
-    @include container;
+    max-width: $page-max;
+    margin: 0 auto;
+    height: 100%;
+    padding: 0 16px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
-  &__content {
+  // ─── Logo ─────────────────────────────────────────────────────────────
+  &__logo {
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    box-sizing: border-box;
-    height: 100vh;
-    padding: $headerTopPadding 0 80px;
+    justify-content: center;
+    align-items: flex-start;
+    align-self: center;
+    text-decoration: none;
+    color: inherit;
+    gap: 2px;
+    line-height: 1;
+
+    &:visited,
+    &:hover,
+    &:active {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
-  &__top {
-    @include top-actions;
+  &__logo-title {
+    font-family: 'Brush';
+    font-size: 28px;
+    color: #433C2F;
+    margin: 0;
+    line-height: 1;
   }
 
-  &__title {
-    margin: 0 auto 100px;
-    font-size: 36px;
-    line-height: 36px;
-    font-weight: bold;
-    color: #fff;
-    letter-spacing: -1.5px;
+  &__logo-subtitle {
+    font-family: 'Gothic', cursive;
+    transform: translateX(5px);
+    font-size: 10.5px;
+    color: rgba(67, 60, 47, 0.55);
+    letter-spacing: 0.18em;
+    text-transform: lowercase;
+    margin: 0;
+    margin-top: -5px;
+    line-height: 1;
+    transform: none;
+  }
 
-    @include onTablet {
-      margin: 0 auto 180px;
-      font-size: 64px;
-      line-height: 64px;
+  // ─── Nav ──────────────────────────────────────────────────────────────
+  &__nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 24px;
+
+    @media (max-width: 992px) { display: none; }
+
+    &-item {
+      text-decoration: none;
+      color: #333;
+      font-size: 16px;
+      font-weight: 500;
+      position: relative;
+      transition: color 0.3s ease;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -4px;
+        width: 0;
+        height: 2px;
+        background-color: #008cff;
+        transition: width 0.3s ease;
+      }
+
+      &:hover {
+        color: #008cff;
+        &::after { width: 100%; }
+      }
+
+      &--dropdown {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        user-select: none;
+        cursor: pointer;
+      }
+    }
+  }
+
+  // ─── Dropdown ─────────────────────────────────────────────────────────
+  &__dropdown-wrap { position: relative; }
+
+  &__chevron {
+    transition: transform 0.2s;
+    opacity: 0.6;
+    &.is-open { transform: rotate(180deg); opacity: 1; }
+  }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 12px);
+    left: -33%;
+    transform: translateX(-50%);
+    background: rgba(16, 16, 20, 0.96);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 14px;
+    padding: 8px;
+    min-width: 240px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    z-index: 200;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -6px;
+      left: 50%;
+      transform: translateX(-50%) rotate(45deg);
+      width: 12px;
+      height: 12px;
+      background: rgba(16, 16, 20, 0.96);
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  &__dropdown-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.85);
+    transition: background 0.18s, color 0.18s;
+    text-align: center;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.07);
+      color: #fff;
+      .header-place__dropdown-title { color: #fff; }
     }
 
-    @include onDekstop {
-      margin: 0 auto 200px;
-      font-size: 80px;
-      line-height: 80px;
+    &:not(:last-child) { margin-bottom: 2px; }
+  }
+
+  // іконки прибрані — залишаємо тільки текст
+  &__dropdown-icon { display: none; }
+
+  &__dropdown-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    transition: color 0.18s;
+  }
+
+  &__dropdown-desc {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.4);
+    margin-top: 1px;
+  }
+
+  // ─── Burger ───────────────────────────────────────────────────────────
+  &__burger {
+    display: none;
+    width: 28px;
+    height: 20px;
+    background: none;
+    border: none;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+    span {
+      height: 3px;
+      background: #333;
+      border-radius: 2px;
+      transition: 0.3s;
+    }
+
+    &.is-open span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+    &.is-open span:nth-child(2) { opacity: 0; }
+    &.is-open span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
+
+    @media (max-width: 992px) { display: flex; }
+  }
+
+  // ─── Mobile menu ──────────────────────────────────────────────────────
+  &__mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 12px 24px 24px;
+    background: #fff;
+    border-top: 1px solid #eee;
+
+    > a {
+      text-decoration: none;
+      color: #333;
+      font-size: 1rem;
+      padding: 12px 0;
+      border-bottom: 1px solid #f0f0f0;
+      transition: color 0.2s;
+      &:hover { color: #000; }
+    }
+  }
+
+  &__mobile-group {
+    display: flex;
+    flex-direction: column;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 8px;
+    margin-bottom: 4px;
+  }
+
+  &__mobile-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: rgba(51, 51, 51, 0.4);
+    text-transform: uppercase;
+    padding: 12px 0 6px;
+  }
+
+  &__mobile-sub {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    color: #222 !important;
+    font-size: 1rem !important;
+    font-weight: 500;
+    padding: 10px 12px !important;
+    border-radius: 8px;
+    border-bottom: none !important;
+    transition: background 0.2s;
+
+    &:hover { background: rgba(0,0,0,0.04) !important; }
+
+    // прапорець / мітка локації
+    &::before {
+      font-size: 16px;
+    }
+
+    &--piran::before { content: '🌊'; }
+    &--villach::before { content: '🏔️'; }
+  }
+
+  &__cta {
+    background: #1a1612 !important;
+    color: #fff !important;
+    border-radius: 10px;
+    text-align: center;
+    font-weight: 600 !important;
+    padding: 13px !important;
+    border-bottom: none !important;
+    margin-top: 10px;
+    text-decoration: none;
+    display: block;
+
+    &:hover { background: #433c2f !important; }
+  }
+}
+
+// ─── Phone icon ───────────────────────────────────────────────────────────────
+.icon {
+  position: relative;
+  display: block;
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  &--phone {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    background-image: url(../../public/images/phone.svg);
+  }
+
+  &__tooltip {
+    position: absolute;
+    right: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: max-content;
+    padding-right: 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #433C2F;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s;
+  }
+
+  @media (max-width: 992px) { display: none; }
+
+  @include onDekstop {
+    &:hover &__tooltip {
+      opacity: 1;
+      pointer-events: auto;
     }
   }
 }

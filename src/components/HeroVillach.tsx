@@ -2,10 +2,10 @@ import '../styles/HeroVillach.scss';
 
 const HeroVillach: React.FC = () => {
   return (
-    <section className="hero">
-      <div className="hero__overlay">
-        <h1 className="hero__title">WILENA APARTMENTS</h1>
-        <p className="hero__subtitle">Villach</p>
+    <section className="hero-vilach">
+      <div className="hero-vilach__overlay">
+        <h1 className="hero-vilach__title">WILENA APARTMENTS</h1>
+        <p className="hero-vilach__subtitle">Villach</p>
       </div>
     </section>
   );

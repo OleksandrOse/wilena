@@ -2,7 +2,7 @@ import '../styles/Footer.scss';
 
 export default function Footer() {
   return (
-    <footer className="footer">
+    <footer className="footer" id="contact">
       <div className="footer__content">
 
         <div className="footer__block">

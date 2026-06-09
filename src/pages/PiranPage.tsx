@@ -10,7 +10,7 @@ import Locations from '../components/Location';
 import '../App.scss';
 import ModalBooking from '../components/ModalBooking';
 
-export const HomePage: FC = () => {
+export const PiranPage: FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   
   return (

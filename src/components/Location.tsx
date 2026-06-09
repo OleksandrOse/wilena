@@ -15,7 +15,7 @@ const locations: Location[] = [
     id: "piran",
     title: "Piran",
     description: "Meeresurlaub in einer gemütlichen Küstenstadt mit malerischen Straßen und Stränden.",
-    img: `${process.env.PUBLIC_URL}/Wilena/piran/WhatsApp Image 2025-12-26 at 12.47.08.jpeg`,
+    img: `${process.env.PUBLIC_URL}/Wilena/piran/12.jpeg`,
     path: "/piran",
   },
   {

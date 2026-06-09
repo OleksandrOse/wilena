@@ -1,0 +1,45 @@
+.breadcrumbs {
+  padding: 88px 24px 0;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  &__list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  &__link {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.45);
+    text-decoration: none;
+    transition: color 0.2s;
+    letter-spacing: 0.02em;
+
+    &:hover {
+      color: rgba(255, 255, 255, 0.8);
+    }
+  }
+
+  &__sep {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.2);
+  }
+
+  &__current {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.75);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+}
