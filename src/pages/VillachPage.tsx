@@ -25,7 +25,7 @@ const villachApartments = [
     size: "52 m²",
     guests: "1–4 Pers.",
     desc: "Modernes Apartment mit Balkon, Bergblick und vollausgestatteter Küche.",
-    image: `${process.env.PUBLIC_URL}/Wilena/villach/room1.jpg`,
+    image: `${process.env.PUBLIC_URL}/Wilena/villach/665558891.jpg`,
     price: "ab € 120,–",
   },
   {
@@ -33,16 +33,8 @@ const villachApartments = [
     size: "68 m²",
     guests: "2–6 Pers.",
     desc: "Geräumiges Familienapartment mit zwei Schlafzimmern und großer Terrasse.",
-    image: `${process.env.PUBLIC_URL}/Wilena/villach/room2.jpg`,
+    image: `${process.env.PUBLIC_URL}/Wilena/villach/image00052.jpeg`,
     price: "ab € 160,–",
-  },
-  {
-    name: "Premium Apartment",
-    size: "75 m²",
-    guests: "2–5 Pers.",
-    desc: "Exklusives Apartment mit Panoramablick auf die Kärntner Bergwelt.",
-    image: `${process.env.PUBLIC_URL}/Wilena/villach/room3.jpg`,
-    price: "ab € 195,–",
   },
 ];
 
