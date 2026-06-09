@@ -187,6 +187,8 @@ $header-height: 60px;
     height: 20px;
     background: none;
     border: none;
+    -webkit-box-orient: vertical;
+    -webkit-flex-direction: column;
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;

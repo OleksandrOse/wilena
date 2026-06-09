@@ -71,6 +71,10 @@
       display: block;
       letter-spacing: 0.18em;
       margin-top: -50px;
+
+      @media (max-width: 900px) {
+        margin-top: -10px;
+      }
     }
   }
 
