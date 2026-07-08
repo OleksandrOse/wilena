@@ -36,7 +36,7 @@ export default function Header() {
           </a>
 
           {/* Apartments dropdown */}
-          <div
+          {/* <div
             className="header-place__dropdown-wrap"
             ref={dropdownRef}
             onMouseEnter={() => setApartmentsOpen(true)}
@@ -84,7 +84,7 @@ export default function Header() {
                 </motion.div>
               )}
             </AnimatePresence>
-          </div>
+          </div> */}
 
           <Link to="/service" className="header-place__nav-item">Service</Link>
           <Link to="/angebote" className="header-place__nav-item">Angebote</Link>

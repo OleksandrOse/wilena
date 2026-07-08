@@ -18,6 +18,48 @@ const stagger: Variants = {
 };
 
 // ─── data ─────────────────────────────────────────────────────────────────────
+const lakes = [
+  {
+    id: 'woerthersee',
+    title: 'Wörthersee',
+    desc: 'Der bekannteste Kärntner See — ideal zum Baden, Segeln und für einen Ausflug zur Insel Maria Wörth.',
+    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Wörtersee.jpg`,
+  },
+  {
+    id: 'faakersee',
+    title: 'Faaker See',
+    desc: 'Kristallklares, türkisfarbenes Wasser vor der Kulisse der Karawanken — nur eine kurze Fahrt entfernt.',
+    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Faakersee.jpg`,
+  },
+  {
+    id: 'ossiachersee',
+    title: 'Ossiacher See',
+    desc: 'Ruhiger Familiensee mit Radweg rundherum — perfekt für einen entspannten Tagesausflug.',
+    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Ossiachersee.jpg`,
+  },
+];
+
+const apartments = [
+  {
+    id: 'wilena-deluxe',
+    title: 'Apartment Wilena Deluxe',
+    tag: 'Villach Warmbad',
+    desc: 'Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.',
+    img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
+    path: '/villach',
+    accent: '#6a9b6e',
+  },
+  {
+    id: 'familienresidenz',
+    title: 'Apartment Familienresidenz',
+    tag: 'Villach Warmbad',
+    desc: 'Familienfreundliches Apartment mit kostenlosem Fahrradverleih direkt im Haus — ideal für einen aktiven Alpenurlaub.',
+    img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/WhatsApp Image 2026-07-04 at 09.01.59 (6).jpeg`,
+    path: '/villach',
+    accent: '#c9a24d',
+  },
+];
+
 const locations = [
   {
     id: 'piran',
@@ -41,8 +83,10 @@ const locations = [
 
 const features = [
   { icon: '🏔️', title: 'Natur & Berge', desc: 'Umgeben von Kärntner Alpen und kristallklaren Seen.' },
-  { icon: '🌊', title: 'Meeresurlaub', desc: 'Direkt an der Adria in der charmanten Stadt Piran.' },
   { icon: '✨', title: 'Komfort & Stil', desc: 'Moderne Ausstattung, Balkon, Vollküche in jedem Apartment.' },
+  { icon: "♨️", title: "Therme in der Nähe", desc: "Villacher Warmbad-Therme nur 5 Minuten entfernt." },
+  { icon: "🚴", title: "Fahrradverleih", desc: "E-Bikes und Fahrräder direkt vor Ort." },
+  { icon: '❄️', title: 'Klimaanlage', desc: 'Angenehme Raumtemperatur zu jeder Jahreszeit in allen Apartments.' },
   { icon: '🅿️', title: 'Kostenlos parken', desc: 'Privater Stellplatz direkt vor dem Haus inklusive.' },
 ];
 
@@ -86,9 +130,6 @@ export const HomePage: FC = () => {
               >
                 Jetzt buchen
               </button>
-              <a href="#locations" className="home-hero__btn home-hero__btn--outline">
-                Locations entdecken
-              </a>
             </motion.div>
           </motion.div>
 
@@ -111,7 +152,7 @@ export const HomePage: FC = () => {
         viewport={{ once: true, amount: 0.4 }}
         variants={stagger}
       >
-        {['Villach, Österreich', 'Piran, Slowenien', 'wilena@speed.at', '+43 664 737 48 88'].map((item, i) => (
+        {['Villach, Österreich', 'wilena@speed.at', '+43 664 737 48 88'].map((item, i) => (
           <motion.div key={i} className="home-strip__item" variants={fadeUp}>
             {item}
           </motion.div>
@@ -138,12 +179,12 @@ export const HomePage: FC = () => {
               moderne Ausstattung mit einer ruhigen Lage inmitten der Natur.
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Ob Meeresurlaub an der slowenischen Küste in Piran oder alpine Erholung
+              Alpine Erholung
               in Villach — wir haben das perfekte Apartment für Sie.
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
-              <div className="home-intro__stat"><span>2</span>Locations</div>
-              <div className="home-intro__stat"><span>8+</span>Apartments</div>
+              
+              <div className="home-intro__stat"><span>2+</span>Apartments</div>
               <div className="home-intro__stat"><span>10+</span>Jahre Erfahrung</div>
             </motion.div>
           </motion.div>
@@ -157,12 +198,12 @@ export const HomePage: FC = () => {
           >
             <img
               className="home-intro__img home-intro__img--main"
-              src={`${process.env.PUBLIC_URL}/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg`}
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 08.59.51 (9).jpeg`}
               alt="Villach"
             />
             <img
               className="home-intro__img home-intro__img--accent"
-              src={`${process.env.PUBLIC_URL}/Wilena/piran/12.jpeg`}
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 08.59.51 (6).jpeg`}
               alt="Piran"
             />
           </motion.div>
@@ -204,8 +245,10 @@ export const HomePage: FC = () => {
         </div>
       </section>
 
+     
+
       {/* ── LOCATIONS ─────────────────────────────────────────────────────── */}
-      <section className="home-locations" id="locations">
+           <section className="home-locations" id="apartments">
         <div className="home-locations__container">
           <motion.div
             className="home-locations__header"
@@ -214,37 +257,37 @@ export const HomePage: FC = () => {
             viewport={{ once: true }}
             variants={stagger}
           >
-            <motion.span className="home-locations__tag" variants={fadeUp}>Unsere Locations</motion.span>
+            <motion.span className="home-locations__tag" variants={fadeUp}>Unsere Apartments</motion.span>
             <motion.h2 className="home-locations__title" variants={fadeUp}>
-              Zwei einzigartige Destinationen
+              Zwei einzigartige Apartments
             </motion.h2>
           </motion.div>
 
           <div className="home-locations__cards">
-            {locations.map((loc, i) => (
+            {apartments.map((apt, i) => (
               <motion.div
-                key={loc.id}
+                key={apt.id}
                 className="home-location-card"
                 initial={{ opacity: 0, y: 50 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.7, delay: i * 0.15 }}
                 whileHover="hover"
-                onClick={() => navigate(loc.path)}
+                onClick={() => navigate(apt.path)}
               >
                 <div className="home-location-card__image-wrap">
                   <motion.img
-                    src={loc.img}
-                    alt={loc.title}
+                    src={apt.img}
+                    alt={apt.title}
                     className="home-location-card__image"
                     variants={{ hover: { scale: 1.06 } }}
                     transition={{ duration: 0.5 }}
                   />
-                  <div className="home-location-card__tag">{loc.tag}</div>
+                  <div className="home-location-card__tag">{apt.tag}</div>
                 </div>
                 <div className="home-location-card__body">
-                  <h3 className="home-location-card__title">{loc.title}</h3>
-                  <p className="home-location-card__desc">{loc.desc}</p>
+                  <h3 className="home-location-card__title">{apt.title}</h3>
+                  <p className="home-location-card__desc">{apt.desc}</p>
                   <span className="home-location-card__cta">
                     Entdecken →
                   </span>
@@ -252,6 +295,180 @@ export const HomePage: FC = () => {
               </motion.div>
             ))}
           </div>
+        </div>
+      </section>
+
+      <section className="home-cycling">
+        <div className="home-cycling__container">
+          <motion.div
+            className="home-cycling__image-wrap"
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.9, ease: 'easeOut' }}
+          >
+            <img
+              className="home-cycling__image"
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.08.38 (4).jpeg`}
+              alt="Fahrradverleih vor Ort"
+            />
+          </motion.div>
+
+          <motion.div
+            className="home-cycling__text"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            variants={stagger}
+          >
+            <motion.span className="home-cycling__tag" variants={fadeUp}>Aktiv unterwegs</motion.span>
+            <motion.h2 className="home-cycling__title" variants={fadeUp}>
+              Die Region mit dem Rad entdecken
+            </motion.h2>
+            <motion.p className="home-cycling__desc" variants={fadeUp}>
+              Direkt im Hotel stehen Ihnen Fahrräder und E-Bikes zur Verfügung,
+              die Sie gegen eine geringe Gebühr nutzen können.
+              Von hier aus starten Radwege rund um Ossiacher See,
+              Faaker See und Wörthersee — flach, gut ausgeschildert und für die
+              ganze Familie geeignet.
+            </motion.p>
+            <motion.p className="home-cycling__desc" variants={fadeUp}>
+              Wer es sportlicher mag, radelt entlang der Drau bis nach Villach
+              oder weiter Richtung Alpe-Adria-Radweg — ein Klassiker für alle,
+              die Kärnten aktiv erleben möchten.
+            </motion.p>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ── НОВЕ: BURG & THERME (Landskron & Warmbad) ────────────────────── */}
+      <section className="home-highlights">
+        <div className="home-highlights__container">
+          <motion.div
+            className="home-highlights__header"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+          >
+            <motion.span className="home-highlights__tag" variants={fadeUp}>Ausflugsziele</motion.span>
+            <motion.h2 className="home-highlights__title" variants={fadeUp}>
+              Burg & Therme — beides ganz in der Nähe
+            </motion.h2>
+          </motion.div>
+
+          <div className="home-highlights__grid">
+            <motion.div
+              className="home-highlight-card"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+              whileHover="hover"
+            >
+              {/* ПРИМІТКА: фото замку Ландскрон не було серед завантажених — тут тимчасово
+                  фото Burg Hochosterwitz. Замініть на реальне фото Landskron, коли буде готове. */}
+              <div className="home-highlight-card__image-wrap">
+                <motion.img
+                  src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.07.05 (4).jpeg`}
+                  alt="Burg Landskron"
+                  className="home-highlight-card__image"
+                  variants={{ hover: { scale: 1.06 } }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+              <div className="home-highlight-card__body">
+                <h3 className="home-highlight-card__title">Burg Landskron</h3>
+                <p className="home-highlight-card__desc">
+                  Mittelalterliche Burg über Villach mit Adlerarena und
+                  spektakulärem Blick auf den Ossiacher See — ein beliebtes
+                  Ausflugsziel für die ganze Familie.
+                </p>
+              </div>
+            </motion.div>
+
+            <motion.div
+              className="home-highlight-card"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              whileHover="hover"
+            >
+              <div className="home-highlight-card__image-wrap home-highlight-card__image-wrap--icon">
+                <motion.img
+                  src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.01.59 (1).jpeg`}
+                  alt="Warmbad"
+                  className="home-highlight-card__image"
+                  variants={{ hover: { scale: 1.06 } }}
+                  transition={{ duration: 0.5 }}
+                />
+              </div>
+              <div className="home-highlight-card__body">
+                <h3 className="home-highlight-card__title">Villacher Warmbad-Therme</h3>
+                <p className="home-highlight-card__desc">
+                  Nur 5 Gehminuten von den Apartments entfernt — Thermalwasser,
+                  Saunalandschaft und Entspannung pur, direkt vor der Haustür.
+                </p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── НОВЕ: DREI-SEEN-LAND ──────────────────────────────────────────── */}
+      <section className="home-lakes">
+        <div className="home-lakes__container">
+          <motion.div
+            className="home-lakes__header"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={stagger}
+          >
+            <motion.span className="home-lakes__tag" variants={fadeUp}>Drei-Seen-Land</motion.span>
+            <motion.h2 className="home-lakes__title" variants={fadeUp}>
+              Drei Seen in unmittelbarer Nähe
+            </motion.h2>
+            <motion.p className="home-lakes__intro" variants={fadeUp}>
+              Wörthersee, Faaker See und Ossiacher See liegen alle nur eine
+              kurze Fahrt von Ihrem Apartment entfernt — perfekt für einen
+              erholsamen Tag am Wasser.
+            </motion.p>
+          </motion.div>
+
+          <motion.div
+            className="home-lakes__grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.15 }}
+            variants={stagger}
+          >
+            {lakes.map((lake) => (
+              <motion.div key={lake.id} className="home-lake-card" variants={fadeUp} whileHover="hover">
+                {lake.img ? (
+                  <div className="home-lake-card__image-wrap">
+                    <motion.img
+                      src={lake.img}
+                      alt={lake.title}
+                      className="home-lake-card__image"
+                      variants={{ hover: { scale: 1.06 } }}
+                      transition={{ duration: 0.5 }}
+                    />
+                  </div>
+                ) : (
+                  // ПРИМІТКА: для Ossiacher See немає завантаженого фото — показуємо картку з іконкою
+                  <div className="home-lake-card__image-wrap home-lake-card__image-wrap--icon">
+                    <span className="home-lake-card__icon">🌊</span>
+                  </div>
+                )}
+                <div className="home-lake-card__body">
+                  <h3 className="home-lake-card__title">{lake.title}</h3>
+                  <p className="home-lake-card__desc">{lake.desc}</p>
+                </div>
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
       </section>
 
