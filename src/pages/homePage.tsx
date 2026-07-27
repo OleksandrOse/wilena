@@ -41,43 +41,22 @@ const lakes = [
 
 const apartments = [
   {
-    id: 'wilena-deluxe',
+    id: '1',
     title: 'Apartment Wilena Deluxe',
     tag: 'Villach Warmbad',
     desc: 'Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.',
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
-    path: '/villach',
+    path: '/apartment1',
     accent: '#6a9b6e',
   },
   {
-    id: 'familienresidenz',
+    id: '2',
     title: 'Apartment Familienresidenz',
     tag: 'Villach Warmbad',
     desc: 'Familienfreundliches Apartment mit kostenlosem Fahrradverleih direkt im Haus — ideal für einen aktiven Alpenurlaub.',
-    img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/WhatsApp Image 2026-07-04 at 09.01.59 (6).jpeg`,
-    path: '/villach',
+    img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
+    path: '/apartment2',
     accent: '#c9a24d',
-  },
-];
-
-const locations = [
-  {
-    id: 'piran',
-    title: 'Piran',
-    tag: 'Slowenien',
-    desc: 'Meeresurlaub in einer malerischen Küstenstadt mit kristallklarem Wasser.',
-    img: `${process.env.PUBLIC_URL}/Wilena/piran/12.jpeg`,
-    path: '/piran',
-    accent: '#4a90b8',
-  },
-  {
-    id: 'villach',
-    title: 'Villach',
-    tag: 'Österreich',
-    desc: 'Natur und Erholung in Kärnten — Berge, Seen und Thermalquellen.',
-    img: `${process.env.PUBLIC_URL}/Wilena/villach/Sehenswuerdigkeiten-in-Finnland.jpg`,
-    path: '/villach',
-    accent: '#6a9b6e',
   },
 ];
 

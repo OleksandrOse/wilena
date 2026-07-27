@@ -18,6 +18,7 @@ import { Room } from './types/Room';
 import AngebotePage from './pages/AngebotePage';
 import ContactPage from './pages/ContactPage';
 import ServicePage from './pages/ServicePage';
+import RoomPage2 from './pages/RoomPage2';
 
 const rooms: Room[] = [
   {
@@ -58,18 +59,8 @@ root.render(
           <Route index element={<HomePage />} />
           <Route path="home" element={<Navigate to="/" replace />} />
 
-          <Route path="/piran" element={<PiranPage1/>} >
-            <Route path="/piran/:roomId" element={<RoomPage1 rooms={rooms} />} />
-          </Route>
-          {/* <Route path="/phones/*" element={<ProductDetailsPage />} />
-          <Route path="/tablets" element={<CatalogList title="Tablets" />} />
-          <Route path="/tablets/*" element={<ProductDetailsPage />} /> */}
-          <Route
-            path="/villach"
-            element={<VillachPage />}
-          >
-            {/* <Route path=":roomId" element={<RoomPage1 rooms={rooms} />} /> */}
-          </Route>
+          <Route path="/apartment1" element={<RoomPage2 key="apt1" apartmentId="1" />} />
+          <Route path="/apartment2" element={<RoomPage2 key="apt2" apartmentId="2" />} />
           <Route
             path="/angebote"
             element={<AngebotePage />}

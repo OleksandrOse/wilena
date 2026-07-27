@@ -1,0 +1,647 @@
+@import './utils.scss';
+
+.room-page {
+  background: #f5f0e8;
+  color: #1a1612;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+// ─── HERO (перше фото, cover) ────────────────────────────────────────────────
+.rp-hero {
+  position: relative;
+  width: 100%;
+  height: 75vh;
+  min-height: 420px;
+  overflow: hidden;
+  margin-top: -60px; // під хедер
+  padding-top: 60px;
+  box-sizing: border-box;
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+
+  &__gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0,0,0,0.2) 0%,
+      transparent 30%,
+      transparent 55%,
+      rgba(0,0,0,0.6) 100%
+    );
+    pointer-events: none;
+  }
+
+  &__back {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    z-index: 10;
+    background: rgba(245,240,232,0.88);
+    border: none;
+    border-radius: 100px;
+    padding: 9px 18px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1612;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    &:hover { background: #fff; transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.2); }
+  }
+
+  &__title-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0; right: 0;
+    z-index: 10;
+    padding: 28px 24px 20px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  &__apt-name {
+    font-family: 'Brush', cursive;
+    font-size: clamp(24px, 4vw, 46px);
+    color: #fff;
+    line-height: 1;
+    text-shadow: 0 2px 16px rgba(0,0,0,0.5);
+  }
+
+  &__apt-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,0.7);
+    margin-top: 5px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+  }
+
+  &__apt-price {
+    background: rgba(245,240,232,0.93);
+    backdrop-filter: blur(12px);
+    border-radius: 12px;
+    padding: 10px 18px;
+    text-align: right;
+    flex-shrink: 0;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+    span:first-child { display: block; font-size: 20px; font-weight: 700; color: #1a1612; }
+    span:last-child { font-size: 12px; color: rgba(26,22,18,0.5); }
+  }
+}
+
+// ─── CAROUSEL (contain, всі фото) ─────────────────────────────────────────────
+.rp-carousel {
+  background: #111009;
+  border-radius: 12px;
+  overflow: hidden;
+
+  &__main {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    animation: rp-fade 0.35s ease;
+  }
+
+  &__arr {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(245,240,232,0.82);
+    border: none;
+    border-radius: 50%;
+    width: 48px; height: 48px;
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 2px 12px rgba(0,0,0,0.2);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    &:hover { background: #fff; box-shadow: 0 6px 20px rgba(0,0,0,0.25); }
+    &--l { left: 16px; &:hover { transform: translateY(-50%) translateX(-2px); } }
+    &--r { right: 16px; &:hover { transform: translateY(-50%) translateX(2px); } }
+  }
+
+  &__counter {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    background: rgba(26,22,18,0.55);
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 100px;
+    backdrop-filter: blur(6px);
+    letter-spacing: 0.04em;
+  }
+
+  &__thumbs {
+    display: flex;
+    gap: 3px;
+    padding: 3px;
+    overflow-x: auto;
+    &::-webkit-scrollbar { height: 3px; }
+    &::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 2px; }
+  }
+
+  &__thumb {
+    width: 100px;
+    height: 68px;
+    flex-shrink: 0;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+    opacity: 0.5;
+    border: 2.5px solid transparent;
+    border-radius: 2px;
+    transition: opacity 0.22s ease, border-color 0.22s ease;
+    &:hover { opacity: 0.85; }
+    &.is-active { opacity: 1; border-color: #c9a24d; }
+  }
+}
+
+@keyframes rp-fade {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+// ─── CONTENT LAYOUT ───────────────────────────────────────────────────────────
+.rp-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 56px 24px 80px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+// верхній блок — назва + опис (повна ширина)
+.rp-top {}
+
+// середній блок — карусель зліва + картка справа
+.rp-middle {
+  display: grid;
+  grid-template-columns: 1fr 400px;
+  gap: 32px;
+  align-items: start;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+// нижній блок — ausstattung (повна ширина)
+.rp-full {
+  padding-top: 8px;
+}
+
+// ─── LEFT ─────────────────────────────────────────────────────────────────────
+.rp-tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(26,22,18,0.4);
+  margin-bottom: 12px;
+}
+
+.rp-title {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  color: #1a1612;
+  line-height: 1.15;
+  margin-bottom: 12px;
+}
+
+.rp-tagline {
+  font-size: 17px;
+  color: rgba(26,22,18,0.6);
+  line-height: 1.65;
+  margin-bottom: 32px;
+  max-width: 580px;
+}
+
+.rp-stats {
+  display: flex;
+  margin-bottom: 36px;
+  border: 1px solid rgba(26,22,18,0.1);
+  border-radius: 14px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.rp-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 20px 12px;
+  border-right: 1px solid rgba(26,22,18,0.08);
+  text-align: center;
+  transition: background 0.2s;
+  &:hover { background: #faf8f4; }
+  &:last-child { border-right: none; }
+  > span:first-child { font-size: 20px; }
+  strong { font-size: 16px; font-weight: 700; color: #1a1612; white-space: nowrap; }
+  > span:last-child { font-size: 11px; color: rgba(26,22,18,0.4); letter-spacing: 0.05em; text-transform: uppercase; }
+}
+
+.rp-divider {
+  height: 1px;
+  background: rgba(26,22,18,0.08);
+  margin: 32px 0;
+}
+
+.rp-section-title {
+  font-family: 'Georgia', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: #1a1612;
+  margin-bottom: 16px;
+}
+
+.rp-desc {
+  font-size: 16px;
+  line-height: 1.8;
+  color: rgba(26,22,18,0.7);
+  max-width: 600px;
+}
+
+.rp-amenities {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  @media (max-width: 560px) { grid-template-columns: 1fr; }
+}
+
+.rp-amenity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: 1px solid rgba(26,22,18,0.07);
+  border-radius: 12px;
+  padding: 14px 16px;
+  transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s;
+  &:hover {
+    border-color: rgba(201,162,77,0.45);
+    box-shadow: 0 4px 18px rgba(26,22,18,0.08);
+    transform: translateY(-2px);
+  }
+  &__icon { font-size: 20px; }
+  &__label { font-size: 14px; font-weight: 600; color: #1a1612; }
+}
+
+// ─── RIGHT — CARD ─────────────────────────────────────────────────────────────
+.rp-right {
+  position: sticky;
+  top: 80px;
+}
+
+.rp-card {
+  background: #fff;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 8px 40px rgba(26,22,18,0.12);
+  border: 1px solid rgba(26,22,18,0.07);
+
+  &__price {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(26,22,18,0.08);
+  }
+  &__price-num {
+    font-family: 'Georgia', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #1a1612;
+  }
+  &__price-label { font-size: 14px; color: rgba(26,22,18,0.5); }
+
+  &__dates {
+    display: flex;
+    align-items: stretch;
+    border: 1.5px solid rgba(26,22,18,0.12);
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    transition: border-color 0.2s;
+    &:hover { border-color: rgba(26,22,18,0.25); }
+  }
+  &__date-field {
+    flex: 1;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: background 0.2s;
+    &:hover { background: #f5f0e8; }
+  }
+  &__date-sep {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    font-size: 14px;
+    color: rgba(26,22,18,0.3);
+    border-left: 1px solid rgba(26,22,18,0.1);
+    border-right: 1px solid rgba(26,22,18,0.1);
+    background: #faf8f4;
+    flex-shrink: 0;
+  }
+  &__date-label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.4);
+    margin-bottom: 4px;
+  }
+  &__date-val {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1612;
+    &--placeholder { color: rgba(26,22,18,0.35); font-weight: 400; }
+  }
+
+  &__cal-wrap { position: relative; margin-bottom: 12px; }
+
+  &__summary {
+    background: #f5f0e8;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 14px;
+    overflow: hidden;
+  }
+  &__summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    color: rgba(26,22,18,0.65);
+    margin-bottom: 8px;
+  }
+  &__summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 15px;
+    font-weight: 600;
+    color: #1a1612;
+    padding-top: 10px;
+    border-top: 1px solid rgba(26,22,18,0.1);
+  }
+
+  &__btn {
+    width: 100%;
+    background: #1a1612;
+    color: #f5f0e8;
+    border: none;
+    border-radius: 12px;
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 0.02em;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
+    margin-bottom: 12px;
+    &:hover {
+      background: #433c2f;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(26,22,18,0.2);
+    }
+  }
+
+  &__msg {
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    &--err { background: rgba(200,60,40,0.08); color: #a8402c; }
+    &--ok {
+      background: rgba(90,140,90,0.1);
+      color: #2e6b2e;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      span:first-child { font-size: 18px; }
+      p { margin: 0; }
+    }
+  }
+
+  &__note {
+    text-align: center;
+    font-size: 12px;
+    color: rgba(26,22,18,0.35);
+  }
+}
+
+// ─── CALENDAR POPUP ───────────────────────────────────────────────────────────
+.rp-cal-popup {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 1px solid rgba(26,22,18,0.1);
+  border-radius: 16px;
+  box-shadow: 0 16px 48px rgba(26,22,18,0.16);
+  z-index: 100;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(26,22,18,0.07);
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1612;
+    button {
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      color: rgba(26,22,18,0.4);
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: background 0.2s, color 0.2s;
+      &:hover { background: #f5f0e8; color: #1a1612; }
+    }
+  }
+
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1612;
+    background: #faf8f4;
+    button {
+      background: none;
+      border: 1px solid rgba(26,22,18,0.12);
+      border-radius: 8px;
+      width: 32px; height: 32px;
+      font-size: 18px;
+      cursor: pointer;
+      color: #1a1612;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, color 0.2s, border-color 0.2s;
+      &:hover:not(:disabled) { background: #1a1612; color: #fff; border-color: #1a1612; }
+      &:disabled { opacity: 0.25; cursor: default; }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 1px;
+    background: rgba(26,22,18,0.05);
+    padding-bottom: 4px;
+  }
+
+  &__dayname {
+    background: #fff;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 700;
+    color: rgba(26,22,18,0.35);
+    padding: 8px 0;
+  }
+
+  &__cell {
+    background: #fff;
+    border: none;
+    min-height: 48px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    gap: 2px;
+    transition: background 0.18s;
+    &:hover:not(:disabled) { background: #f5f0e8; }
+    &--empty { background: #faf8f4; cursor: default; }
+    &--past { opacity: 0.28; cursor: not-allowed; }
+    &--booked { background: #fdf2f0; cursor: not-allowed; }
+    &--selected {
+      background: #1a1612 !important;
+      .rp-cal-popup__day { color: #f5f0e8; }
+      .rp-cal-popup__price { color: rgba(245,240,232,0.5); }
+    }
+    &--range { background: rgba(201,162,77,0.1); }
+  }
+
+  &__day { font-size: 13px; font-weight: 600; color: #1a1612; line-height: 1; }
+  &__price { font-size: 10px; color: rgba(26,22,18,0.4); line-height: 1; }
+  &__booked { font-size: 9px; color: #c0392b; line-height: 1; }
+}
+
+// ─── GUESTS ───────────────────────────────────────────────────────────────────
+.rp-guests {
+  position: relative;
+  margin-bottom: 16px;
+
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f0e8;
+    border: 1.5px solid rgba(26,22,18,0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    &:hover { border-color: #c9a24d; background: #ede8df; }
+  }
+  &__trigger-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.4);
+    margin-bottom: 3px;
+  }
+  &__trigger-val { font-size: 14px; font-weight: 600; color: #1a1612; }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1px solid rgba(26,22,18,0.1);
+    border-radius: 14px;
+    padding: 18px;
+    box-shadow: 0 12px 36px rgba(26,22,18,0.14);
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  &__row { display: flex; align-items: center; justify-content: space-between; }
+  &__label { font-size: 15px; font-weight: 600; color: #1a1612; }
+  &__sub { font-size: 12px; color: rgba(26,22,18,0.4); margin-top: 2px; }
+
+  &__counter {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    button {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(26,22,18,0.2);
+      background: none;
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1a1612;
+      transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s;
+      line-height: 1;
+      padding-bottom: 2px;
+      &:hover:not(:disabled) {
+        background: #1a1612;
+        color: #fff;
+        border-color: #1a1612;
+        transform: scale(1.1);
+      }
+      &:disabled { opacity: 0.2; cursor: not-allowed; }
+    }
+    > span { font-size: 16px; font-weight: 700; color: #1a1612; min-width: 18px; text-align: center; }
+  }
+}
