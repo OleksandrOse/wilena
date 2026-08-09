@@ -19,9 +19,9 @@ const stagger: Variants = {
 
 const stats = [
   { value: "500+", label: "Zufriedene Gäste" },
-  { value: "4.9★", label: "Durchschnittsbewertung" },
+  // { value: "4.9★", label: "Durchschnittsbewertung" },
   { value: "24/7", label: "Guest Support" },
-  { value: "100%", label: "Self Check-in" },
+  // { value: "100%", label: "Self Check-in" },
   { value: "10+", label: "Jahre Erfahrung" },
 ];
 
