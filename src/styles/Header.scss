@@ -113,7 +113,7 @@ $header-height: 60px;
   &__dropdown {
     position: absolute;
     top: calc(100% + 12px);
-    left: 50%;
+    left: -33px;
     transform: translateX(-50%);
     background: rgba(16, 16, 20, 0.96);
     backdrop-filter: blur(20px);
@@ -123,6 +123,10 @@ $header-height: 60px;
     min-width: 240px;
     box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     z-index: 200;
+
+    &:hover {
+      background-color: #433C2F;
+    }
 
     &::before {
       content: '';

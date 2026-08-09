@@ -17,6 +17,14 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.13 } },
 };
 
+const stats = [
+  { value: "500+", label: "Zufriedene Gäste" },
+  { value: "4.9★", label: "Durchschnittsbewertung" },
+  { value: "24/7", label: "Guest Support" },
+  { value: "100%", label: "Self Check-in" },
+  { value: "10+", label: "Jahre Erfahrung" },
+];
+
 // ─── data ─────────────────────────────────────────────────────────────────────
 const lakes = [
   {
@@ -42,7 +50,7 @@ const lakes = [
 const apartments = [
   {
     id: '1',
-    title: 'Apartment Wilena Deluxe',
+    title: 'Apartment 166',
     tag: 'Villach Warmbad',
     desc: 'Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.',
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
@@ -51,7 +59,7 @@ const apartments = [
   },
   {
     id: '2',
-    title: 'Apartment Familienresidenz',
+    title: 'Apartment 172',
     tag: 'Villach Warmbad',
     desc: 'Familienfreundliches Apartment mit kostenlosem Fahrradverleih direkt im Haus — ideal für einen aktiven Alpenurlaub.',
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
@@ -100,7 +108,7 @@ export const HomePage: FC = () => {
               <span>apartments</span>
             </motion.h1>
             <motion.p className="home-hero__subtitle" variants={fadeUp}>
-              Ihr gemütliches Zuhause — in den Alpen und am Meer
+              Ihr gemütliches Zuhause in Kärnten: — Thermen, Seen, Alpen, Dreiländereck (Österreich, Slowenien, Italien).
             </motion.p>
             <motion.div className="home-hero__actions" variants={fadeUp}>
               <button
@@ -131,7 +139,7 @@ export const HomePage: FC = () => {
         viewport={{ once: true, amount: 0.4 }}
         variants={stagger}
       >
-        {['Villach, Österreich', 'wilena@speed.at', '+43 664 737 48 88'].map((item, i) => (
+        {['Warmbader Allee 53, 9504 Villach', 'wilena@speed.at', '+43 664 737 48 88'].map((item, i) => (
           <motion.div key={i} className="home-strip__item" variants={fadeUp}>
             {item}
           </motion.div>
@@ -162,9 +170,12 @@ export const HomePage: FC = () => {
               in Villach — wir haben das perfekte Apartment für Sie.
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
-              
-              <div className="home-intro__stat"><span>2+</span>Apartments</div>
-              <div className="home-intro__stat"><span>10+</span>Jahre Erfahrung</div>
+              {stats.map((stat) => (
+                <div className="home-intro__stat" key={stat.label}>
+                  <span>{stat.value}</span>
+                  {stat.label}
+                </div>
+              ))}
             </motion.div>
           </motion.div>
 
@@ -189,45 +200,7 @@ export const HomePage: FC = () => {
         </div>
       </section>
 
-      {/* ── FEATURES ──────────────────────────────────────────────────────── */}
-      <section className="home-features">
-        <div className="home-features__container">
-          <motion.h2
-            className="home-features__title"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            Ihr perfekter Urlaub — <em>Ihre Wahl</em>
-          </motion.h2>
-          <motion.div
-            className="home-features__grid"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={stagger}
-          >
-            {features.map((f) => (
-              <motion.div
-                key={f.title}
-                className="home-feature-card"
-                variants={fadeUp}
-                whileHover={{ y: -8, transition: { duration: 0.25 } }}
-              >
-                <div className="home-feature-card__icon">{f.icon}</div>
-                <h3 className="home-feature-card__title">{f.title}</h3>
-                <p className="home-feature-card__desc">{f.desc}</p>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section>
-
-     
-
-      {/* ── LOCATIONS ─────────────────────────────────────────────────────── */}
-           <section className="home-locations" id="apartments">
+      <section className="home-locations" id="apartments">
         <div className="home-locations__container">
           <motion.div
             className="home-locations__header"
@@ -276,6 +249,47 @@ export const HomePage: FC = () => {
           </div>
         </div>
       </section>
+
+
+      {/* ── FEATURES ──────────────────────────────────────────────────────── */}
+      <section className="home-features">
+        <div className="home-features__container">
+          <motion.h2
+            className="home-features__title"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Ihr perfekter Urlaub — <em>Ihre Wahl</em>
+          </motion.h2>
+          <motion.div
+            className="home-features__grid"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            variants={stagger}
+          >
+            {features.map((f) => (
+              <motion.div
+                key={f.title}
+                className="home-feature-card"
+                variants={fadeUp}
+                whileHover={{ y: -8, transition: { duration: 0.25 } }}
+              >
+                <div className="home-feature-card__icon">{f.icon}</div>
+                <h3 className="home-feature-card__title">{f.title}</h3>
+                <p className="home-feature-card__desc">{f.desc}</p>
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+
+
+      {/* ── LOCATIONS ─────────────────────────────────────────────────────── */}
+
 
       <section className="home-cycling">
         <div className="home-cycling__container">

@@ -24,13 +24,6 @@ const contacts = [
     linkLabel: "Auf Karte öffnen",
   },
   {
-    icon: "📍",
-    title: "Piran",
-    lines: ["Obzidna Ulica 4", "6330 Piran, Slowenien"],
-    link: "https://maps.google.com/?q=Obzidna+Ulica+4+Piran",
-    linkLabel: "Auf Karte öffnen",
-  },
-  {
     icon: "📞",
     title: "Telefon",
     lines: ["+43 664 737 48 88"],
@@ -216,14 +209,6 @@ export const ContactPage: React.FC = () => {
                 >
                   📍 Villach
                 </a>
-                <a
-                  className="contact-map__tab"
-                  href="https://maps.google.com/?q=Obzidna+Ulica+4+Piran"
-                  target="_blank"
-                  rel="noreferrer"
-                >
-                  📍 Piran
-                </a>
               </div>
               <iframe
                 className="contact-map__frame"
@@ -237,10 +222,6 @@ export const ContactPage: React.FC = () => {
                 <div>
                   <strong>Villach</strong>
                   <span>Warmbader Allee 53, 9504</span>
-                </div>
-                <div>
-                  <strong>Piran</strong>
-                  <span>Obzidna Ulica 4, 6330</span>
                 </div>
               </div>
             </motion.div>

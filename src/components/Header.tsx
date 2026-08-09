@@ -36,7 +36,7 @@ export default function Header() {
           </a>
 
           {/* Apartments dropdown */}
-          {/* <div
+          <div
             className="header-place__dropdown-wrap"
             ref={dropdownRef}
             onMouseEnter={() => setApartmentsOpen(true)}
@@ -62,30 +62,32 @@ export default function Header() {
                   transition={{ duration: 0.18 }}
                 >
                   <Link
-                    to="/piran"
+                    to="/apartment1"
                     className="header-place__dropdown-item"
                     onClick={() => setApartmentsOpen(false)}
                   >
                     <div>
-                      <div className="header-place__dropdown-title">Piran</div>
-                      <div className="header-place__dropdown-desc">Slowenien · Meeresurlaub</div>
+                      <div className="header-place__dropdown-title">Apartment 166</div>
+                      {/* <div className="header-place__dropdown-desc">Slowenien · Meeresurlaub</div> */}
                     </div>
                   </Link>
                   <Link
-                    to="/villach"
+                    to="/apartment2"
                     className="header-place__dropdown-item"
                     onClick={() => setApartmentsOpen(false)}
                   >
                     <div>
-                      <div className="header-place__dropdown-title">Villach</div>
-                      <div className="header-place__dropdown-desc">Österreich · Natur & Erholung</div>
+                      <div className="header-place__dropdown-title">Apartment 172</div>
+                      {/* <div className="header-place__dropdown-desc">Österreich · Natur & Erholung</div> */}
                     </div>
                   </Link>
                 </motion.div>
               )}
             </AnimatePresence>
-          </div> */}
+          </div>
 
+          <Link to="/freizeit" className="header-place__nav-item">Freizeit</Link>
+          <Link to="/umgebung" className="header-place__nav-item">Umgebung</Link>
           <Link to="/service" className="header-place__nav-item">Service</Link>
           <Link to="/angebote" className="header-place__nav-item">Angebote</Link>
           <Link to="/contact" className="header-place__nav-item">Kontakt</Link>
@@ -116,16 +118,16 @@ export default function Header() {
               <Link
                 to="/piran"
                 onClick={() => setMenuOpen(false)}
-                className="header-place__mobile-sub header-place__mobile-sub--piran"
+                className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
-                Piran
+                Apartment 166
               </Link>
               <Link
                 to="/villach"
                 onClick={() => setMenuOpen(false)}
                 className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
-                Villach
+                Apartment 172
               </Link>
             </div>
 

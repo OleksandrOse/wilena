@@ -1,16 +1,16 @@
-// ─── ServicePage ──────────────────────────────────────────────────────────────
+// ─── ServicePage (light theme, matches ContactPage) ────────────────────────────
 .service-page {
-  background: #0c0d10;
-  color: #fff;
+  background: #f5f0e8;
+  color: #1a1612;
   min-height: 100vh;
 }
 
 // ─── HERO ─────────────────────────────────────────────────────────────────────
 .service-hero {
   position: relative;
-  height: 42vh;
-  min-height: 320px;
-  background: linear-gradient(135deg, #101525 0%, #0c0d10 100%);
+  height: 40vh;
+  min-height: 300px;
+  background: linear-gradient(135deg, #1a1612 0%, #2d2520 50%, #433c2f 100%);
   display: flex;
   align-items: center;
 
@@ -18,7 +18,7 @@
     content: '';
     position: absolute;
     inset: 0;
-    background-image: radial-gradient(circle at 70% 40%, rgba(255,255,255,0.025) 0%, transparent 55%);
+    background-image: radial-gradient(circle at 30% 60%, rgba(201, 162, 77, 0.12) 0%, transparent 60%);
   }
 
   &__overlay {
@@ -36,7 +36,7 @@
     font-size: 11px;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(255,255,255,0.4);
+    color: rgba(201, 162, 77, 0.7);
     margin-bottom: 12px;
   }
 
@@ -44,13 +44,13 @@
     font-family: 'Georgia', 'Times New Roman', serif;
     font-size: clamp(36px, 6vw, 68px);
     font-weight: 700;
-    color: #fff;
+    color: #f5f0e8;
     margin-bottom: 14px;
   }
 
   &__subtitle {
     font-size: 16px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(245, 240, 232, 0.55);
     line-height: 1.6;
   }
 }
@@ -82,7 +82,7 @@
     gap: 14px;
     margin-bottom: 24px;
     padding-bottom: 20px;
-    border-bottom: 1px solid rgba(255,255,255,0.07);
+    border-bottom: 1px solid rgba(26, 22, 18, 0.1);
   }
 
   &__icon {
@@ -92,7 +92,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(255,255,255,0.05);
+    background: #fff;
+    border: 1px solid rgba(26, 22, 18, 0.08);
     border-radius: 12px;
     flex-shrink: 0;
   }
@@ -101,7 +102,7 @@
     font-family: 'Georgia', 'Times New Roman', serif;
     font-size: clamp(20px, 2.5vw, 28px);
     font-weight: 700;
-    color: #fff;
+    color: #1a1612;
   }
 
   &__grid {
@@ -116,24 +117,27 @@
 .service-item {
   display: flex;
   gap: 14px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.06);
+  background: #fff;
+  border: 1px solid rgba(26, 22, 18, 0.08);
   border-radius: 12px;
   padding: 20px;
-  transition: border-color 0.25s;
+  transition: box-shadow 0.25s, border-color 0.25s;
 
-  &:hover { border-color: rgba(255,255,255,0.15); }
+  &:hover {
+    box-shadow: 0 12px 32px rgba(26, 22, 18, 0.08);
+    border-color: rgba(201, 162, 77, 0.4);
+  }
 
   &__check {
     width: 22px;
     height: 22px;
-    background: rgba(255,255,255,0.08);
+    background: rgba(201, 162, 77, 0.15);
+    color: #b8912e;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 12px;
-    color: rgba(255,255,255,0.7);
     flex-shrink: 0;
     margin-top: 1px;
   }
@@ -141,22 +145,66 @@
   &__name {
     font-size: 15px;
     font-weight: 600;
-    color: rgba(255,255,255,0.9);
+    color: #1a1612;
     margin-bottom: 4px;
   }
 
   &__desc {
     font-size: 13px;
-    color: rgba(255,255,255,0.45);
+    color: rgba(26, 22, 18, 0.5);
     line-height: 1.6;
+  }
+}
+
+// ─── EXPLORE LINKS (переходи на Freizeit / Umgebung) ───────────────────────────
+.explore-links {
+  margin-top: 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+
+  &__card {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    background: #fff;
+    border: 1px solid rgba(26, 22, 18, 0.08);
+    border-radius: 16px;
+    padding: 24px;
+    text-decoration: none;
+    transition: all 0.25s ease;
+
+    &:hover {
+      border-color: #c9a24d;
+      box-shadow: 0 12px 32px rgba(26, 22, 18, 0.08);
+      transform: translateY(-3px);
+    }
+
+    h3 {
+      font-family: 'Georgia', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: #1a1612;
+      margin-bottom: 4px;
+    }
+
+    p {
+      font-size: 13.5px;
+      color: rgba(26, 22, 18, 0.5);
+      line-height: 1.5;
+    }
+  }
+
+  &__icon {
+    font-size: 32px;
+    flex-shrink: 0;
   }
 }
 
 // ─── CTA ──────────────────────────────────────────────────────────────────────
 .service-cta {
   margin-top: 72px;
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #1a1612;
   border-radius: 20px;
   padding: 48px;
   text-align: center;
@@ -167,13 +215,13 @@
     font-family: 'Georgia', serif;
     font-size: clamp(22px, 3vw, 32px);
     font-weight: 700;
-    color: #fff;
+    color: #f5f0e8;
     margin-bottom: 12px;
   }
 
   &__text {
     font-size: 16px;
-    color: rgba(255,255,255,0.5);
+    color: rgba(245, 240, 232, 0.55);
     margin-bottom: 32px;
   }
 
@@ -195,15 +243,15 @@
     transition: all 0.2s;
 
     &--primary {
-      background: #fff;
-      color: #0c0d10;
-      &:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+      background: #c9a24d;
+      color: #1a1612;
+      &:hover { background: #d9b25d; transform: translateY(-2px); }
     }
 
     &--outline {
-      border: 1.5px solid rgba(255,255,255,0.2);
-      color: rgba(255,255,255,0.75);
-      &:hover { border-color: rgba(255,255,255,0.45); transform: translateY(-2px); }
+      border: 1.5px solid rgba(245, 240, 232, 0.25);
+      color: #f5f0e8;
+      &:hover { border-color: rgba(245, 240, 232, 0.5); transform: translateY(-2px); }
     }
   }
 }
