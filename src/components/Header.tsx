@@ -48,7 +48,7 @@ export default function Header() {
                 className={`header-place__chevron ${apartmentsOpen ? 'is-open' : ''}`}
                 width="12" height="7" viewBox="0 0 12 7"
               >
-                <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round"/>
+                <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
               </svg>
             </span>
 
@@ -116,14 +116,14 @@ export default function Header() {
             <div className="header-place__mobile-group">
               <div className="header-place__mobile-label">Apartments</div>
               <Link
-                to="/piran"
+                to="/apartment1"
                 onClick={() => setMenuOpen(false)}
                 className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
                 Apartment 166
               </Link>
               <Link
-                to="/villach"
+                to="/apartment2"
                 onClick={() => setMenuOpen(false)}
                 className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
@@ -131,6 +131,8 @@ export default function Header() {
               </Link>
             </div>
 
+            <Link to="/freizeit" onClick={() => setMenuOpen(false)}>Freizeit</Link>
+            <Link to="/umgebung" onClick={() => setMenuOpen(false)}>Umgebung</Link>
             <Link to="/service" onClick={() => setMenuOpen(false)}>Service</Link>
             <Link to="/angebote" onClick={() => setMenuOpen(false)}>Angebote</Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)}>Kontakt</Link>
