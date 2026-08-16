@@ -114,13 +114,16 @@
   }
 }
 
+// ─── SERVICE ITEM (image card, optionally a link) ──────────────────────────────
 .service-item {
   display: flex;
-  gap: 14px;
+  flex-direction: column;
+  overflow: hidden;
   background: #fff;
   border: 1px solid rgba(26, 22, 18, 0.08);
   border-radius: 12px;
-  padding: 20px;
+  text-decoration: none;
+  color: inherit;
   transition: box-shadow 0.25s, border-color 0.25s;
 
   &:hover {
@@ -128,18 +131,48 @@
     border-color: rgba(201, 162, 77, 0.4);
   }
 
-  &__check {
-    width: 22px;
-    height: 22px;
-    background: rgba(201, 162, 77, 0.15);
-    color: #b8912e;
-    border-radius: 50%;
+  &--linked {
+    cursor: pointer;
+  }
+
+  &__media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+    background: linear-gradient(135deg, #ece4d5 0%, #dcd1ba 100%);
+  }
+
+  &__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  &--linked:hover &__img {
+    transform: scale(1.06);
+  }
+
+  &__linkbadge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 28px;
+    height: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 12px;
-    flex-shrink: 0;
-    margin-top: 1px;
+    background: rgba(26, 22, 18, 0.65);
+    color: #f5f0e8;
+    border-radius: 50%;
+    font-size: 14px;
+    backdrop-filter: blur(2px);
+  }
+
+  &__body {
+    padding: 16px 18px 18px;
   }
 
   &__name {

@@ -204,9 +204,15 @@
 
   &__desc {
     font-size: 16px;
-    color: rgba(26, 22, 18, 0.6);
-    line-height: 1.8;
-    margin-bottom: 16px;
+  color: rgba(26, 22, 18, 0.6);
+  line-height: 1.8;
+  margin-bottom: 16px;
+  text-align: justify;       
+  text-align-last: left;     
+  text-justify: inter-word;  
+  hyphens: auto;          
+  -webkit-hyphens: auto;
+  word-spacing: -0.5px;
   }
 
   &__stats {

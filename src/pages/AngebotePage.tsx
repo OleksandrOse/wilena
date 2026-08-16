@@ -36,23 +36,23 @@ const stagger: Variants = {
    DATA
 ───────────────────────────────────────────── */
 
-const HAS_OFFERS = false;
+const HAS_OFFERS = true;
 
 const offers = [
   {
     tag: "🔥 Sommer-Deal",
-    title: "Frühbucherrabatt Piran",
-    desc: "10% Rabatt bei Buchung mehr als 30 Tage im Voraus. Meeresblick inklusive.",
+    title: "Frühbucherrabatt Villach",
+    desc: "10% Rabatt bei Buchung mehr als 30 Tage im Voraus. Nur 5 Gehminuten von der Villacher Therme.",
     price: "ab € 108,–",
     oldPrice: "€ 120,–",
     valid: "bis 31. August 2026",
-    location: "Piran",
+    location: "Villach",
     badge: "–10%",
   },
   {
     tag: "🏔️ Winter-Special",
     title: "Ski & Relax in Villach",
-    desc: "3 Nächte buchen, 1 Nacht kostenlos! Perfekt für Wintersportler.",
+    desc: "3 Nächte buchen, 1 Nacht kostenlos! Perfekt für Wintersportler nahe Gerlitzen Alpe und Nassfeld.",
     price: "ab € 240,–",
     oldPrice: "€ 360,–",
     valid: "gültig Dez 2026 – Feb 2027",
@@ -61,12 +61,12 @@ const offers = [
   },
   {
     tag: "💑 Romantik-Paket",
-    title: "Romantic Weekend Piran",
-    desc: "Sekt bei Ankunft, Late Checkout und Frühstück für 2 Personen.",
+    title: "Romantic Weekend Villach",
+    desc: "Sekt bei Ankunft, Late Checkout und Frühstück für 2 Personen — mit Therme direkt vor der Tür.",
     price: "ab € 199,–",
     oldPrice: "€ 240,–",
     valid: "ganzjährig buchbar",
-    location: "Piran",
+    location: "Villach",
     badge: "–17%",
   },
 ];
@@ -172,25 +172,10 @@ export const AngebotePage: React.FC = () => {
               <p className="angebote-empty__text">
                 Im Moment haben wir keine aktiven Angebote. Schauen Sie bald
                 wieder vorbei — wir arbeiten an exklusiven Deals für Ihren
-                nächsten Urlaub in Piran oder Villach.
+                nächsten Urlaub in Villach.
               </p>
 
-              <div className="angebote-empty__actions">
-                <a
-                  href="/piran"
-                  className="angebote-empty__btn angebote-empty__btn--primary"
-                >
-                  Piran entdecken
-                </a>
-
-                <a
-                  href="/villach"
-                  className="angebote-empty__btn angebote-empty__btn--outline"
-                >
-                  Villach ansehen
-                </a>
-              </div>
-
+              
               <div className="angebote-empty__tip">
                 💌 Für exklusive Frühbucher-Deals kontaktieren Sie uns direkt:
                 <a href="mailto:wilena@speed.at"> wilena@speed.at</a>

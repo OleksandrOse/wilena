@@ -15,12 +15,18 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
+// назва + адреса разом — так Google Maps шукає саме заклад "Wilena Apartments"
+// і показує позначку (пін) із цією назвою, а не просто голу точку на адресі
+const MAP_QUERY = "Wilena Apartments, Warmbader Allee 53, 9504 Villach, Österreich";
+const MAP_SEARCH_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
+const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
+
 const contacts = [
   {
     icon: "📍",
     title: "Villach",
     lines: ["Warmbader Allee 53", "9504 Villach, Österreich"],
-    link: "https://maps.google.com/?q=Warmbader+Allee+53+Villach",
+    link: MAP_SEARCH_URL,
     linkLabel: "Auf Karte öffnen",
   },
   {
@@ -203,16 +209,18 @@ export const ContactPage: React.FC = () => {
               <div className="contact-map__tabs">
                 <a
                   className="contact-map__tab"
-                  href="https://maps.google.com/?q=Warmbader+Allee+53+Villach"
+                  href={MAP_SEARCH_URL}
                   target="_blank"
                   rel="noreferrer"
                 >
                   📍 Villach
                 </a>
               </div>
+              {/* q=Wilena+Apartments,... шукає саме заклад за назвою — Google Maps
+                  показує позначку (пін) із написом "Wilena Apartments", а не просто адресу */}
               <iframe
                 className="contact-map__frame"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2726.1!2d13.856!3d46.604!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x477588!2sWarmbader+Allee+53%2C+Villach!5e0!3m2!1sde!2sat!4v1"
+                src={MAP_EMBED_URL}
                 allowFullScreen
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

@@ -25,7 +25,7 @@ interface Room {
 
 const ROOMS: Record<string, Room> = {
   "1": {
-    id: "1", name: "Apartment Wilena Deluxe",
+    id: "1", name: "2 Zimmer Apartment",
     tagline: "Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.",
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
@@ -76,7 +76,7 @@ const ROOMS: Record<string, Room> = {
     bookedRanges: [{ from: "2026-07-20", to: "2026-07-27" }, { from: "2026-08-10", to: "2026-08-18" }],
   },
   "2": {
-    id: "2", name: "Apartment Familienresidenz",
+    id: "2", name: "2 Zimmer Apartment",
     tagline: "Familienfreundliches Apartment mit kostenlosem Fahrradverleih — ideal für einen aktiven Alpenurlaub.",
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment2/1.jpeg`,
@@ -338,12 +338,12 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
         <div className="rp-hero__title-bar">
           <div>
             <div className="rp-hero__apt-name">{room.name}</div>
-            <div className="rp-hero__apt-sub">Villach Warmbad · Österreich</div>
+            {/* <div className="rp-hero__apt-sub">Villach Warmbad · Österreich</div> */}
           </div>
-          <div className="rp-hero__apt-price">
+          {/* <div className="rp-hero__apt-price">
             <span>ab €{room.pricePerNight}</span>
             <span>pro Nacht</span>
-          </div>
+          </div> */}
         </div>
       </div>
 
@@ -367,12 +367,18 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
           </motion.div>
         </div>
 
-        {/* ── СЕРЕДИНА: карусель зліва + картка справа ── */}
+        {/* ── СЕРЕДИНА: карусель (тепер full-bleed) + картка справа ── */}
         <div className="rp-middle">
 
-          {/* КАРУСЕЛЬ */}
+          {/* КАРУСЕЛЬ — full-bleed на всю ширину екрана, замість чорних полів — розмитий фон */}
           <div className="rp-carousel">
             <div className="rp-carousel__main">
+              <div
+                key={`bg-${activeImg}`}
+                className="rp-carousel__bg"
+                style={{ backgroundImage: `url(${room.images[activeImg]})` }}
+              />
+              <div className="rp-carousel__scrim" />
               <img
                 key={activeImg}
                 src={room.images[activeImg]}
@@ -387,19 +393,21 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
               )}
               <div className="rp-carousel__counter">{activeImg + 1} / {room.images.length}</div>
             </div>
-            <div className="rp-carousel__thumbs">
-              {room.images.map((src, i) => (
-                <div key={i}
-                  className={`rp-carousel__thumb ${i === activeImg ? "is-active" : ""}`}
-                  style={{ backgroundImage: `url(${src})` }}
-                  onClick={() => setActiveImg(i)}
-                />
-              ))}
+            <div className="rp-carousel__thumbs-wrap">
+              <div className="rp-carousel__thumbs">
+                {room.images.map((src, i) => (
+                  <div key={i}
+                    className={`rp-carousel__thumb ${i === activeImg ? "is-active" : ""}`}
+                    style={{ backgroundImage: `url(${src})` }}
+                    onClick={() => setActiveImg(i)}
+                  />
+                ))}
+              </div>
             </div>
           </div>
 
           {/* BOOKING CARD справа */}
-          <div className="rp-right">
+          {/* <div className="rp-right">
             <motion.div className="rp-card"
               initial={{opacity:0,y:30}} animate={{opacity:1,y:0}}
               transition={{duration:0.6,delay:0.2}}
@@ -483,7 +491,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
 
               <p className="rp-card__note">Keine Buchungsgebühr · Kostenlose Stornierung</p>
             </motion.div>
-          </div>
+          </div> */}
 
         </div>{/* end rp-middle */}
 

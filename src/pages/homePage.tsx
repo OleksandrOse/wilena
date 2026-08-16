@@ -22,7 +22,7 @@ const stats = [
   // { value: "4.9★", label: "Durchschnittsbewertung" },
   { value: "24/7", label: "Guest Support" },
   // { value: "100%", label: "Self Check-in" },
-  { value: "10+", label: "Jahre Erfahrung" },
+  { value: "⭐9,2", label: "Booking.com" },
 ];
 
 // ─── data ─────────────────────────────────────────────────────────────────────
@@ -235,7 +235,6 @@ export const HomePage: FC = () => {
                     variants={{ hover: { scale: 1.06 } }}
                     transition={{ duration: 0.5 }}
                   />
-                  <div className="home-location-card__tag">{apt.tag}</div>
                 </div>
                 <div className="home-location-card__body">
                   <h3 className="home-location-card__title">{apt.title}</h3>
