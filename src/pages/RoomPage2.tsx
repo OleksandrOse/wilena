@@ -25,8 +25,23 @@ interface Room {
 
 const ROOMS: Record<string, Room> = {
   "1": {
-    id: "1", name: "2 Zimmer Apartment",
-    tagline: "Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.",
+    id: "1", name: "2 Zimmer Apartment 166",
+    tagline: `Dieses gemütliche, moderne Apartment in warmen Farbtönen bietet einen Balkon mit Blick 
+           auf den grünen Garten – ideal für entspannte Abende. Es verfügt über Klimaanlage, 
+           Zentralheizung, Internet und alles, was Sie für einen komfortablen Aufenthalt oder 
+           einen kurzen Zwischenstopp im Süden benötigen. Das Apartment besteht aus einem 
+           Wohnzimmer mit Schlafcouch und einem separaten Schlafzimmer mit Doppelbett und 
+           Einzelschlafcouch. Die Küche ist klein, aber komplett ausgestattet mit allem, 
+           was Sie für einen komfortablen Aufenthalt brauchen. Dazu gehören Kaffeemaschine, 
+           Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, Toaster, Geschirr, Kaffee, 
+           Tee, Öl, Salz, Zucker, Eis im Gefrierfach und alle notwendigen Reinigungsmittel. 
+           Das Badezimmer ist mit Dusche, Waschmaschine und allem Notwendigen ausgestattet, 
+           darunter Föhn, Waschmittel, Wäscheklammern, Wäschetrockner, Lufterfrischer, 
+           Duschgel, Duschhaube, Toilettenartikel und mehrere Handtücher. Spielzeug und 
+           Brettspiele stehen für Kinder bereit, und das Apartment verfügt außerdem über 
+           einen Fernseher. Für Ihren Besuch der Thermen in Kärnten stellen wir Ihnen eine 
+           Strandtasche und Handtücher zur Verfügung. Ein Safe für Ihre persönlichen Gegenstände 
+           ist ebenfalls vorhanden.`,
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
       `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00010.jpeg`,
@@ -62,7 +77,7 @@ const ROOMS: Record<string, Room> = {
       `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00002.jpeg`,
     ],
     description: "Geräumiges und modern eingerichtetes Apartment mit privatem Balkon und herrlichem Blick auf die Kärntner Bergwelt. Warme Holzböden, eine vollausgestattete Küche und ein gemütlicher Wohnbereich schaffen die Atmosphäre eines echten Zuhauses inmitten der Alpen.",
-    size: 52, capacity: 4, bedrooms: 2, pricePerNight: 120,
+    size: 59, capacity: 5, bedrooms: 2, pricePerNight: 120,
     dayPrices: [
       { date: "2026-08-01", price: 140 }, { date: "2026-08-02", price: 140 },
       { date: "2026-08-15", price: 150 }, { date: "2026-08-16", price: 150 },
@@ -76,8 +91,24 @@ const ROOMS: Record<string, Room> = {
     bookedRanges: [{ from: "2026-07-20", to: "2026-07-27" }, { from: "2026-08-10", to: "2026-08-18" }],
   },
   "2": {
-    id: "2", name: "2 Zimmer Apartment",
-    tagline: "Familienfreundliches Apartment mit kostenlosem Fahrradverleih — ideal für einen aktiven Alpenurlaub.",
+    id: "2", name: "2 Zimmer Apartment 172",
+    tagline: `Geräumiges Apartment mit Naturholzboden und Deko mit stilvollen Bergmotiven, 
+          Balkon und Klimaanlage. Das Apartment verfügt über Zentralheizung, 
+          Internet und alles, was Sie für einen komfortablen Aufenthalt oder einen kurzen 
+          Zwischenstopp auf dem Weg in den Süden benötigen. Es besteht aus einem Wohnzimmer 
+          mit einem Schlafsofa für 2 Personen und eine zusätzliche Einzelschlafsofa, 
+          sowie einen separaten Schlafzimmer mit einem Doppelbett und einer Einzelschlafsofa. 
+          Bei Bedarf kann noch ein Zustellbett bereitgestellt werden. Die Küche ist komplett 
+          ausgestattet mit Kaffeemaschine, Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, 
+          Toaster, Geschirr sowie Kaffee, Tee, Öl , Salz, Zucker, Eis im Gefrierschrank und den 
+          notwendigen Reinigungsmitteln. Das Badezimmer ist mit Dusche, Waschmaschine und allen 
+          notwendigen Badartikeln ausgestattet, darunter Föhn, Waschmittel, Wäscheklammern, 
+          Lufterfrischer, Duschgel, Duschhaube, Toilettenartikel und mehrere Handtuchsets. 
+          Für längere Aufenthalte stellen wir einen Staubsauger und Reinigungsmittel zur Verfügung. 
+          Spielzeug und Brettspiele für Kinder sind vorhanden, und das Apartment verfügt über einen 
+          Fernseher und einen DVD-Player. Wir stellen Ihnen außerdem eine Strandtasche und Handtücher 
+          für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
+          Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment2/1.jpeg`,
       `${process.env.PUBLIC_URL}/Wilena/Apartment2/2.jpeg`,
@@ -113,16 +144,25 @@ const ROOMS: Record<string, Room> = {
       `${process.env.PUBLIC_URL}/Wilena/Apartment2/32.jpeg`,
     ],
     description: "Großzügiges Familienappartement mit zwei Schlafzimmern, einem hellen Wohnbereich und einer großen Terrasse. Fahrräder und E-Bikes stehen direkt im Haus zur Verfügung — perfekt, um die Seen und Radwege Kärntens zu erkunden. Die Villacher Warmbad-Therme ist zu Fuß erreichbar.",
-    size: 68, capacity: 6, bedrooms: 2, pricePerNight: 160,
+    size: 68, capacity: 5, bedrooms: 2, pricePerNight: 160,
     dayPrices: [
       { date: "2026-08-01", price: 180 }, { date: "2026-08-02", price: 180 },
       { date: "2026-08-15", price: 195 }, { date: "2026-08-16", price: 195 },
     ],
     amenities: [
-      { icon: "🏔️", label: "Bergblick" }, { icon: "🛏️", label: "2 Schlafzimmer" },
-      { icon: "🍳", label: "Vollküche" }, { icon: "📶", label: "Gratis WLAN" },
-      { icon: "🅿️", label: "Parkplatz" }, { icon: "🚴", label: "Fahrradverleih" },
-      { icon: "🌿", label: "Terrasse" }, { icon: "♨️", label: "Therme 5 min" },
+      { icon: "🏔️", label: "Gartenblick" },
+      { icon: "❄️", label: "Klimaanlage" },
+      { icon: "🔒", label: "Safe" },
+      { icon: "🔥", label: "Zentralheizung" },
+      { icon: "♨️", label: "Therme 5 min" },
+      // { icon: "🛏️", label: "2 Schlafzimmer" },
+      // { icon: "🍳", label: "Vollküche" }, 
+      { icon: "📶", label: "Gratis WLAN" },
+      { icon: "🅿️", label: "kostenlose Tiefgarage" },
+      { icon: "🏗️", label: "Balkon" }, 
+      // { icon: "🚴", label: "Fahrradverleih" },
+      // { icon: "🌿", label: "Terrasse" }, 
+      
     ],
     bookedRanges: [{ from: "2026-07-15", to: "2026-07-22" }, { from: "2026-08-05", to: "2026-08-12" }],
   },
@@ -357,7 +397,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             <motion.p className="rp-tagline" variants={fadeUp}>{room.tagline}</motion.p>
             <motion.div className="rp-stats" variants={fadeUp}>
               <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>Fläche</span></div>
-              <div className="rp-stat"><span>👥</span><strong>{room.capacity}</strong><span>Gäste</span></div>
+              <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste / Gitterbett</span></div>
               <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Schlafzimmer</span></div>
               <div className="rp-stat"><span>🌙</span><strong>ab €{room.pricePerNight}</strong><span>pro Nacht</span></div>
             </motion.div>

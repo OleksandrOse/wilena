@@ -18,11 +18,12 @@ const stagger: Variants = {
 };
 
 const stats = [
-  { value: "500+", label: "Zufriedene Gäste" },
+  
   // { value: "4.9★", label: "Durchschnittsbewertung" },
-  { value: "24/7", label: "Guest Support" },
+  { value: "24/7", label: "Guest unterstützung" },
   // { value: "100%", label: "Self Check-in" },
   { value: "⭐9,2", label: "Booking.com" },
+  { value: "⭐5,0", label: "RnB" },
 ];
 
 // ─── data ─────────────────────────────────────────────────────────────────────
@@ -52,7 +53,22 @@ const apartments = [
     id: '1',
     title: 'Apartment 166',
     tag: 'Villach Warmbad',
-    desc: 'Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.',
+    desc: `Dieses gemütliche, moderne Apartment in warmen Farbtönen bietet einen Balkon mit Blick 
+           auf den grünen Garten – ideal für entspannte Abende. Es verfügt über Klimaanlage, 
+           Zentralheizung, Internet und alles, was Sie für einen komfortablen Aufenthalt oder 
+           einen kurzen Zwischenstopp im Süden benötigen. Das Apartment besteht aus einem 
+           Wohnzimmer mit Schlafcouch und einem separaten Schlafzimmer mit Doppelbett und 
+           Einzelschlafcouch. Die Küche ist klein, aber komplett ausgestattet mit allem, 
+           was Sie für einen komfortablen Aufenthalt brauchen. Dazu gehören Kaffeemaschine, 
+           Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, Toaster, Geschirr, Kaffee, 
+           Tee, Öl, Salz, Zucker, Eis im Gefrierfach und alle notwendigen Reinigungsmittel. 
+           Das Badezimmer ist mit Dusche, Waschmaschine und allem Notwendigen ausgestattet, 
+           darunter Föhn, Waschmittel, Wäscheklammern, Wäschetrockner, Lufterfrischer, 
+           Duschgel, Duschhaube, Toilettenartikel und mehrere Handtücher. Spielzeug und 
+           Brettspiele stehen für Kinder bereit, und das Apartment verfügt außerdem über 
+           einen Fernseher. Für Ihren Besuch der Thermen in Kärnten stellen wir Ihnen eine 
+           Strandtasche und Handtücher zur Verfügung. Ein Safe für Ihre persönlichen Gegenstände 
+           ist ebenfalls vorhanden.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
     path: '/apartment1',
     accent: '#6a9b6e',
@@ -61,7 +77,23 @@ const apartments = [
     id: '2',
     title: 'Apartment 172',
     tag: 'Villach Warmbad',
-    desc: 'Familienfreundliches Apartment mit kostenlosem Fahrradverleih direkt im Haus — ideal für einen aktiven Alpenurlaub.',
+    desc: `Geräumiges Apartment mit Naturholzboden und Deko mit stilvollen Bergmotiven, 
+          Balkon und Klimaanlage. Das Apartment verfügt über Zentralheizung, 
+          Internet und alles, was Sie für einen komfortablen Aufenthalt oder einen kurzen 
+          Zwischenstopp auf dem Weg in den Süden benötigen. Es besteht aus einem Wohnzimmer 
+          mit einem Schlafsofa für 2 Personen und eine zusätzliche Einzelschlafsofa, 
+          sowie einen separaten Schlafzimmer mit einem Doppelbett und einer Einzelschlafsofa. 
+          Bei Bedarf kann noch ein Zustellbett bereitgestellt werden. Die Küche ist komplett 
+          ausgestattet mit Kaffeemaschine, Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, 
+          Toaster, Geschirr sowie Kaffee, Tee, Öl , Salz, Zucker, Eis im Gefrierschrank und den 
+          notwendigen Reinigungsmitteln. Das Badezimmer ist mit Dusche, Waschmaschine und allen 
+          notwendigen Badartikeln ausgestattet, darunter Föhn, Waschmittel, Wäscheklammern, 
+          Lufterfrischer, Duschgel, Duschhaube, Toilettenartikel und mehrere Handtuchsets. 
+          Für längere Aufenthalte stellen wir einen Staubsauger und Reinigungsmittel zur Verfügung. 
+          Spielzeug und Brettspiele für Kinder sind vorhanden, und das Apartment verfügt über einen 
+          Fernseher und einen DVD-Player. Wir stellen Ihnen außerdem eine Strandtasche und Handtücher 
+          für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
+          Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
     path: '/apartment2',
     accent: '#c9a24d',
@@ -69,12 +101,16 @@ const apartments = [
 ];
 
 const features = [
-  { icon: '🏔️', title: 'Natur & Berge', desc: 'Umgeben von Kärntner Alpen und kristallklaren Seen.' },
-  { icon: '✨', title: 'Komfort & Stil', desc: 'Moderne Ausstattung, Balkon, Vollküche in jedem Apartment.' },
+  
+  { icon: '✨', title: 'Komfort & Stil', desc: 'Moderne Ausstattung, Balkon, Vollküche und Klimanlage in jedem Apartment.' },
+  { icon: '🏔️', title: 'Seen & Berge', desc: 'Umgebend von Kärntner Alpen und kristallklaren Seen.' },
   { icon: "♨️", title: "Therme in der Nähe", desc: "Villacher Warmbad-Therme nur 5 Minuten entfernt." },
-  { icon: "🚴", title: "Fahrradverleih", desc: "E-Bikes und Fahrräder direkt vor Ort." },
-  { icon: '❄️', title: 'Klimaanlage', desc: 'Angenehme Raumtemperatur zu jeder Jahreszeit in allen Apartments.' },
-  { icon: '🅿️', title: 'Kostenlos parken', desc: 'Privater Stellplatz direkt vor dem Haus inklusive.' },
+  { icon: "🚴", title: "Fahrradwege und Wanderwege", desc: "Fahrradstellplatz ist vorhanden." },
+   { icon: '⛷️', title: 'Wintersport', desc: 'Langlaufloipe und Ski Lift in der Nähe.' },
+  { icon: '💆', title: 'Wellness und Reha', desc: 'Kurzentrum, Rehazentrum und Privatklinik für Gesundheit sind in der Nähe.' },
+  { icon: '🛍️', title: 'Shopping und Essen', desc: 'Atrio Einkaufszentrum und kärntnerische Küche für jeden Geschmack.' },
+  // { icon: '❄️', title: 'Klimaanlage', desc: 'Angenehme Raumtemperatur zu jeder Jahreszeit in allen Apartments.' },
+  // { icon: '🅿️', title: 'Kostenlos parken', desc: 'Privater Stellplatz direkt vor dem Haus inklusive.' },
 ];
 
 // ─── page ─────────────────────────────────────────────────────────────────────
@@ -158,16 +194,26 @@ export const HomePage: FC = () => {
           >
             <motion.span className="home-intro__tag" variants={fadeUp}>Über uns</motion.span>
             <motion.h2 className="home-intro__title" variants={fadeUp}>
-              Willkommen bei<br />Wilena Apartments
+              Herzlich willkommen<br />zu Hause!
             </motion.h2>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Willkommen in den Wilena Apartments — Ihrem Rückzugsort für Erholung,
-              Komfort und unvergessliche Urlaubsmomente. Unsere Apartments vereinen
-              moderne Ausstattung mit einer ruhigen Lage inmitten der Natur.
+              Willkommen in die  Wilena Apartments — Ihrem Rückzugsort für Erholung,
+              Komfort und unvergessliche Urlaubsmomente.
+               Unsere Apartments vereinen moderne Ausstattung mit einer ruhigen Lage inmitten der Natur.
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Alpine Erholung
-              in Villach — wir haben das perfekte Apartment für Sie.
+              Die Wilena Apartments befinden sich im Kurort Warmbad Villach,
+              in dem Familienresidenz. Warmbad liegt in einem einzigartigen Bergtal am Dreiländereck Österreich,
+              Slowenien und Italien, unweit der Kärntner Seen und Gerlitzen Alpen.
+              Die Kärntner Therme mit Aquapark und Saunen ist fußläufig erreichbar. 
+              Ein Wald mit antiken römischen Thermalquellen, in dem man inmitten der Natur baden kann, 
+              beginnt direkt vor der Tür. Die Umgebung bietet zahlreiche Möglichkeiten für einen aktiven, 
+              erholsamen oder Wellness Urlaub – ob für Familien mit Kindern oder für eine romantische Reise 
+              für zwei . Dank unserer Autobahnanbindung sind wir besonders praktisch für Gäste, 
+              die auf der Durchreise in den Süden sind. Die kärntnerische  Küche ist wertvoll und vereint die 
+              besten Traditionen der österreichischen Küche mit Einflüssen aus der slowenischen und italienischen 
+              Küche. Hier findet jeder Gast etwas nach seinem Geschmack in jeder Jahreszeit. Wir freuen uns, 
+              Sie bei uns in Wilena Apartments begrüßen zu dürfen.
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
               {stats.map((stat) => (
@@ -260,7 +306,8 @@ export const HomePage: FC = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            Ihr perfekter Urlaub — <em>Ihre Wahl</em>
+            {/* Ihr perfekter Urlaub — <em>Ihre Wahl</em> */}
+            Für die gute Laune sorgen:
           </motion.h2>
           <motion.div
             className="home-features__grid"
@@ -301,7 +348,7 @@ export const HomePage: FC = () => {
           >
             <img
               className="home-cycling__image"
-              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.08.38 (4).jpeg`}
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/1.jpg`}
               alt="Fahrradverleih vor Ort"
             />
           </motion.div>
@@ -318,98 +365,34 @@ export const HomePage: FC = () => {
               Die Region mit dem Rad entdecken
             </motion.h2>
             <motion.p className="home-cycling__desc" variants={fadeUp}>
-              Direkt im Hotel stehen Ihnen Fahrräder und E-Bikes zur Verfügung,
-              die Sie gegen eine geringe Gebühr nutzen können.
-              Von hier aus starten Radwege rund um Ossiacher See,
-              Faaker See und Wörthersee — flach, gut ausgeschildert und für die
-              ganze Familie geeignet.
+              Kärnten ist ein tolles Ziel zum Radfahren. Es gibt viele flache Wege an Seen und Flüssen. 
+              Auch schöne Berge für E-Bikes sind da. Die Kärnten Seen-Schleife zeigt Ihnen viele 
+              Gewässer auf einmal. In Kärnten beginnt die Radsaison ein bisschen früher. 
+              Schon ab Ende März sieht man Mountainbiker, Rennradfahrer, 
+              E-Biker und Genussradfahrer auf zahlreichen Trails, 
+              Radwegen und Routen ihre Runden drehen. Denn drei Dinge sind beim Radfahren 
+              in Kärnten immer mit dabei: das herrliche Berg-Seepanorama, 
+              die Alpen-Adria-Küche und die Möglichkeit, sich in einem der zahlreichen Kärntner 
+              Seen zu erfrischen. Kärnten – ein Land für Radbegeisterte, die das Radangebot, 
+              die Natur, das Essen und das Wetter zu schätzen wissen.  Bekannte Radwege: 
+              Drauradweg: Führt am Fluss entlang durch das ganze Land. Alpe-Adria-Radweg: 
+              Geht durch die Berge bis nach Italien. Kärnten Seen-Schleife: Eine große 
+              Tour von etwa 420 km an 20 Seen. Millstätter See Radweg: Etwa 30 km rund um den See.
             </motion.p>
-            <motion.p className="home-cycling__desc" variants={fadeUp}>
+            {/* <motion.p className="home-cycling__desc" variants={fadeUp}>
               Wer es sportlicher mag, radelt entlang der Drau bis nach Villach
               oder weiter Richtung Alpe-Adria-Radweg — ein Klassiker für alle,
               die Kärnten aktiv erleben möchten.
-            </motion.p>
+            </motion.p> */}
           </motion.div>
         </div>
       </section>
 
       {/* ── НОВЕ: BURG & THERME (Landskron & Warmbad) ────────────────────── */}
-      <section className="home-highlights">
-        <div className="home-highlights__container">
-          <motion.div
-            className="home-highlights__header"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span className="home-highlights__tag" variants={fadeUp}>Ausflugsziele</motion.span>
-            <motion.h2 className="home-highlights__title" variants={fadeUp}>
-              Burg & Therme — beides ganz in der Nähe
-            </motion.h2>
-          </motion.div>
-
-          <div className="home-highlights__grid">
-            <motion.div
-              className="home-highlight-card"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-              whileHover="hover"
-            >
-              {/* ПРИМІТКА: фото замку Ландскрон не було серед завантажених — тут тимчасово
-                  фото Burg Hochosterwitz. Замініть на реальне фото Landskron, коли буде готове. */}
-              <div className="home-highlight-card__image-wrap">
-                <motion.img
-                  src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.07.05 (4).jpeg`}
-                  alt="Burg Landskron"
-                  className="home-highlight-card__image"
-                  variants={{ hover: { scale: 1.06 } }}
-                  transition={{ duration: 0.5 }}
-                />
-              </div>
-              <div className="home-highlight-card__body">
-                <h3 className="home-highlight-card__title">Burg Landskron</h3>
-                <p className="home-highlight-card__desc">
-                  Mittelalterliche Burg über Villach mit Adlerarena und
-                  spektakulärem Blick auf den Ossiacher See — ein beliebtes
-                  Ausflugsziel für die ganze Familie.
-                </p>
-              </div>
-            </motion.div>
-
-            <motion.div
-              className="home-highlight-card"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.15 }}
-              whileHover="hover"
-            >
-              <div className="home-highlight-card__image-wrap home-highlight-card__image-wrap--icon">
-                <motion.img
-                  src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 09.01.59 (1).jpeg`}
-                  alt="Warmbad"
-                  className="home-highlight-card__image"
-                  variants={{ hover: { scale: 1.06 } }}
-                  transition={{ duration: 0.5 }}
-                />
-              </div>
-              <div className="home-highlight-card__body">
-                <h3 className="home-highlight-card__title">Villacher Warmbad-Therme</h3>
-                <p className="home-highlight-card__desc">
-                  Nur 5 Gehminuten von den Apartments entfernt — Thermalwasser,
-                  Saunalandschaft und Entspannung pur, direkt vor der Haustür.
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
+      
 
       {/* ── НОВЕ: DREI-SEEN-LAND ──────────────────────────────────────────── */}
-      <section className="home-lakes">
+      {/* <section className="home-lakes">
         <div className="home-lakes__container">
           <motion.div
             className="home-lakes__header"
@@ -462,7 +445,7 @@ export const HomePage: FC = () => {
             ))}
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       {/* ── TESTIMONIALS ──────────────────────────────────────────────────── */}
       <div className="home-testimonials-wrap">
@@ -478,7 +461,10 @@ export const HomePage: FC = () => {
         transition={{ duration: 0.8 }}
       >
         <div className="home-cta__inner">
-          <h2 className="home-cta__title">Bereit für Ihren Traumurlaub?</h2>
+          <h2 className="home-cta__title">
+            {/* Bereit für Ihren Traumurlaub? */}
+            Ihre Zuhause wartet auf Sie!
+          </h2>
           <p className="home-cta__text">Buchen Sie jetzt direkt und sichern Sie sich die besten Preise.</p>
           <button className="home-cta__btn" onClick={() => setIsOpen(true)}>
             Jetzt buchen
