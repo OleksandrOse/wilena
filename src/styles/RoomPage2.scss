@@ -259,8 +259,8 @@
   gap: 32px;
 
   // якщо повернете rp-right (картку бронювання) поруч із каруселлю:
-  // display: grid; grid-template-columns: 1fr 400px; align-items: start;
-  // @media (max-width: 1024px) { grid-template-columns: 1fr; }
+  display: grid; grid-template-columns: 1fr 400px; align-items: start;
+  @media (max-width: 1024px) { grid-template-columns: 1fr; }
 }
 
 // нижній блок — ausstattung (повна ширина)
@@ -292,7 +292,7 @@
   color: rgba(26,22,18,0.6);
   line-height: 1.65;
   margin-bottom: 32px;
-  max-width: 580px;
+  //max-width: 580px;
   text-align: justify;
   text-align-last: left;
   text-justify: inter-word;
