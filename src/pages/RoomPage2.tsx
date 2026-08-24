@@ -25,7 +25,7 @@ interface Room {
 
 const ROOMS: Record<string, Room> = {
   "1": {
-    id: "1", name: "2 Zimmer Apartment 166",
+    id: "1", name: "Apartment 166",
     tagline: `Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.`,
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
@@ -83,15 +83,24 @@ const ROOMS: Record<string, Room> = {
       { date: "2026-08-15", price: 150 }, { date: "2026-08-16", price: 150 },
     ],
     amenities: [
-      { icon: "🏔️", label: "Bergblick" }, { icon: "🛏️", label: "2 Schlafzimmer" },
-      { icon: "🍳", label: "Vollküche" }, { icon: "📶", label: "Gratis WLAN" },
-      { icon: "🅿️", label: "Parkplatz" }, { icon: "❄️", label: "Klimaanlage" },
-      { icon: "🌿", label: "Balkon" }, { icon: "♨️", label: "Therme 5 min" },
+      { icon: "🏔️", label: "Gartenblick" },
+      { icon: "❄️", label: "Klimaanlage" },
+      { icon: "🔒", label: "Safe" },
+      { icon: "🔥", label: "Zentralheizung" },
+      { icon: "♨️", label: "Therme 5 min" },
+      // { icon: "🛏️", label: "2 Schlafzimmer" },
+      // { icon: "🍳", label: "Vollküche" }, 
+      { icon: "📶", label: "Gratis WLAN" },
+      { icon: "🅿️", label: "kostenlose Tiefgarage" },
+      { icon: "🏗️", label: "Balkon" }, 
+      // { icon: "🚴", label: "Fahrradverleih" },
+      // { icon: "🌿", label: "Terrasse" }, 
+      
     ],
     bookedRanges: [{ from: "2026-07-20", to: "2026-07-27" }, { from: "2026-08-10", to: "2026-08-18" }],
   },
   "2": {
-    id: "2", name: "2 Zimmer Apartment 172",
+    id: "2", name: "Apartment 172",
     tagline: `Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.`,
     images: [
       `${process.env.PUBLIC_URL}/Wilena/Apartment2/1.jpeg`,
@@ -144,7 +153,7 @@ const ROOMS: Record<string, Room> = {
           Fernseher und einen DVD-Player. Wir stellen Ihnen außerdem eine Strandtasche und Handtücher 
           für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
           Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
-    size: 68, capacity: 5, bedrooms: 2, pricePerNight: 160,
+    size: 59, capacity: 5, bedrooms: 2, pricePerNight: 160,
     dayPrices: [
       { date: "2026-08-01", price: 180 }, { date: "2026-08-02", price: 180 },
       { date: "2026-08-15", price: 195 }, { date: "2026-08-16", price: 195 },
@@ -377,7 +386,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
         <button className="rp-hero__back" onClick={() => navigate(-1)}>← Zurück</button>
         <div className="rp-hero__title-bar">
           <div>
-            <div className="rp-hero__apt-name">{room.name}</div>
+            {/* <div className="rp-hero__apt-name">{room.name}</div> */}
             {/* <div className="rp-hero__apt-sub">Villach Warmbad · Österreich</div> */}
           </div>
           {/* <div className="rp-hero__apt-price">
@@ -399,7 +408,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
               <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>Fläche</span></div>
               <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste / Gitterbett</span></div>
               <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Schlafzimmer</span></div>
-              <div className="rp-stat"><span>🌙</span><strong>ab €{room.pricePerNight}</strong><span>pro Nacht</span></div>
+              {/* <div className="rp-stat"><span>🌙</span><strong>ab €{room.pricePerNight}</strong><span>pro Nacht</span></div> */}
             </motion.div>
             <motion.div className="rp-divider" variants={fadeUp} />
             <motion.h2 className="rp-section-title" variants={fadeUp}>Über dieses Apartment</motion.h2>

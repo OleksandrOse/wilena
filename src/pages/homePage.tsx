@@ -5,7 +5,20 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ModalBooking from '../components/ModalBooking';
 import Testimonials from '../components/Testimonials';
+import { Star } from "lucide-react";
 import '../styles/HomePage.scss';
+
+function SuperhostBadge() {
+  return (
+    <Star
+      className="stat-superhost-icon"
+      size={14}
+      fill="#FF385C"
+      stroke="#FF385C"
+      aria-label="Superhost"
+    />
+  );
+}
 
 // ─── animation helpers ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -18,12 +31,10 @@ const stagger: Variants = {
 };
 
 const stats = [
-  
-  // { value: "4.9★", label: "Durchschnittsbewertung" },
   { value: "24/7", label: "Guest unterstützung" },
   // { value: "100%", label: "Self Check-in" },
-  { value: "⭐9,2", label: "Booking.com" },
-  { value: "⭐5,0", label: "RnB" },
+  { value: "9,2/10", label: "Booking.com" },
+  { value: "5,0/5", label: "Airbnb" },
 ];
 
 // ─── data ─────────────────────────────────────────────────────────────────────
@@ -137,7 +148,7 @@ export const HomePage: FC = () => {
             variants={stagger}
           >
             <motion.p className="home-hero__eyebrow" variants={fadeUp}>
-              WILLKOMMEN BEI
+              HERZLICH WILLKOMMEN BEI
             </motion.p>
             <motion.h1 className="home-hero__title" variants={fadeUp}>
               Wilena<br />
@@ -234,7 +245,7 @@ export const HomePage: FC = () => {
           >
             <img
               className="home-intro__img home-intro__img--main"
-              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 08.59.51 (9).jpeg`}
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/image.avif`}
               alt="Villach"
             />
             <img
