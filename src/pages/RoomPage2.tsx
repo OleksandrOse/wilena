@@ -317,7 +317,7 @@ function GuestPicker({guests,onChange}:{guests:Guests;onChange:(g:Guests)=>void}
             exit={{opacity:0,y:-6}} transition={{duration:0.15}}
           >
             {counter("Erwachsene","Ab 18 Jahren",guests.adults,1,v=>onChange({...guests,adults:v}))}
-            {counter("Kinder","0–17 Jahre",guests.children,0,v=>onChange({...guests,children:v}))}
+            {counter("Kinder","0–17 Jahre", guests.children,0,v=>onChange({...guests,children:v}))}
           </motion.div>
         )}
       </AnimatePresence>

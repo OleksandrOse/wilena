@@ -148,7 +148,7 @@ export const HomePage: FC = () => {
             variants={stagger}
           >
             <motion.p className="home-hero__eyebrow" variants={fadeUp}>
-              HERZLICH WILLKOMMEN BEI
+              HERZLICH WILLKOMMEN!
             </motion.p>
             <motion.h1 className="home-hero__title" variants={fadeUp}>
               Wilena<br />

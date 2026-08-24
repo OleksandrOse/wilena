@@ -102,7 +102,7 @@ export default function Footer() {
             </a>
           </p>
 
-          <h3 className="footer__title footer__title--center">Contact</h3>
+          <h3 className="footer__title footer__title--center">Kontakt</h3>
           <p>
             <Mail size={16} />
             <a href="mailto:wilena@speed.at">wilena@speed.at</a>

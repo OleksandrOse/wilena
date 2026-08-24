@@ -20,51 +20,86 @@ const stagger: Variants = {
 
 const categories = [
   {
-    title: "Unterkunft & Komfort",
-    icon: "🏠",
+    title: "Sommer",
+    icon: "☀️",
     services: [
-      { name: "Vollausgestattete Küche", desc: "Herd, Backofen, Kaffeemaschine, Geschirrspüler und alle Utensilien." },
-      { name: "Privater Balkon / Terrasse", desc: "Eigener Außenbereich mit Gartenmöbeln und Meerblick (Piran) oder Bergblick (Villach)." },
-      { name: "Hochwertige Bettwäsche", desc: "Frische Bettwäsche und Handtücher bei jeder Buchung inklusive." },
-      { name: "Klimaanlage / Heizung", desc: "Ganzzeitliche Temperaturregelung für höchsten Komfort." },
+      { name: "Check-in ab 16:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
+      { name: "Check-out bis 10:00 Uhr", desc: "Late Check-out bei Verfügbarkeit kostenlos." },
     ],
   },
   {
-    title: "Technologie & Konnektivität",
-    icon: "📡",
-    services: [
-      { name: "Kostenloses WLAN", desc: "Schnelles Hochgeschwindigkeits-Internet in allen Apartments und Bereichen." },
-      { name: "Smart-TV", desc: "Großer Flachbildschirm mit Streamingdiensten in jedem Apartment." },
-      { name: "Elektrische Schließanlage", desc: "Sicherer Zugang mit digitalem Code — kein Schlüssel nötig." },
-    ],
-  },
-  {
-    title: "Parken & Mobilität",
-    icon: "🚗",
-    services: [
-      { name: "Kostenloser Parkplatz", desc: "Privater Stellplatz direkt vor dem Haus — kostenlos für alle Gäste." },
-      { name: "Fahrradverleih (Villach)", desc: "E-Bikes und Fahrräder direkt vor Ort verfügbar." },
-      { name: "Transferberatung", desc: "Wir helfen bei der Organisation von Flughafen-Transfers auf Anfrage." },
-    ],
-  },
-  {
-    title: "Freizeit & Umgebung",
-    icon: "🌿",
-    services: [
-      { name: "Strand in der Nähe (Piran)", desc: "Nur wenige Schritte bis zum klaren Adriatischen Meer." },
-      { name: "Therme Warmbad (Villach)", desc: "Die berühmte Warmbad-Therme ist nur 5 Minuten entfernt." },
-      { name: "Skigebiete (Villach)", desc: "Nassfeld und weitere Skigebiete bequem erreichbar." },
-      { name: "Ausflugstipps", desc: "Persönliche Empfehlungen für Restaurants, Sehenswürdigkeiten und Aktivitäten." },
-    ],
-  },
-  {
-    title: "Gästeservice",
-    icon: "🤝",
+    title: "Winter",
+    icon: "❄️",
     services: [
       { name: "Check-in ab 15:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
       { name: "Check-out bis 11:00 Uhr", desc: "Late Check-out bei Verfügbarkeit kostenlos." },
-      { name: "Reinigungsservice", desc: "Wöchentliche Reinigung bei Langzeitaufenthalten inklusive." },
-      { name: "24/7 Kontakt", desc: "Wir sind jederzeit per Telefon oder WhatsApp für Sie da." },
+    ],
+  },
+  {
+    title: "Transfer",
+    icon: "🚐",
+    services: [
+      { name: "Flughafentransfers", desc: "Klagenfurt oder Ljubljana — auf Anfrage organisiert." },
+      { name: "Bahnhoftransfers", desc: "Hauptbahnhof Villach oder Bahnhof Villach Warmbad — auf Anfrage." },
+      { name: "Individuelle Abholung", desc: "Persönliche Abholung zu Ihrer gewünschten Uhrzeit auf Anfrage." },
+    ],
+  },
+  {
+    title: "Geführte Ausflüge",
+    icon: "🧭",
+    services: [
+      { name: "Begleitete Touren", desc: "Begleitete Touren zu den schönsten Ausflugszielen der Umgebung." },
+      { name: "Wanderungen", desc: "Geführte Wanderungen in den umliegenden Bergen auf Anfrage." },
+      { name: "Städtetouren", desc: "Persönliche Touren durch Villach und Klagenfurt." },
+    ],
+  },
+  {
+    title: "Waschen und Bügeln",
+    icon: "🧺",
+    services: [
+      { name: "Wäscheservice", desc: "Wäscheservice inklusive Bügeln auf Wunsch." },
+      { name: "Express-Reinigung", desc: "Schnelle Wäsche für kurzfristigen Bedarf auf Anfrage." },
+    ],
+  },
+  {
+    title: "Hundespaziergang",
+    icon: "🐕",
+    services: [
+      { name: "Gassi-Service", desc: "Gassi-Service für Ihren vierbeinigen Begleiter." },
+      { name: "Hundebetreuung", desc: "Stundenweise Betreuung während Ihrer Ausflüge auf Anfrage." },
+    ],
+  },
+  {
+    title: "Einkaufen",
+    icon: "🛒",
+    services: [
+      { name: "Ihre Einkäufe", desc: "Wir übernehmen gerne Ihre Einkäufe vor der Anreise oder während des Aufenthalts." },
+      { name: "Lebensmittel-Vorbereitung", desc: "Kühlschrank mit Grundausstattung auf Wunsch vor Ihrer Ankunft." },
+    ],
+  },
+  {
+    title: "Automieten",
+    icon: "🚗",
+    services: [
+      { name: "Mietwagen", desc: "Unterstützung bei der Organisation eines Mietwagens." },
+      { name: "Lieferung vor Ort", desc: "Abholung und Rückgabe des Mietwagens direkt bei den Apartments auf Anfrage." },
+    ],
+  },
+  {
+    title: "Fahrradverleih",
+    icon: "🚲",
+    services: [
+      { name: "Fahrräder und E-Bikes", desc: "Fahrräder und E-Bikes direkt vor Ort verfügbar." },
+      { name: "Helme & Zubehör", desc: "Helme, Schlösser und Radtaschen auf Anfrage inklusive." },
+    ],
+  },
+  {
+    title: "Verschiedene Termine",
+    icon: "📅",
+    services: [
+      { name: "Arzt & Reha", desc: "Unterstützung bei der Terminvereinbarung für Arzt- und Reha-Besuche." },
+      { name: "Schönheit & Wellness", desc: "Empfehlungen und Terminorganisation für Beauty- und Wellness-Anwendungen." },
+      { name: "Autoreparatur", desc: "Vermittlung von Kontakten zu Werkstätten in der Umgebung." },
     ],
   },
 ];
@@ -86,10 +121,10 @@ export const ServicePage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Unser Service
+              Gästeservice
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Alles was Sie für einen perfekten Urlaub brauchen — in Piran und Villach
+              Alles was Sie zusätzlich für Ihre angenehme Aufenhalt in Wilena Apartments brauchen können.
             </motion.p>
           </motion.div>
         </div>
