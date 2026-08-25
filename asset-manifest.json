@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/wilena/static/css/main.0b014558.css",
-    "main.js": "/wilena/static/js/main.c45be2e4.js",
+    "main.css": "/wilena/static/css/main.b3a2ea67.css",
+    "main.js": "/wilena/static/js/main.5980b3c7.js",
     "static/media/NanumBrushScript-Regular.ttf": "/wilena/static/media/NanumBrushScript-Regular.8f807e660f1af7da3aa7.ttf",
     "static/media/10.png": "/wilena/static/media/10.e6e43a1a02bc68942e35.png",
     "static/media/Roboto-VariableFont_wdthwght.ttf": "/wilena/static/media/Roboto-VariableFont_wdthwght.3c9d0f6513f7cfe91016.ttf",
@@ -10,11 +10,11 @@
     "static/media/BrushScriptOpti-Regular.otf": "/wilena/static/media/BrushScriptOpti-Regular.62521cd4c7d3b1c9ba7b.otf",
     "static/media/phone.svg": "/wilena/static/media/phone.fd056294959adc9cfbb0.svg",
     "index.html": "/wilena/index.html",
-    "main.0b014558.css.map": "/wilena/static/css/main.0b014558.css.map",
-    "main.c45be2e4.js.map": "/wilena/static/js/main.c45be2e4.js.map"
+    "main.b3a2ea67.css.map": "/wilena/static/css/main.b3a2ea67.css.map",
+    "main.5980b3c7.js.map": "/wilena/static/js/main.5980b3c7.js.map"
   },
   "entrypoints": [
-    "static/css/main.0b014558.css",
-    "static/js/main.c45be2e4.js"
+    "static/css/main.b3a2ea67.css",
+    "static/js/main.5980b3c7.js"
   ]
 }
