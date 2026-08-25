@@ -1,11 +1,11 @@
 // ─── AngebotePage ─────────────────────────────────────────────────────────────
 .angebote-page {
-  background: #0c0d10;
-  color: #fff;
+  background: #f5f0e8;
+  color: #1a1612;
   min-height: 100vh;
 }
 
-// ─── HERO ─────────────────────────────────────────────────────────────────────
+// ─── HERO (без змін, як було) ───────────────────────────────────────────────
 .angebote-hero {
   position: relative;
   height: 42vh;
@@ -14,7 +14,6 @@
   display: flex;
   align-items: center;
 
-  // Decorative pattern
   &::before {
     content: '';
     position: absolute;
@@ -82,16 +81,17 @@
 
 // ─── CARD ─────────────────────────────────────────────────────────────────────
 .angebot-card {
-  background: rgba(255,255,255,0.03);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: #fff;
+  border: 1px solid rgba(26,22,18,0.07);
   border-radius: 16px;
   padding: 28px;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  transition: border-color 0.25s;
+  box-shadow: 0 4px 20px rgba(26,22,18,0.07);
+  transition: box-shadow 0.3s;
 
-  &:hover { border-color: rgba(255,255,255,0.18); }
+  &:hover { box-shadow: 0 16px 48px rgba(26,22,18,0.14); }
 
   &__top {
     display: flex;
@@ -101,36 +101,36 @@
 
   &__tag {
     font-size: 13px;
-    color: rgba(255,255,255,0.5);
+    color: rgba(26,22,18,0.5);
   }
 
   &__badge {
-    background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.12);
+    background: rgba(201,162,77,0.12);
+    border: 1px solid rgba(201,162,77,0.3);
     border-radius: 20px;
     padding: 4px 12px;
     font-size: 13px;
     font-weight: 700;
-    color: #fff;
+    color: #a3823a;
   }
 
   &__title {
     font-family: 'Georgia', serif;
     font-size: 22px;
     font-weight: 700;
-    color: #fff;
+    color: #1a1612;
   }
 
   &__desc {
     font-size: 14px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(26,22,18,0.6);
     line-height: 1.65;
     flex: 1;
   }
 
   &__location {
     font-size: 13px;
-    color: rgba(255,255,255,0.4);
+    color: rgba(26,22,18,0.45);
   }
 
   &__pricing {
@@ -141,24 +141,25 @@
 
   &__old-price {
     font-size: 14px;
-    color: rgba(255,255,255,0.3);
+    color: rgba(26,22,18,0.3);
     text-decoration: line-through;
   }
 
   &__price {
+    font-family: 'Georgia', serif;
     font-size: 22px;
     font-weight: 700;
-    color: #fff;
+    color: #1a1612;
   }
 
   &__valid {
     font-size: 12px;
-    color: rgba(255,255,255,0.3);
+    color: rgba(26,22,18,0.4);
   }
 
   &__btn {
-    background: #fff;
-    color: #0c0d10;
+    background: #1a1612;
+    color: #f5f0e8;
     border: none;
     border-radius: 10px;
     padding: 13px 20px;
@@ -166,9 +167,14 @@
     font-weight: 700;
     cursor: pointer;
     margin-top: 4px;
-    transition: background 0.2s, transform 0.2s;
+    letter-spacing: 0.02em;
+    transition: background 0.25s, transform 0.2s, box-shadow 0.2s;
 
-    &:hover { background: rgba(255,255,255,0.9); transform: translateY(-1px); }
+    &:hover {
+      background: #433c2f;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(26,22,18,0.2);
+    }
   }
 }
 
@@ -188,13 +194,13 @@
     font-family: 'Georgia', 'Times New Roman', serif;
     font-size: clamp(24px, 3.5vw, 36px);
     font-weight: 700;
-    color: #fff;
+    color: #1a1612;
     margin-bottom: 16px;
   }
 
   &__text {
     font-size: 16px;
-    color: rgba(255,255,255,0.55);
+    color: rgba(26,22,18,0.6);
     line-height: 1.75;
     margin-bottom: 36px;
   }
@@ -211,38 +217,40 @@
     display: inline-flex;
     align-items: center;
     padding: 13px 26px;
-    border-radius: 10px;
+    border-radius: 100px;
     font-size: 15px;
     font-weight: 600;
     text-decoration: none;
-    transition: all 0.2s;
+    transition: all 0.25s;
 
     &--primary {
-      background: #fff;
-      color: #0c0d10;
-      &:hover { background: rgba(255,255,255,0.9); transform: translateY(-2px); }
+      background: #1a1612;
+      color: #f5f0e8;
+      &:hover { background: #433c2f; transform: translateY(-2px); }
     }
 
     &--outline {
-      border: 1.5px solid rgba(255,255,255,0.25);
-      color: rgba(255,255,255,0.8);
-      &:hover { border-color: rgba(255,255,255,0.5); transform: translateY(-2px); }
+      background: rgba(245,240,232,0.7);
+      color: #1a1612;
+      border: 1.5px solid rgba(26,22,18,0.25);
+      &:hover { background: rgba(245,240,232,0.9); transform: translateY(-2px); }
     }
   }
 
   &__tip {
     font-size: 14px;
-    color: rgba(255,255,255,0.35);
+    color: rgba(26,22,18,0.5);
     padding: 20px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.07);
+    background: #fff;
+    border: 1px solid rgba(26,22,18,0.07);
     border-radius: 12px;
 
     a {
-      color: rgba(255,255,255,0.7);
+      color: #c9a24d;
       text-decoration: none;
+      font-weight: 600;
       transition: color 0.2s;
-      &:hover { color: #fff; }
+      &:hover { color: #a3823a; }
     }
   }
 }

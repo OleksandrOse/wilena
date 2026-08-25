@@ -98,7 +98,7 @@ export const AngebotePage: React.FC = () => {
             </motion.h1>
 
             <motion.p className="angebote-hero__subtitle" variants={fadeUp}>
-              Exklusive Deals für unvergessliche Aufenthalte in Piran und Villach
+              Exklusive Deals für unvergessliche Aufenthalte in Villach
             </motion.p>
           </motion.div>
         </div>

@@ -58,7 +58,7 @@ const categories = [
     icon: "🚆",
     services: [
       { name: "Flughafen Klagenfurt", desc: "Nächstgelegener Flughafen, ca. 30 Autominuten entfernt.", mapQuery: "Flughafen Klagenfurt" },
-      { name: "Internationaler Flughafen Ljubljana", desc: "Alternative Anreise aus Slowenien, ca. 1,5 Stunden entfernt.", mapQuery: "Flughafen Ljubljana" },
+      { name: "Internationaler Flughafen Ljubljana", desc: "Alternative Anreise aus Slowenien, 85 km , ca 1 Stunde entfernt.", mapQuery: "Flughafen Ljubljana" },
       { name: "Hauptbahnhof Villach", desc: "Zentraler Bahnhof mit nationalen und internationalen Verbindungen.", mapQuery: "Hauptbahnhof Villach" },
       { name: "Bahnhof Villach Warmbad", desc: "Lokaler Bahnhof in unmittelbarer Nähe der Apartments.", mapQuery: "Bahnhof Villach Warmbad" },
       { name: "Bushaltestelle Villach Jesenfeldrein", desc: "Nächstgelegene Bushaltestelle für den lokalen Nahverkehr.", mapQuery: "Bushaltestelle Villach Jesenfeldrein" },
@@ -89,7 +89,7 @@ export const UmgebungPage: React.FC = () => {
               Umgebung
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Einkaufen, Essen gehen und Ausflüge rund um Warmbad Villach
+              Einkaufen, Essen, Ausflüge, Ziele und Logistik rund um Warmbad Villach
             </motion.p>
           </motion.div>
         </div>
@@ -146,7 +146,7 @@ export const UmgebungPage: React.FC = () => {
           >
             <h3 className="service-cta__title">Fragen zur Umgebung?</h3>
             <p className="service-cta__text">
-              Wir geben Ihnen gerne persönliche Tipps. Kontaktieren Sie uns jederzeit.
+              Wir geben Ihnen gerne persönliche Tipps. Kontaktieren Sie uns.
             </p>
             <div className="service-cta__actions">
               <a href="tel:+436647378488" className="service-cta__btn service-cta__btn--primary">

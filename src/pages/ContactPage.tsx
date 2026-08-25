@@ -74,7 +74,7 @@ export const ContactPage: React.FC = () => {
               Kontakt
             </motion.h1>
             <motion.p className="contact-hero__subtitle" variants={fadeUp}>
-              Wir freuen uns auf Ihre Nachricht — in Villach und Piran
+              Wir freuen uns auf Ihre Nachricht — in Villach
             </motion.p>
           </motion.div>
         </div>

@@ -83,20 +83,21 @@ const ROOMS: Record<string, Room> = {
       { date: "2026-08-15", price: 150 }, { date: "2026-08-16", price: 150 },
     ],
     amenities: [
-      { icon: "🏔️", label: "Gartenblick" },
-      { icon: "❄️", label: "Klimaanlage" },
-      { icon: "🔒", label: "Safe" },
-      { icon: "🔥", label: "Zentralheizung" },
-      { icon: "♨️", label: "Therme 5 min" },
-      // { icon: "🛏️", label: "2 Schlafzimmer" },
-      // { icon: "🍳", label: "Vollküche" }, 
-      { icon: "📶", label: "Gratis WLAN" },
-      { icon: "🅿️", label: "kostenlose Tiefgarage" },
-      { icon: "🏗️", label: "Balkon" }, 
-      // { icon: "🚴", label: "Fahrradverleih" },
-      // { icon: "🌿", label: "Terrasse" }, 
-      
-    ],
+  { icon: "🏔️", label: "Gartenblick" },
+  { icon: "❄️", label: "Klimaanlage" },
+  { icon: "🔒", label: "Safe" },
+  { icon: "🔥", label: "Zentralheizung" },
+  { icon: "🍳", label: "Voll ausgestattete Küche" },
+  { icon: "📶", label: "Gratis WLAN" },
+  { icon: "🅿️", label: "kostenlose Tiefgarage" },
+  { icon: "🏗️", label: "Balkon" },
+  { icon: "🛏️", label: "Gitterbett" },
+  { icon: "👕", label: "Bügeleisen" },
+  { icon: "💨", label: "Föhn" },
+  { icon: "♨️", label: "Therme 5 min" },
+  // { icon: "🚴", label: "Fahrradverleih" },
+  // { icon: "🌿", label: "Terrasse" },
+],
     bookedRanges: [{ from: "2026-07-20", to: "2026-07-27" }, { from: "2026-08-10", to: "2026-08-18" }],
   },
   "2": {
@@ -158,21 +159,22 @@ const ROOMS: Record<string, Room> = {
       { date: "2026-08-01", price: 180 }, { date: "2026-08-02", price: 180 },
       { date: "2026-08-15", price: 195 }, { date: "2026-08-16", price: 195 },
     ],
-    amenities: [
-      { icon: "🏔️", label: "Gartenblick" },
-      { icon: "❄️", label: "Klimaanlage" },
-      { icon: "🔒", label: "Safe" },
-      { icon: "🔥", label: "Zentralheizung" },
-      { icon: "♨️", label: "Therme 5 min" },
-      // { icon: "🛏️", label: "2 Schlafzimmer" },
-      // { icon: "🍳", label: "Vollküche" }, 
-      { icon: "📶", label: "Gratis WLAN" },
-      { icon: "🅿️", label: "kostenlose Tiefgarage" },
-      { icon: "🏗️", label: "Balkon" }, 
-      // { icon: "🚴", label: "Fahrradverleih" },
-      // { icon: "🌿", label: "Terrasse" }, 
-      
-    ],
+     amenities: [
+  { icon: "🏔️", label: "Gartenblick" },
+  { icon: "❄️", label: "Klimaanlage" },
+  { icon: "🔒", label: "Safe" },
+  { icon: "🔥", label: "Zentralheizung" },
+  { icon: "🍳", label: "Voll ausgestattete Küche" },
+  { icon: "📶", label: "Gratis WLAN" },
+  { icon: "🅿️", label: "kostenlose Tiefgarage" },
+  { icon: "🏗️", label: "Balkon" },
+  { icon: "🛏️", label: "Gitterbett" },
+  { icon: "👕", label: "Bügeleisen" },
+  { icon: "💨", label: "Föhn" },
+  { icon: "♨️", label: "Therme 5 min" },
+  // { icon: "🚴", label: "Fahrradverleih" },
+  // { icon: "🌿", label: "Terrasse" },
+],
     bookedRanges: [{ from: "2026-07-15", to: "2026-07-22" }, { from: "2026-08-05", to: "2026-08-12" }],
   },
 };
@@ -406,8 +408,9 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             <motion.p className="rp-tagline" variants={fadeUp}>{room.tagline}</motion.p>
             <motion.div className="rp-stats" variants={fadeUp}>
               <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>Fläche</span></div>
-              <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste / Gitterbett</span></div>
+              <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste + Gitterbett</span></div>
               <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Schlafzimmer</span></div>
+              <div className="rp-stat"><span>🅿️</span><strong>&nbsp;</strong><span>Parkplatz inklusive</span></div>
               {/* <div className="rp-stat"><span>🌙</span><strong>ab €{room.pricePerNight}</strong><span>pro Nacht</span></div> */}
             </motion.div>
             <motion.div className="rp-divider" variants={fadeUp} />

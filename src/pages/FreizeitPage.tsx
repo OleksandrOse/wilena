@@ -86,6 +86,12 @@ const categories: { title: string; icon: string; services: Service[] }[] = [
         image: `${process.env.PUBLIC_URL}/Wilena/Freizeit/Kärnten/8.jpg`,
         link: "https://www.nassfeld.at",
       },
+      {
+        name: "Alpenarena Villach",
+        desc: "Langlaufloipe, Skisprunganlage und Rodelhügel direkt in Villach — ideal für nordischen Wintersport und einen Familienausflug.",
+        image: `${process.env.PUBLIC_URL}/Wilena/Freizeit/Kärnten/28.jpg`,
+        link: "https://villacheralpenarena.at",
+      },
     ],
   },
   {
@@ -222,6 +228,70 @@ export const FreizeitPage: React.FC = () => {
 
       <section className="service-body">
         <div className="service-body__container">
+          <section className="service-highlight">
+            <div className="service-highlight__media">
+              <img
+                src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/1.jpg`}
+                alt="Fahrradverleih vor Ort"
+                className="service-highlight__img"
+              />
+            </div>
+            <motion.div
+              className="service-highlight__text"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.3 }}
+              variants={stagger}
+            >
+              <motion.span className="service-highlight__tag" variants={fadeUp}>
+                🚴 Aktiv unterwegs
+              </motion.span>
+              <motion.h2 className="service-highlight__title" variants={fadeUp}>
+                Die Region mit dem Rad entdecken
+              </motion.h2>
+              <motion.p className="service-highlight__desc" variants={fadeUp}>
+                Kärnten ist ein tolles Ziel zum Radfahren. Es gibt viele flache Wege an Seen und Flüssen.
+                Auch schöne Berge für E-Bikes sind da. Die Kärnten Seen-Schleife zeigt Ihnen viele
+                Gewässer auf einmal. In Kärnten beginnt die Radsaison ein bisschen früher.
+                Schon ab Ende März sieht man Mountainbiker, Rennradfahrer,
+                E-Biker und Genussradfahrer auf zahlreichen Trails,
+                Radwegen und Routen ihre Runden drehen. Denn drei Dinge sind beim Radfahren
+                in Kärnten immer mit dabei: das herrliche Berg-Seepanorama,
+                die Alpen-Adria-Küche und die Möglichkeit, sich in einem der zahlreichen Kärntner
+                Seen zu erfrischen. Kärnten – ein Land für Radbegeisterte, die das Radangebot,
+                die Natur, das Essen und das Wetter zu schätzen wissen.
+              </motion.p>
+              <motion.p className="service-highlight__routes-title" variants={fadeUp}>
+                Bekannte Radwege:
+              </motion.p>
+              <motion.div className="service-highlight__routes" variants={fadeUp}>
+                <div className="service-highlight__route">
+                  <strong>Drauradweg</strong>
+                  <span>Führt am Fluss entlang durch das ganze Land.</span>
+                </div>
+                <div className="service-highlight__route">
+                  <strong>Alpe-Adria-Radweg</strong>
+                  <span>Geht durch die Berge bis nach Italien.</span>
+                </div>
+                <div className="service-highlight__route">
+                  <strong>Kärnten Seen-Schleife</strong>
+                  <span>Eine große Tour von etwa 420 km an 20 Seen.</span>
+                </div>
+                <div className="service-highlight__route">
+                  <strong>Millstätter See Radweg</strong>
+                  <span>Etwa 30 km rund um den See.</span>
+                </div>
+              </motion.div>
+              <motion.p className="service-highlight__desc" variants={fadeUp}>
+                Wer es sportlicher mag, radelt entlang der Drau bis nach Villach
+                oder weiter Richtung Alpe-Adria-Radweg — ein Klassiker für alle,
+                die Kärnten aktiv erleben möchten.
+
+              </motion.p>
+            </motion.div>
+          </section>
+
+
           <motion.div
             className="service-categories"
             initial="hidden"
@@ -239,10 +309,10 @@ export const FreizeitPage: React.FC = () => {
                     const CardTag = s.link ? motion.a : motion.div;
                     const cardProps = s.link
                       ? {
-                          href: s.link,
-                          target: "_blank",
-                          rel: "noopener noreferrer",
-                        }
+                        href: s.link,
+                        target: "_blank",
+                        rel: "noopener noreferrer",
+                      }
                       : {};
 
                     return (

@@ -15,17 +15,18 @@ const labels: Record<string, string> = {
   room5: "Zimmer 5",
 };
 
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
 export default function Breadcrumbs() {
   const location = useLocation();
   const parts = location.pathname.split("/").filter(Boolean);
 
-  // Don't show on homepage
   if (parts.length === 0) return null;
 
   const crumbs = [
     { label: "Home", path: "/" },
     ...parts.map((part, i) => ({
-      label: labels[part] ?? decodeURIComponent(part),
+      label: capitalize(labels[part] ?? decodeURIComponent(part)),
       path: "/" + parts.slice(0, i + 1).join("/"),
     })),
   ];
@@ -41,6 +42,7 @@ export default function Breadcrumbs() {
       <ol className="breadcrumbs__list">
         {crumbs.map((crumb, i) => {
           const isLast = i === crumbs.length - 1;
+          const isFirst = i === 0;
           return (
             <li key={crumb.path} className="breadcrumbs__item">
               {isLast ? (
@@ -48,6 +50,7 @@ export default function Breadcrumbs() {
               ) : (
                 <>
                   <Link to={crumb.path} className="breadcrumbs__link">
+                    {isFirst && <span className="breadcrumbs__home-icon">⌂</span>}
                     {crumb.label}
                   </Link>
                   <span className="breadcrumbs__sep" aria-hidden>›</span>

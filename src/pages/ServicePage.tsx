@@ -20,15 +20,15 @@ const stagger: Variants = {
 
 const categories = [
   {
-    title: "Sommer",
+    title: "Sommer Season, ab May bis ende September",
     icon: "☀️",
     services: [
-      { name: "Check-in ab 16:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
-      { name: "Check-out bis 10:00 Uhr", desc: "Late Check-out bei Verfügbarkeit kostenlos." },
+      { name: "Check-in ab 16:00 Uhr", desc: " " },
+      { name: "Check-out bis 10:00 Uhr", desc: " " },
     ],
   },
   {
-    title: "Winter",
+    title: "Winter Season, ab Oktober bis ende April",
     icon: "❄️",
     services: [
       { name: "Check-in ab 15:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
@@ -58,7 +58,14 @@ const categories = [
     icon: "🧺",
     services: [
       { name: "Wäscheservice", desc: "Wäscheservice inklusive Bügeln auf Wunsch." },
-      { name: "Express-Reinigung", desc: "Schnelle Wäsche für kurzfristigen Bedarf auf Anfrage." },
+    
+    ],
+  },
+  {
+    title: "Reinigung",
+    icon: "🧺",
+    services: [
+      { name: "Express-Reinigung", desc: "Zusätzliche Reinigung für Bedarf auf Anfrage." },
     ],
   },
   {
@@ -75,6 +82,7 @@ const categories = [
     services: [
       { name: "Ihre Einkäufe", desc: "Wir übernehmen gerne Ihre Einkäufe vor der Anreise oder während des Aufenthalts." },
       { name: "Lebensmittel-Vorbereitung", desc: "Kühlschrank mit Grundausstattung auf Wunsch vor Ihrer Ankunft." },
+      { name: "Getränke-Service", desc: "Auf Wunsch füllen wir den Kühlschrank vorab mit Prosecco, Bier oder Softdrinks Ihrer Wahl." },
     ],
   },
   {
@@ -89,8 +97,8 @@ const categories = [
     title: "Fahrradverleih",
     icon: "🚲",
     services: [
-      { name: "Fahrräder und E-Bikes", desc: "Fahrräder und E-Bikes direkt vor Ort verfügbar." },
-      { name: "Helme & Zubehör", desc: "Helme, Schlösser und Radtaschen auf Anfrage inklusive." },
+      { name: "Fahrräder und E-Bikes", desc: "Fahrräder und E-Bikes direkt vor Ort." },
+      { name: "Zubehör", desc: "Schlösser auf Anfrage inklusive." },
     ],
   },
   {
@@ -182,7 +190,7 @@ export const ServicePage: React.FC = () => {
           >
             <h3 className="service-cta__title">Fragen zu unserem Service?</h3>
             <p className="service-cta__text">
-              Wir helfen Ihnen gerne weiter. Kontaktieren Sie uns jederzeit.
+              Wir helfen Ihnen gerne weiter. Kontaktieren Sie uns.
             </p>
             <div className="service-cta__actions">
               <a href="tel:+436647378488" className="service-cta__btn service-cta__btn--primary">

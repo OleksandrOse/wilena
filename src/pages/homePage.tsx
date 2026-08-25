@@ -5,20 +5,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ModalBooking from '../components/ModalBooking';
 import Testimonials from '../components/Testimonials';
-import { Star } from "lucide-react";
 import '../styles/HomePage.scss';
-
-function SuperhostBadge() {
-  return (
-    <Star
-      className="stat-superhost-icon"
-      size={14}
-      fill="#FF385C"
-      stroke="#FF385C"
-      aria-label="Superhost"
-    />
-  );
-}
 
 // ─── animation helpers ───────────────────────────────────────────────────────
 const fadeUp: Variants = {
@@ -30,11 +17,17 @@ const stagger: Variants = {
   visible: { transition: { staggerChildren: 0.13 } },
 };
 
-const stats = [
-  { value: "24/7", label: "Guest unterstützung" },
+type Stat = {
+  value: string;
+  label: string;
+  icon?: string;
+};
+
+const stats: Stat[] = [
+  { value: "24/7", label: "Gastunterstützung" },
   // { value: "100%", label: "Self Check-in" },
   { value: "9,2/10", label: "Booking.com" },
-  { value: "5,0/5", label: "Airbnb" },
+   { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
 ];
 
 // ─── data ─────────────────────────────────────────────────────────────────────
@@ -227,13 +220,18 @@ export const HomePage: FC = () => {
               Sie bei uns in Wilena Apartments begrüßen zu dürfen.
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
-              {stats.map((stat) => (
-                <div className="home-intro__stat" key={stat.label}>
-                  <span>{stat.value}</span>
-                  {stat.label}
-                </div>
-              ))}
-            </motion.div>
+  {stats.map((stat) => (
+    <div className="home-intro__stat" key={stat.label}>
+      <span className="home-intro__stat-value">
+        {stat.icon && (
+          <img src={stat.icon} alt="" className="home-intro__stat-icon" />
+        )}
+        {stat.value}
+      </span>
+      {stat.label}
+    </div>
+  ))}
+</motion.div>
           </motion.div>
 
           <motion.div
@@ -347,57 +345,6 @@ export const HomePage: FC = () => {
 
       {/* ── LOCATIONS ─────────────────────────────────────────────────────── */}
 
-
-      <section className="home-cycling">
-        <div className="home-cycling__container">
-          <motion.div
-            className="home-cycling__image-wrap"
-            initial={{ opacity: 0, x: -50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.9, ease: 'easeOut' }}
-          >
-            <img
-              className="home-cycling__image"
-              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/1.jpg`}
-              alt="Fahrradverleih vor Ort"
-            />
-          </motion.div>
-
-          <motion.div
-            className="home-cycling__text"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.3 }}
-            variants={stagger}
-          >
-            <motion.span className="home-cycling__tag" variants={fadeUp}>Aktiv unterwegs</motion.span>
-            <motion.h2 className="home-cycling__title" variants={fadeUp}>
-              Die Region mit dem Rad entdecken
-            </motion.h2>
-            <motion.p className="home-cycling__desc" variants={fadeUp}>
-              Kärnten ist ein tolles Ziel zum Radfahren. Es gibt viele flache Wege an Seen und Flüssen. 
-              Auch schöne Berge für E-Bikes sind da. Die Kärnten Seen-Schleife zeigt Ihnen viele 
-              Gewässer auf einmal. In Kärnten beginnt die Radsaison ein bisschen früher. 
-              Schon ab Ende März sieht man Mountainbiker, Rennradfahrer, 
-              E-Biker und Genussradfahrer auf zahlreichen Trails, 
-              Radwegen und Routen ihre Runden drehen. Denn drei Dinge sind beim Radfahren 
-              in Kärnten immer mit dabei: das herrliche Berg-Seepanorama, 
-              die Alpen-Adria-Küche und die Möglichkeit, sich in einem der zahlreichen Kärntner 
-              Seen zu erfrischen. Kärnten – ein Land für Radbegeisterte, die das Radangebot, 
-              die Natur, das Essen und das Wetter zu schätzen wissen.  Bekannte Radwege: 
-              Drauradweg: Führt am Fluss entlang durch das ganze Land. Alpe-Adria-Radweg: 
-              Geht durch die Berge bis nach Italien. Kärnten Seen-Schleife: Eine große 
-              Tour von etwa 420 km an 20 Seen. Millstätter See Radweg: Etwa 30 km rund um den See.
-            </motion.p>
-            {/* <motion.p className="home-cycling__desc" variants={fadeUp}>
-              Wer es sportlicher mag, radelt entlang der Drau bis nach Villach
-              oder weiter Richtung Alpe-Adria-Radweg — ein Klassiker für alle,
-              die Kärnten aktiv erleben möchten.
-            </motion.p> */}
-          </motion.div>
-        </div>
-      </section>
 
       {/* ── НОВЕ: BURG & THERME (Landskron & Warmbad) ────────────────────── */}
       

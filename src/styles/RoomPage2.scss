@@ -307,6 +307,12 @@
   border-radius: 14px;
   overflow: hidden;
   background: #fff;
+
+  @media (max-width: 560px) {
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    
+  }
 }
 
 .rp-stat {
@@ -324,6 +330,22 @@
   > span:first-child { font-size: 20px; }
   strong { font-size: 16px; font-weight: 700; color: #1a1612; white-space: nowrap; }
   > span:last-child { font-size: 11px; color: rgba(26,22,18,0.4); letter-spacing: 0.05em; text-transform: uppercase; }
+
+  &:last-child { border-right: none; }
+
+  @media (max-width: 560px) {
+    padding: 16px 8px;
+    border-right: 1px solid rgba(26,22,18,0.08) !important;
+    border-bottom: 1px solid rgba(26,22,18,0.08);
+
+    &:nth-child(2n) {
+      border-right: none !important;
+    }
+
+    &:nth-last-child(-n+2) {
+      border-bottom: none;
+    }
+  }
 }
 
 .rp-divider {
