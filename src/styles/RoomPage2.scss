@@ -97,6 +97,39 @@
     span:first-child { display: block; font-size: 20px; font-weight: 700; color: #1a1612; }
     span:last-child { font-size: 12px; color: rgba(26,22,18,0.5); }
   }
+
+  &__breadcrumbs {
+    position: absolute;
+    top: 64px; // під кнопкою "Zurück" і хедером
+    left: 0;
+    right: 0;
+    z-index: 9;
+    padding: 0 24px;
+
+    // перевизначаємо стилі самого компонента Breadcrumbs для світлого варіанту на фото
+    .breadcrumbs {
+      padding: 0;
+      max-width: none;
+      margin: 0;
+    }
+
+    .breadcrumbs__link {
+      color: rgba(255, 255, 255, 0.75);
+
+      &:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+      }
+    }
+
+    .breadcrumbs__sep {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    .breadcrumbs__current {
+      color: #c9a24d;
+    }
+  }
 }
 
 // ─── CAROUSEL — в межах ширини сторінки (max-width: 1200px, ті самі відступи) ──
@@ -695,6 +728,65 @@
   &__label { font-size: 15px; font-weight: 600; color: #1a1612; }
   &__sub { font-size: 12px; color: rgba(26,22,18,0.4); margin-top: 2px; }
 
+    &__ages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-top: 4px;
+    border-top: 1px solid rgba(26,22,18,0.08);
+  }
+  &__age-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  &__age-label {
+    font-size: 13px;
+    color: #1a1612;
+  }
+  &__age-select {
+    border: 1.5px solid rgba(26,22,18,0.15);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1612;
+    background: #fff;
+    cursor: pointer;
+    &:hover { border-color: #c9a24d; }
+  }
+
+  &__row--dog {
+    padding-top: 14px;
+    border-top: 1px solid rgba(26,22,18,0.08);
+  }
+
+  &__toggle {
+    position: relative;
+    width: 44px;
+    height: 26px;
+    border-radius: 100px;
+    border: none;
+    background: rgba(26,22,18,0.15);
+    cursor: pointer;
+    transition: background 0.2s;
+    flex-shrink: 0;
+    &.is-on { background: #1a1612; }
+  }
+  &__toggle-thumb {
+    position: absolute;
+    top: 3px; left: 3px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: transform 0.2s;
+  }
+  &__toggle.is-on &__toggle-thumb {
+    transform: translateX(18px);
+  }
+
   &__counter {
     display: flex;
     align-items: center;
@@ -722,5 +814,60 @@
       &:disabled { opacity: 0.2; cursor: not-allowed; }
     }
     > span { font-size: 16px; font-weight: 700; color: #1a1612; min-width: 18px; text-align: center; }
+  }
+}
+
+// ─── FLOOR PLAN (GRUNDRISS) ───────────────────────────────────────────────────
+.rp-floorplan {
+  background: #fff;
+  border: 1px solid rgba(26,22,18,0.08);
+  border-radius: 16px;
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 4px 20px rgba(26,22,18,0.05);
+
+  &__diagram {
+    width: 100%;
+    max-width: 560px;
+  }
+
+  &__svg {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  &__room-label text {
+    font-family: 'Georgia', serif;
+    font-size: 14px;
+    font-weight: 700;
+    fill: #1a1612;
+    letter-spacing: 0.03em;
+  }
+
+  &__room-sub {
+    font-family: inherit;
+    font-size: 11px !important;
+    font-weight: 400 !important;
+    fill: rgba(26,22,18,0.5) !important;
+    letter-spacing: 0.02em !important;
+  }
+
+  &__terrace-label {
+    font-family: 'Georgia', serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    fill: rgba(26,22,18,0.45);
+  }
+
+  &__note {
+    font-size: 12px;
+    color: rgba(26,22,18,0.4);
+    text-align: center;
+    max-width: 480px;
   }
 }

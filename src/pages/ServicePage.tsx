@@ -20,7 +20,8 @@ const stagger: Variants = {
 
 const categories = [
   {
-    title: "Sommer Season, ab May bis ende September",
+    title: "Sommer Season",
+    subtitle: "Ab Mai bis Ende September",
     icon: "☀️",
     services: [
       { name: "Check-in ab 16:00 Uhr", desc: " " },
@@ -28,7 +29,8 @@ const categories = [
     ],
   },
   {
-    title: "Winter Season, ab Oktober bis ende April",
+    title: "Winter Season",
+    subtitle: "Ab Oktober bis Ende April",
     icon: "❄️",
     services: [
       { name: "Check-in ab 15:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
@@ -58,12 +60,12 @@ const categories = [
     icon: "🧺",
     services: [
       { name: "Wäscheservice", desc: "Wäscheservice inklusive Bügeln auf Wunsch." },
-    
+
     ],
   },
   {
     title: "Reinigung",
-    icon: "🧺",
+    icon: "🧹",
     services: [
       { name: "Express-Reinigung", desc: "Zusätzliche Reinigung für Bedarf auf Anfrage." },
     ],
@@ -156,7 +158,12 @@ export const ServicePage: React.FC = () => {
               >
                 <div className="service-category__header">
                   <span className="service-category__icon">{cat.icon}</span>
-                  <h2 className="service-category__title">{cat.title}</h2>
+                  <div className="service-category__content">
+                    <h2 className="service-category__title">{cat.title}</h2>
+                    {cat.subtitle && (
+                      <p className="service-category__subtitle">{cat.subtitle}</p>
+                    )}
+                  </div>
                 </div>
                 <div className="service-category__grid">
                   {cat.services.map((s, si) => (

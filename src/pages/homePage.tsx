@@ -108,13 +108,11 @@ const features = [
   
   { icon: '✨', title: 'Komfort & Stil', desc: 'Moderne Ausstattung, Balkon, Vollküche und Klimanlage in jedem Apartment.' },
   { icon: '🏔️', title: 'Seen & Berge', desc: 'Umgebend von Kärntner Alpen und kristallklaren Seen.' },
-  { icon: "♨️", title: "Therme in der Nähe", desc: "Villacher Warmbad-Therme nur 5 Minuten entfernt." },
+  { icon: "♨️", title: "Therme in der Nähe", desc: "Kärnten Therme ist nur 5 Minuten entfernt." },
   { icon: "🚴", title: "Fahrradwege und Wanderwege", desc: "Fahrradstellplatz ist vorhanden." },
    { icon: '⛷️', title: 'Wintersport', desc: 'Langlaufloipe und Ski Lift in der Nähe.' },
   { icon: '💆', title: 'Wellness und Reha', desc: 'Kurzentrum, Rehazentrum und Privatklinik für Gesundheit sind in der Nähe.' },
   { icon: '🛍️', title: 'Shopping und Essen', desc: 'Atrio Einkaufszentrum und kärntnerische Küche für jeden Geschmack.' },
-  // { icon: '❄️', title: 'Klimaanlage', desc: 'Angenehme Raumtemperatur zu jeder Jahreszeit in allen Apartments.' },
-  // { icon: '🅿️', title: 'Kostenlos parken', desc: 'Privater Stellplatz direkt vor dem Haus inklusive.' },
 ];
 
 // ─── page ─────────────────────────────────────────────────────────────────────
@@ -421,7 +419,7 @@ export const HomePage: FC = () => {
         <div className="home-cta__inner">
           <h2 className="home-cta__title">
             {/* Bereit für Ihren Traumurlaub? */}
-            Ihre Zuhause wartet auf Sie!
+            Ihre Zuhause in Kärnten wartet auf Sie!
           </h2>
           <p className="home-cta__text">Buchen Sie jetzt direkt und sichern Sie sich die besten Preise.</p>
           <button className="home-cta__btn" onClick={() => setIsOpen(true)}>
