@@ -1,49 +1,11 @@
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { useState } from "react";
+import { fadeUp, stagger } from "../utils/animations";
+import { contacts, MAP_SEARCH_URL, MAP_EMBED_URL } from "../data/contacts";
 import "../styles/ContactPage.scss";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-// назва + адреса разом — так Google Maps шукає саме заклад "Wilena Apartments"
-// і показує позначку (пін) із цією назвою, а не просто голу точку на адресі
-const MAP_QUERY = "Wilena Apartments, Warmbader Allee 53, 9504 Villach, Österreich";
-const MAP_SEARCH_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(MAP_QUERY)}`;
-const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent(MAP_QUERY)}&output=embed`;
-
-const contacts = [
-  {
-    icon: "📍",
-    title: "Villach",
-    lines: ["Warmbader Allee 53", "9504 Villach, Österreich"],
-    link: MAP_SEARCH_URL,
-    linkLabel: "Auf Karte öffnen",
-  },
-  {
-    icon: "📞",
-    title: "Telefon",
-    lines: ["+43 664 737 48 88"],
-    link: "tel:+436647374888",
-    linkLabel: "Anrufen",
-  },
-  {
-    icon: "✉️",
-    title: "E-Mail",
-    lines: ["wilena@speed.at"],
-    link: "mailto:wilena@speed.at",
-    linkLabel: "E-Mail senden",
-  },
-];
 
 export const ContactPage: React.FC = () => {
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
@@ -102,6 +64,7 @@ export const ContactPage: React.FC = () => {
               >
                 <div className="contact-card__icon">{c.icon}</div>
                 <h3 className="contact-card__title">{c.title}</h3>
+                {c.subtitle && <h3 className="contact-card__subtitle">{c.subtitle}</h3>}
                 {c.lines.map((line) => (
                   <p key={line} className="contact-card__line">{line}</p>
                 ))}
@@ -216,8 +179,7 @@ export const ContactPage: React.FC = () => {
                   📍 Villach
                 </a>
               </div>
-              {/* q=Wilena+Apartments,... шукає саме заклад за назвою — Google Maps
-                  показує позначку (пін) із написом "Wilena Apartments", а не просто адресу */}
+              
               <iframe
                 className="contact-map__frame"
                 src={MAP_EMBED_URL}

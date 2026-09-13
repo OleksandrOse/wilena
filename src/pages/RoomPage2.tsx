@@ -1,184 +1,17 @@
-import { motion, Variants, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate, useParams } from "react-router-dom";
 import { useMemo, useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import "../styles/RoomPage2.scss";
 import Breadcrumbs from "../components/Breadcrumbs";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
-};
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.1 } },
-};
-
-type DayPrice = { date: string; price: number };
-interface Room {
-  id: string; name: string; tagline: string; images: string[];
-  description: string; size: number; capacity: number; bedrooms: number;
-  pricePerNight: number; dayPrices?: DayPrice[];
-  amenities: { icon: string; label: string }[];
-  bookedRanges: { from: string; to: string }[];
-}
-
-const ROOMS: Record<string, Room> = {
-  "1": {
-    id: "1", name: "Apartment 166",
-    tagline: `Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.`,
-    images: [
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00010.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00011.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00012.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00014.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00015.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00016.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00004.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00005.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00006.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00007.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00008.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00009.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00017.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00018.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00019.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00020.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00021.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00022.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00023.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00024.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00025.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00026.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00027.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00028.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00029.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00030.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00031.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00032.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00033.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00003.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00002.jpeg`,
-    ],
-    description: `Dieses gemütliche, moderne Apartment in warmen Farbtönen bietet einen Balkon mit Blick 
-           auf den grünen Garten – ideal für entspannte Abende. Es verfügt über Klimaanlage, 
-           Zentralheizung, Internet und alles, was Sie für einen komfortablen Aufenthalt oder 
-           einen kurzen Zwischenstopp im Süden benötigen. Das Apartment besteht aus einem 
-           Wohnzimmer mit Schlafcouch und einem separaten Schlafzimmer mit Doppelbett und 
-           Einzelschlafcouch. Die Küche ist klein, aber komplett ausgestattet mit allem, 
-           was Sie für einen komfortablen Aufenthalt brauchen. Dazu gehören Kaffeemaschine, 
-           Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, Toaster, Geschirr, Kaffee, 
-           Tee, Öl, Salz, Zucker, Eis im Gefrierfach und alle notwendigen Reinigungsmittel. 
-           Das Badezimmer ist mit Dusche, Waschmaschine und allem Notwendigen ausgestattet, 
-           darunter Föhn, Waschmittel, Wäscheklammern, Wäschetrockner, Lufterfrischer, 
-           Duschgel, Duschhaube, Toilettenartikel und mehrere Handtücher. Spielzeug und 
-           Brettspiele stehen für Kinder bereit, und das Apartment verfügt außerdem über 
-           einen Fernseher. Für Ihren Besuch der Thermen in Kärnten stellen wir Ihnen eine 
-           Strandtasche und Handtücher zur Verfügung. Ein Safe für Ihre persönlichen Gegenstände 
-           ist ebenfalls vorhanden.`,
-    size: 59, capacity: 5, bedrooms: 2, pricePerNight:  190,
-    dayPrices: [
-      { date: "2026-08-01", price: 140 }, { date: "2026-08-02", price: 140 },
-      { date: "2026-08-15", price: 150 }, { date: "2026-08-16", price: 150 },
-    ],
-    amenities: [
-  { icon: "🏔️", label: "Gartenblick" },
-  { icon: "❄️", label: "Klimaanlage" },
-  { icon: "🔒", label: "Safe" },
-  { icon: "🔥", label: "Zentralheizung" },
-  { icon: "🍳", label: "Voll ausgestattete Küche" },
-  { icon: "📶", label: "Gratis WLAN" },
-  { icon: "🅿️", label: "kostenlose Tiefgarage" },
-  { icon: "🏗️", label: "Balkon" },
-  { icon: "🛏️", label: "Gitterbett" },
-  { icon: "👕", label: "Bügeleisen" },
-  { icon: "💨", label: "Föhn" },
-  { icon: "♨️", label: "Therme 5 min" },
-  // { icon: "🚴", label: "Fahrradverleih" },
-  // { icon: "🌿", label: "Terrasse" },
-],
-    bookedRanges: [{ from: "2026-07-20", to: "2026-07-27" }, { from: "2026-08-10", to: "2026-08-18" }],
-  },
-  "2": {
-    id: "2", name: "Apartment 172",
-    tagline: `Modernes Apartment im Herzen von Villach Warmbad — nur 5 Gehminuten von der Villacher Therme entfernt.`,
-    images: [
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/12.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/1.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/2.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/3.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/4.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/5.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/6.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/7.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/8.jpeg`,
-       `${process.env.PUBLIC_URL}/Wilena/Apartment2/9.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/10.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/11.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/12.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/13.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/14.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/15.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/16.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/17.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/18.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/19.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/20.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/22.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/23.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/24.jpeg`,
-       `${process.env.PUBLIC_URL}/Wilena/Apartment2/25.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/26.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/27.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/28.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/29.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/30.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/31.jpeg`,
-      `${process.env.PUBLIC_URL}/Wilena/Apartment2/32.jpeg`,
-    ],
-    description: `Geräumiges Apartment mit Naturholzboden und Deko mit stilvollen Bergmotiven, 
-          Balkon und Klimaanlage. Das Apartment verfügt über Zentralheizung, 
-          Internet und alles, was Sie für einen komfortablen Aufenthalt oder einen kurzen 
-          Zwischenstopp auf dem Weg in den Süden benötigen. Es besteht aus einem Wohnzimmer 
-          mit einem Schlafsofa für 2 Personen und eine zusätzliche Einzelschlafsofa, 
-          sowie einen separaten Schlafzimmer mit einem Doppelbett und einer Einzelschlafsofa. 
-          Bei Bedarf kann noch ein Zustellbett bereitgestellt werden. Die Küche ist komplett 
-          ausgestattet mit Kaffeemaschine, Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, 
-          Toaster, Geschirr sowie Kaffee, Tee, Öl , Salz, Zucker, Eis im Gefrierschrank und den 
-          notwendigen Reinigungsmitteln. Das Badezimmer ist mit Dusche, Waschmaschine und allen 
-          notwendigen Badartikeln ausgestattet, darunter Föhn, Waschmittel, Wäscheklammern, 
-          Lufterfrischer, Duschgel, Duschhaube, Toilettenartikel und mehrere Handtuchsets. 
-          Für längere Aufenthalte stellen wir einen Staubsauger und Reinigungsmittel zur Verfügung. 
-          Spielzeug und Brettspiele für Kinder sind vorhanden, und das Apartment verfügt über einen 
-          Fernseher und einen DVD-Player. Wir stellen Ihnen außerdem eine Strandtasche und Handtücher 
-          für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
-          Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
-    size: 59, capacity: 5, bedrooms: 2, pricePerNight: 160,
-    dayPrices: [
-      { date: "2026-08-01", price: 180 }, { date: "2026-08-02", price: 180 },
-      { date: "2026-08-15", price: 195 }, { date: "2026-08-16", price: 195 },
-    ],
-     amenities: [
-  { icon: "❄️", label: "Klimaanlage" },
-  { icon: "🔒", label: "Safe" },
-  { icon: "🔥", label: "Zentralheizung" },
-  { icon: "🍳", label: "Voll ausgestattete Küche" },
-  { icon: "📶", label: "Gratis WLAN" },
-  { icon: "🅿️", label: "kostenlose Tiefgarage" },
-  { icon: "🏗️", label: "Balkon" },
-  { icon: "🛏️", label: "Gitterbett" },
-  { icon: "👕", label: "Bügeleisen" },
-  { icon: "💨", label: "Föhn" },
-  { icon: "♨️", label: "Therme 5 min" },
-  // { icon: "🚴", label: "Fahrradverleih" },
-  // { icon: "🌿", label: "Terrasse" },
-],
-    bookedRanges: [{ from: "2026-07-15", to: "2026-07-22" }, { from: "2026-08-05", to: "2026-08-12" }],
-  },
-};
+import { FloorPlan166 } from "../components/FloorPlan166";
+import { FloorPlan172 } from "../components/FloorPlan172";
+import { ROOMS } from "../data/rooms";
+import { Guests } from "../types/Guests";
+import { CalProps } from "../types/Calprops";
+import { fadeUp, stagger } from "../utils/animations";
+import "../styles/RoomPage2.scss";
+import Contact from "../components/Contact";
 
 type AvailabilityStatus = "idle" | "available" | "unavailable" | "invalid";
 
@@ -205,7 +38,6 @@ function buildMatrix(year: number, month: number) {
 }
 
 // ── Calendar Popup ────────────────────────────────────────────────────────────
-interface CalProps { room: Room; from: string; to: string; onSelect:(iso:string)=>void; onClose:()=>void; selectingFrom: boolean; }
 function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: CalProps) {
   const today = new Date();
   const [offset, setOffset] = useState(0);
@@ -281,103 +113,8 @@ function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: Cal
   );
 }
 
-// ── Guest Picker ──────────────────────────────────────────────────────────────
-interface Guests {
-  adults: number;
-  children: number;
-  childrenAges: number[];
-  hasDog: boolean;
-}
-
 // ── Floor Plan (Grundriss) ─────────────────────────────────────────────────
-function FloorPlan() {
-  return (
-    <div className="rp-floorplan__diagram">
-      <svg viewBox="0 0 600 590" className="rp-floorplan__svg" role="img" aria-label="Grundriss der Wohnung">
-        <defs>
-          <pattern id="terraceHatch" width="10" height="10" patternTransform="rotate(45)" patternUnits="userSpaceOnUse">
-            <line x1="0" y1="0" x2="0" y2="10" stroke="rgba(26,22,18,0.12)" strokeWidth="1" />
-          </pattern>
-        </defs>
 
-        {/* Terrasse */}
-        <rect x="60" y="520" width="500" height="50" fill="url(#terraceHatch)" />
-        <line x1="60" y1="520" x2="60" y2="570" stroke="#1a1612" strokeWidth="4" />
-        <line x1="560" y1="520" x2="560" y2="570" stroke="#1a1612" strokeWidth="4" />
-        <text x="310" y="555" textAnchor="middle" className="rp-floorplan__terrace-label">TERRASSE</text>
-
-        {/* Room fills */}
-        <rect x="60" y="60" width="160" height="140" fill="#ffffff" />
-        <rect x="220" y="60" width="180" height="140" fill="#fdfbf6" />
-        <rect x="400" y="60" width="160" height="140" fill="#eef1ee" />
-        <rect x="60" y="200" width="220" height="320" fill="#faf8f4" />
-        <rect x="340" y="200" width="220" height="320" fill="#faf8f4" />
-        <rect x="280" y="200" width="60" height="320" fill="#f5f0e8" />
-
-        {/* Outer walls */}
-        <g stroke="#1a1612" strokeWidth={5} strokeLinecap="square">
-          <line x1="60" y1="60" x2="250" y2="60" />
-          <line x1="300" y1="60" x2="560" y2="60" />
-          <line x1="60" y1="60" x2="60" y2="520" />
-          <line x1="560" y1="60" x2="560" y2="520" />
-          <line x1="60" y1="520" x2="110" y2="520" />
-          <line x1="170" y1="520" x2="450" y2="520" />
-          <line x1="510" y1="520" x2="560" y2="520" />
-        </g>
-
-        {/* Interior walls */}
-        <g stroke="#1a1612" strokeWidth={3.5} strokeLinecap="square">
-          <line x1="220" y1="60" x2="220" y2="200" />
-          <line x1="400" y1="60" x2="400" y2="140" />
-          <line x1="400" y1="190" x2="400" y2="200" />
-          <line x1="60" y1="200" x2="220" y2="200" />
-          <line x1="400" y1="200" x2="560" y2="200" />
-          <line x1="280" y1="200" x2="280" y2="330" />
-          <line x1="280" y1="360" x2="280" y2="520" />
-          <line x1="340" y1="200" x2="340" y2="330" />
-          <line x1="340" y1="360" x2="340" y2="520" />
-        </g>
-
-        {/* Door swings */}
-        <g stroke="#c9a24d" strokeWidth={1.6} fill="none">
-          <path d="M250,60 L250,110 M300,60 A50,50 0 0 0 250,110" />
-          <path d="M400,140 L450,140 M400,190 A50,50 0 0 1 450,140" />
-          <path d="M220,200 L220,260 M280,200 A60,60 0 0 0 220,260" />
-          <path d="M400,200 L400,260 M340,200 A60,60 0 0 1 400,260" />
-          <path d="M280,330 L310,330 M280,360 A30,30 0 0 1 310,330" />
-          <path d="M340,360 L310,360 M340,330 A30,30 0 0 0 310,360" />
-          <path d="M110,520 L110,460 M170,520 A60,60 0 0 1 110,460" />
-          <path d="M510,520 L510,460 M450,520 A60,60 0 0 0 510,460" />
-        </g>
-
-        {/* Labels */}
-        <g className="rp-floorplan__room-label">
-          <text x="140" y="115" textAnchor="middle">KÜCHE</text>
-          <text x="140" y="138" textAnchor="middle" className="rp-floorplan__room-sub">PVC</text>
-          <text x="140" y="155" textAnchor="middle" className="rp-floorplan__room-sub">4,86 m²</text>
-
-          <text x="310" y="115" textAnchor="middle">VORRAUM</text>
-          <text x="310" y="138" textAnchor="middle" className="rp-floorplan__room-sub">PVC</text>
-          <text x="310" y="155" textAnchor="middle" className="rp-floorplan__room-sub">4,03 m²</text>
-
-          <text x="480" y="100" textAnchor="middle">BAD</text>
-          <text x="480" y="123" textAnchor="middle" className="rp-floorplan__room-sub">Fliesen</text>
-          <text x="480" y="140" textAnchor="middle" className="rp-floorplan__room-sub">3,96 m²</text>
-
-          <text x="170" y="330" textAnchor="middle">WOHN-</text>
-          <text x="170" y="350" textAnchor="middle">ESSZIMMER</text>
-          <text x="170" y="378" textAnchor="middle" className="rp-floorplan__room-sub">Teppich</text>
-          <text x="170" y="396" textAnchor="middle" className="rp-floorplan__room-sub">19,65 m²</text>
-
-          <text x="450" y="330" textAnchor="middle">SCHLAF-</text>
-          <text x="450" y="350" textAnchor="middle">ZIMMER</text>
-          <text x="450" y="378" textAnchor="middle" className="rp-floorplan__room-sub">Teppich</text>
-          <text x="450" y="396" textAnchor="middle" className="rp-floorplan__room-sub">19,65 m²</text>
-        </g>
-      </svg>
-    </div>
-  );
-}
 
 function GuestPicker({guests,onChange}:{guests:Guests;onChange:(g:Guests)=>void}) {
   const [open,setOpen] = useState(false);
@@ -563,7 +300,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             <motion.div className="rp-stats" variants={fadeUp}>
               <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>Fläche</span></div>
               <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste + Gitterbett</span></div>
-              <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Schlafzimmer</span></div>
+              <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Zimmer</span></div>
               <div className="rp-stat"><span>🅿️</span><strong>&nbsp;</strong><span>Parkplatz inklusive</span></div>
               {/* <div className="rp-stat"><span>🌙</span><strong>ab €{room.pricePerNight}</strong><span>pro Nacht</span></div> */}
             </motion.div>
@@ -731,15 +468,15 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
           <motion.div className="rp-floorplan"
             initial="hidden" whileInView="visible" viewport={{once:true}} variants={fadeUp}
           >
-            <FloorPlan />
-            <p className="rp-floorplan__note">
+            {id === "2" ? <FloorPlan172 /> : <FloorPlan166 />}
+            {/* <p className="rp-floorplan__note">
               Gesamtfläche {room.size} m² · {room.bedrooms} Schlafzimmer · Grundriss dient zur Orientierung, Abweichungen möglich.
-            </p>
+            </p> */}
           </motion.div>
         </div>
+        <Contact title=" diesem Apartment" />
+      </div>
       
-      </div>{/* end rp-content */}
-
       <Footer />
     </div>
   );

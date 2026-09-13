@@ -1,14 +1,33 @@
-import '../styles/Contact.scss';
+import { motion } from "framer-motion";
+import "../styles/ServicePage.scss";
 
-const Contact: React.FC = () => (
-  <footer className="contact">
-    <h2 className="contact__title">Contact</h2>
+type Props = {
+  title: string;
+}
 
-    <address className="contact__info">
-      Warmbader Allee 53, Villach<br />
-      <a href="tel:+4366473784888">+43 664 737 48 88</a>
-    </address>
-  </footer>
-);
+const Contact: React.FC<Props> = ({ title }) => {
+  return (
+     <motion.div
+            className="service-cta"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7 }}
+          >
+            <h3 className="service-cta__title">Fragen zu{title}?</h3>
+            <p className="service-cta__text">
+              Wir geben Ihnen gerne persönliche Empfehlungen. Kontaktieren Sie uns.
+            </p>
+            <div className="service-cta__actions">
+              <a href="tel:+436647378488" className="service-cta__btn service-cta__btn--primary">
+                📞 +43 664 737 48 88
+              </a>
+              <a href="mailto:wilena@speed.at" className="service-cta__btn service-cta__btn--outline">
+                ✉️ wilena@speed.at
+              </a>
+            </div>
+          </motion.div>
+  );
+};
 
 export default Contact;

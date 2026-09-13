@@ -1,55 +1,18 @@
 import { FC, useState, useRef } from 'react';
-import { motion, useScroll, useTransform, Variants } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import ModalBooking from '../components/ModalBooking';
 import Testimonials from '../components/Testimonials';
+import { Stat } from '../types/Stat';
+import { fadeUp, stagger } from "../utils/animations";
 import '../styles/HomePage.scss';
 
-// ─── animation helpers ───────────────────────────────────────────────────────
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: 'easeOut' } },
-};
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.13 } },
-};
-
-type Stat = {
-  value: string;
-  label: string;
-  icon?: string;
-};
-
 const stats: Stat[] = [
-  { value: "24/7", label: "Gastunterstützung" },
-  // { value: "100%", label: "Self Check-in" },
+  { value: "24/7", label: "Gästeunterstützung" },
   { value: "9,2/10", label: "Booking.com" },
    { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
-];
-
-// ─── data ─────────────────────────────────────────────────────────────────────
-const lakes = [
-  {
-    id: 'woerthersee',
-    title: 'Wörthersee',
-    desc: 'Der bekannteste Kärntner See — ideal zum Baden, Segeln und für einen Ausflug zur Insel Maria Wörth.',
-    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Wörtersee.jpg`,
-  },
-  {
-    id: 'faakersee',
-    title: 'Faaker See',
-    desc: 'Kristallklares, türkisfarbenes Wasser vor der Kulisse der Karawanken — nur eine kurze Fahrt entfernt.',
-    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Faakersee.jpg`,
-  },
-  {
-    id: 'ossiachersee',
-    title: 'Ossiacher See',
-    desc: 'Ruhiger Familiensee mit Radweg rundherum — perfekt für einen entspannten Tagesausflug.',
-    img: `${process.env.PUBLIC_URL}/Wilena/Rezidenz/Ossiachersee.jpg`,
-  },
 ];
 
 const apartments = [
@@ -338,70 +301,6 @@ export const HomePage: FC = () => {
           </motion.div>
         </div>
       </section>
-
-
-
-      {/* ── LOCATIONS ─────────────────────────────────────────────────────── */}
-
-
-      {/* ── НОВЕ: BURG & THERME (Landskron & Warmbad) ────────────────────── */}
-      
-
-      {/* ── НОВЕ: DREI-SEEN-LAND ──────────────────────────────────────────── */}
-      {/* <section className="home-lakes">
-        <div className="home-lakes__container">
-          <motion.div
-            className="home-lakes__header"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={stagger}
-          >
-            <motion.span className="home-lakes__tag" variants={fadeUp}>Drei-Seen-Land</motion.span>
-            <motion.h2 className="home-lakes__title" variants={fadeUp}>
-              Drei Seen in unmittelbarer Nähe
-            </motion.h2>
-            <motion.p className="home-lakes__intro" variants={fadeUp}>
-              Wörthersee, Faaker See und Ossiacher See liegen alle nur eine
-              kurze Fahrt von Ihrem Apartment entfernt — perfekt für einen
-              erholsamen Tag am Wasser.
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            className="home-lakes__grid"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.15 }}
-            variants={stagger}
-          >
-            {lakes.map((lake) => (
-              <motion.div key={lake.id} className="home-lake-card" variants={fadeUp} whileHover="hover">
-                {lake.img ? (
-                  <div className="home-lake-card__image-wrap">
-                    <motion.img
-                      src={lake.img}
-                      alt={lake.title}
-                      className="home-lake-card__image"
-                      variants={{ hover: { scale: 1.06 } }}
-                      transition={{ duration: 0.5 }}
-                    />
-                  </div>
-                ) : (
-                  // ПРИМІТКА: для Ossiacher See немає завантаженого фото — показуємо картку з іконкою
-                  <div className="home-lake-card__image-wrap home-lake-card__image-wrap--icon">
-                    <span className="home-lake-card__icon">🌊</span>
-                  </div>
-                )}
-                <div className="home-lake-card__body">
-                  <h3 className="home-lake-card__title">{lake.title}</h3>
-                  <p className="home-lake-card__desc">{lake.desc}</p>
-                </div>
-              </motion.div>
-            ))}
-          </motion.div>
-        </div>
-      </section> */}
 
       {/* ── TESTIMONIALS ──────────────────────────────────────────────────── */}
       <div className="home-testimonials-wrap">

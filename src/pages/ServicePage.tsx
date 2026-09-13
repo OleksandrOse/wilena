@@ -1,118 +1,11 @@
-import { motion, Variants } from "framer-motion";
+import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
+import { fadeUp, stagger } from "../utils/animations";
+import { categories } from "../data/serviceCategories";
 import "../styles/ServicePage.scss";
-
-const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" },
-  },
-};
-
-const stagger: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.08 } },
-};
-
-const categories = [
-  {
-    title: "Sommer Season",
-    subtitle: "Ab Mai bis Ende September",
-    icon: "☀️",
-    services: [
-      { name: "Check-in ab 16:00 Uhr", desc: " " },
-      { name: "Check-out bis 10:00 Uhr", desc: " " },
-    ],
-  },
-  {
-    title: "Winter Season",
-    subtitle: "Ab Oktober bis Ende April",
-    icon: "❄️",
-    services: [
-      { name: "Check-in ab 15:00 Uhr", desc: "Flexibler Early oder Late Check-in auf Anfrage möglich." },
-      { name: "Check-out bis 11:00 Uhr", desc: "Late Check-out bei Verfügbarkeit kostenlos." },
-    ],
-  },
-  {
-    title: "Transfer",
-    icon: "🚐",
-    services: [
-      { name: "Flughafentransfers", desc: "Klagenfurt oder Ljubljana — auf Anfrage organisiert." },
-      { name: "Bahnhoftransfers", desc: "Hauptbahnhof Villach oder Bahnhof Villach Warmbad — auf Anfrage." },
-      { name: "Individuelle Abholung", desc: "Persönliche Abholung zu Ihrer gewünschten Uhrzeit auf Anfrage." },
-    ],
-  },
-  {
-    title: "Geführte Ausflüge",
-    icon: "🧭",
-    services: [
-      { name: "Begleitete Touren", desc: "Begleitete Touren zu den schönsten Ausflugszielen der Umgebung." },
-      { name: "Wanderungen", desc: "Geführte Wanderungen in den umliegenden Bergen auf Anfrage." },
-      { name: "Städtetouren", desc: "Persönliche Touren durch Villach und Klagenfurt." },
-    ],
-  },
-  {
-    title: "Waschen und Bügeln",
-    icon: "🧺",
-    services: [
-      { name: "Wäscheservice", desc: "Wäscheservice inklusive Bügeln auf Wunsch." },
-
-    ],
-  },
-  {
-    title: "Reinigung",
-    icon: "🧹",
-    services: [
-      { name: "Express-Reinigung", desc: "Zusätzliche Reinigung für Bedarf auf Anfrage." },
-    ],
-  },
-  {
-    title: "Hundespaziergang",
-    icon: "🐕",
-    services: [
-      { name: "Gassi-Service", desc: "Gassi-Service für Ihren vierbeinigen Begleiter." },
-      { name: "Hundebetreuung", desc: "Stundenweise Betreuung während Ihrer Ausflüge auf Anfrage." },
-    ],
-  },
-  {
-    title: "Einkaufen",
-    icon: "🛒",
-    services: [
-      { name: "Ihre Einkäufe", desc: "Wir übernehmen gerne Ihre Einkäufe vor der Anreise oder während des Aufenthalts." },
-      { name: "Lebensmittel-Vorbereitung", desc: "Kühlschrank mit Grundausstattung auf Wunsch vor Ihrer Ankunft." },
-      { name: "Getränke-Service", desc: "Auf Wunsch füllen wir den Kühlschrank vorab mit Prosecco, Bier oder Softdrinks Ihrer Wahl." },
-    ],
-  },
-  {
-    title: "Automieten",
-    icon: "🚗",
-    services: [
-      { name: "Mietwagen", desc: "Unterstützung bei der Organisation eines Mietwagens." },
-      { name: "Lieferung vor Ort", desc: "Abholung und Rückgabe des Mietwagens direkt bei den Apartments auf Anfrage." },
-    ],
-  },
-  {
-    title: "Fahrradverleih",
-    icon: "🚲",
-    services: [
-      { name: "Fahrräder und E-Bikes", desc: "Fahrräder und E-Bikes direkt vor Ort." },
-      { name: "Zubehör", desc: "Schlösser auf Anfrage inklusive." },
-    ],
-  },
-  {
-    title: "Verschiedene Termine",
-    icon: "📅",
-    services: [
-      { name: "Arzt & Reha", desc: "Unterstützung bei der Terminvereinbarung für Arzt- und Reha-Besuche." },
-      { name: "Schönheit & Wellness", desc: "Empfehlungen und Terminorganisation für Beauty- und Wellness-Anwendungen." },
-      { name: "Autoreparatur", desc: "Vermittlung von Kontakten zu Werkstätten in der Umgebung." },
-    ],
-  },
-];
+import Contact from "../components/Contact";
 
 export const ServicePage: React.FC = () => {
   return (
@@ -131,10 +24,10 @@ export const ServicePage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Gästeservice
+              Gästeservice nach Anfrage
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Alles was Sie zusätzlich für Ihre angenehme Aufenhalt in Wilena Apartments brauchen können.
+              Zusätzliche Gästeservices sind nur auf Anfrage und gegen Aufpreis erhältlich.
             </motion.p>
           </motion.div>
         </div>
@@ -188,26 +81,7 @@ export const ServicePage: React.FC = () => {
             ))}
           </motion.div>
 
-          <motion.div
-            className="service-cta"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <h3 className="service-cta__title">Fragen zu unserem Service?</h3>
-            <p className="service-cta__text">
-              Wir helfen Ihnen gerne weiter. Kontaktieren Sie uns.
-            </p>
-            <div className="service-cta__actions">
-              <a href="tel:+436647378488" className="service-cta__btn service-cta__btn--primary">
-                📞 +43 664 737 48 88
-              </a>
-              <a href="mailto:wilena@speed.at" className="service-cta__btn service-cta__btn--outline">
-                ✉️ wilena@speed.at
-              </a>
-            </div>
-          </motion.div>
+          <Contact title=" unserem Service" />
         </div>
       </section>
 

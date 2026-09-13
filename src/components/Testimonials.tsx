@@ -3,12 +3,7 @@ import "../styles/Testimonials.scss";
 import ModalTestimonial from "./ModalTestimonial";
 import TestimonialsCard from "./TestimonialsCard";
 import { Button } from "./Button";
-
-type Testimonial = {
-  text: string;
-  author: string;
-  rating: number;
-};
+import { Testimonial } from "../types/Testimonial";
 
 const MAX_CHARS = 120;
 const AUTOPLAY_DELAY = 5000;

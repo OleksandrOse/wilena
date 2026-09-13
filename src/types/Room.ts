@@ -1,14 +1,14 @@
+export interface DayPrice { 
+  date: string; 
+  price: number; 
+};
+
 export interface Room {
-  id: string;
-  title: string;
-  subtitle: string;
-  guests: number;
-  beds: string;
-  size: string;
-  amenities: string[];
-  images: string[];
-  basePrice: number;
-  availability: AvailabilityDay[];
+  id: string; name: string; tagline: string; images: string[];
+  description: string; size: number; capacity: number; bedrooms: number;
+  pricePerNight: number; dayPrices?: DayPrice[];
+  amenities: { icon: string; label: string }[];
+  bookedRanges: { from: string; to: string }[];
 }
 
 export interface AvailabilityDay {
