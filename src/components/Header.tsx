@@ -1,23 +1,41 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import '../styles/Header.scss';
+
+type Lang = "de" | "en";
+
+const LANG_LABEL: Record<Lang, string> = { de: "DE", en: "EN" };
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [apartmentsOpen, setApartmentsOpen] = useState(false);
+  const [langOpen, setLangOpen] = useState(false);
+  const [lang, setLang] = useState<Lang>(
+    () => (localStorage.getItem("lang") as Lang) || "de"
+  );
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const location = useLocation();
+  const langRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
         setApartmentsOpen(false);
       }
+      if (langRef.current && !langRef.current.contains(e.target as Node)) {
+        setLangOpen(false);
+      }
     };
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, []);
+
+  const changeLang = (l: Lang) => {
+    setLang(l);
+    localStorage.setItem("lang", l);
+    setLangOpen(false);
+    // тут згодом можна викликати i18n.changeLanguage(l)
+  };
 
   return (
     <header className="header-place">
@@ -30,6 +48,7 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
+                {/* Desktop nav */}
         <nav className="header-place__nav">
           <a href="tel:+436647378488" className="icon icon--phone">
             <div className="icon__tooltip">+43 664 737 48 88</div>
@@ -68,7 +87,6 @@ export default function Header() {
                   >
                     <div>
                       <div className="header-place__dropdown-title">Apartment 166</div>
-                      {/* <div className="header-place__dropdown-desc">Slowenien · Meeresurlaub</div> */}
                     </div>
                   </Link>
                   <Link
@@ -78,7 +96,6 @@ export default function Header() {
                   >
                     <div>
                       <div className="header-place__dropdown-title">Apartment 172</div>
-                      {/* <div className="header-place__dropdown-desc">Österreich · Natur & Erholung</div> */}
                     </div>
                   </Link>
                 </motion.div>
@@ -91,9 +108,51 @@ export default function Header() {
           <Link to="/service" className="header-place__nav-item">Service</Link>
           <Link to="/angebote" className="header-place__nav-item">Angebote</Link>
           <Link to="/contact" className="header-place__nav-item">Kontakt</Link>
+
+          {/* Language popup — тепер частина основного nav */}
+          <div className="header-place__lang" ref={langRef}>
+            <button
+              className="header-place__lang-toggle"
+              onClick={() => setLangOpen((v) => !v)}
+              aria-label="Sprache wählen"
+            >
+              {LANG_LABEL[lang]}
+              <svg
+                className={`header-place__chevron ${langOpen ? 'is-open' : ''}`}
+                width="10" height="6" viewBox="0 0 12 7"
+              >
+                <path d="M1 1l5 5 5-5" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" />
+              </svg>
+            </button>
+
+            <AnimatePresence>
+              {langOpen && (
+                <motion.div
+                  className="header-place__lang-popup"
+                  initial={{ opacity: 0, y: -8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.18 }}
+                >
+                  <button
+                    className={`header-place__lang-option ${lang === "de" ? "is-active" : ""}`}
+                    onClick={() => changeLang("de")}
+                  >
+                    Deutsch
+                  </button>
+                  <button
+                    className={`header-place__lang-option ${lang === "en" ? "is-active" : ""}`}
+                    onClick={() => changeLang("en")}
+                  >
+                    English
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </nav>
 
-        {/* Burger */}
+        {/* Burger (тепер сам по собі, без обгортки __right) */}
         <button
           className={`header-place__burger ${menuOpen ? "is-open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
@@ -101,6 +160,9 @@ export default function Header() {
         >
           <span /><span /><span />
         </button>
+
+        {/* Right-side controls: language popup (desktop only) + burger */}
+       
       </div>
 
       {/* Mobile menu */}
@@ -136,6 +198,24 @@ export default function Header() {
             <Link to="/service" onClick={() => setMenuOpen(false)}>Service</Link>
             <Link to="/angebote" onClick={() => setMenuOpen(false)}>Angebote</Link>
             <Link to="/contact" onClick={() => setMenuOpen(false)}>Kontakt</Link>
+
+            {/* Language switcher inside burger menu */}
+            <div className="header-place__mobile-group header-place__mobile-group--lang">
+              <div className="header-place__mobile-label">Sprache</div>
+              <button
+                className={`header-place__mobile-sub ${lang === "de" ? "is-active" : ""}`}
+                onClick={() => changeLang("de")}
+              >
+                Deutsch
+              </button>
+              <button
+                className={`header-place__mobile-sub ${lang === "en" ? "is-active" : ""}`}
+                onClick={() => changeLang("en")}
+              >
+                English
+              </button>
+            </div>
+
             <a href="#booking" className="header-place__cta" onClick={() => setMenuOpen(false)}>
               Jetzt buchen
             </a>

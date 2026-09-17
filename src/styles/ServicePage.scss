@@ -204,11 +204,28 @@
     margin-bottom: 4px;
   }
 
-  &__desc {
-    font-size: 13px;
-    color: rgba(26, 22, 18, 0.5);
-    line-height: 1.6;
+ &__desc {
+  font-size: 13px;
+  color: rgba(26, 22, 18, 0.5);
+  line-height: 1.6;
+  text-align: justify;
+  text-align-last: left;
+  text-justify: inter-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  text-indent: 1.2em;
+  padding-right: 1.2em;
+
+  @media (max-width: 640px) {
+    text-align: justify;
+    text-align-last: left;
+    text-justify: inter-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+    text-indent: 1.2em;
+    padding-right: 1.2em;
   }
+}
 }
 
 // ─── EXPLORE LINKS (переходи на Freizeit / Umgebung) ───────────────────────────
@@ -397,7 +414,6 @@
     }
   }
 
-
   &__route {
     display: flex;
     flex-direction: column;
@@ -405,7 +421,6 @@
     padding: 12px 14px;
     background: #f5f0e8;
     border-radius: 10px;
-
 
     strong {
       font-size: 13px;

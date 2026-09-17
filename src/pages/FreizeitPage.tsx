@@ -37,9 +37,6 @@ export const FreizeitPage: React.FC = () => {
 
       <section className="service-body">
         <div className="service-body__container">
-
-
-
           <motion.div
             className="service-categories"
             initial="hidden"
