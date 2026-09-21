@@ -871,3 +871,102 @@
     max-width: 480px;
   }
 }
+
+// ─── DISCOUNT PICKER ──────────────────────────────────────────────────────────
+.rp-discount {
+  position: relative;
+  margin-bottom: 16px;
+
+  &__trigger {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f5f0e8;
+    border: 1.5px solid rgba(26,22,18,0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s, background 0.2s;
+    &:hover { border-color: #c9a24d; background: #ede8df; }
+  }
+  &__trigger-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.4);
+    margin-bottom: 3px;
+  }
+  &__trigger-val { font-size: 14px; font-weight: 600; color: #1a1612; }
+
+  &__dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0; right: 0;
+    background: #fff;
+    border: 1px solid rgba(26,22,18,0.1);
+    border-radius: 14px;
+    padding: 10px;
+    box-shadow: 0 12px 36px rgba(26,22,18,0.14);
+    z-index: 50;
+    max-height: 360px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  // ↓↓↓ ОСЬ ЦЕЙ БЛОК ВИ ВСТАВЛЯЄТЕ САМЕ ТУТ ↓↓↓
+  &__option {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    background: none;
+    border: 1.5px solid transparent;
+    border-radius: 10px;
+    padding: 10px 12px;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+
+    &:hover { background: #f5f0e8; }
+    &.is-active { border-color: #c9a24d; background: rgba(201,162,77,0.08); }
+    &.is-disabled { opacity: 0.55; }
+  }
+
+  &__checkbox {
+    width: 18px;
+    height: 18px;
+    accent-color: #1a1612;
+    cursor: pointer;
+    flex-shrink: 0;
+  }
+
+  &__option-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1a1612;
+  }
+  // ↑↑↑ КІНЕЦЬ БЛОКУ ↑↑↑
+
+  &__link {
+    display: block;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1612;
+    padding: 10px;
+    border-top: 1px solid rgba(26,22,18,0.08);
+    margin-top: 4px;
+    text-decoration: none;
+    transition: color 0.2s;
+    &:hover { color: #c9a24d; }
+  }
+}
+
+.rp-card__discount-warn {
+  font-size: 12px;
+  color: #a8402c;
+  margin: -6px 0 12px;
+}

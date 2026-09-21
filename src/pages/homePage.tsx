@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
-import ModalBooking from '../components/ModalBooking';
+import QuickBookingModal from '../components/QuickBookingModal';
 import Testimonials from '../components/Testimonials';
 import { Stat } from '../types/Stat';
 import { fadeUp, stagger } from "../utils/animations";
@@ -328,7 +328,7 @@ export const HomePage: FC = () => {
       </motion.section>
 
       <Footer />
-      <ModalBooking isOpen={isOpen} setIsOpen={setIsOpen} />
+      <QuickBookingModal isOpen={isOpen} setIsOpen={setIsOpen} />
     </div>
   );
 };
