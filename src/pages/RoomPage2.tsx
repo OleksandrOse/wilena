@@ -19,20 +19,14 @@ import { discounts, packages } from "../data/discounts";
 import { checkDiscountEligibility, checkPackageEligibility, computeDiscountAmount } from "../utils/discountUtils";
 import { Discount } from "../types/Discount";
 import { Package } from "../types/Package";
+import { isoDate, addDays, nightsBetween, rangesOverlap, fmtDate, fetchRoomPricing } from "../utils/pricing";
+import { ServerRoom } from "../services/serverRoomService";
 
 type AvailabilityStatus = "idle" | "available" | "unavailable" | "invalid";
 
-const API_URL = "http://localhost:8080";
-
-// Курортний збір (Kurtaxe) — підправте ставку та вік під ваші реальні умови
-const KURTAX_RATE_PER_NIGHT = 3; // € за особу за ніч
-const KURTAX_MIN_AGE = 15; // діти молодше цього віку не платять
-
-function isoDate(d: Date) { return d.toISOString().slice(0, 10); }
-function addDays(d: Date, n: number) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
-function nightsBetween(a: Date, b: Date) { return Math.round((b.getTime() - a.getTime()) / 86400000); }
-function rangesOverlap(aF: Date, aT: Date, bF: Date, bT: Date) { return aF <= bT && bF <= aT; }
-function fmtDate(iso: string) { const [y, m, d] = iso.split("-"); return `${d}.${m}.${y}`; }
+const KURTAX_RATE_PER_NIGHT = 3;
+const KURTAX_MIN_AGE = 17; 
+const PET_FEE = 20;
 
 const MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 const DAYS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
@@ -239,12 +233,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
   const [activeImg, setActiveImg] = useState(0);
   useEffect(() => setActiveImg(0), [id]);
 
-  // ── Актуальна ціна з сервера ──────────────────────────────────────────────
-  const [serverRoom, setServerRoom] = useState<{
-    pricePerNight: number;
-    dayPrices?: { date: string; price: number }[];
-    bookedRanges?: { from: string; to: string }[];
-  } | null>(null);
+  const [serverRoom, setServerRoom] = useState<ServerRoom | null>(null);
   const [priceLoading, setPriceLoading] = useState(true);
   const [priceError, setPriceError] = useState(false);
   const [thankYouOpen, setThankYouOpen] = useState(false);
@@ -254,23 +243,16 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
     setPriceLoading(true);
     setPriceError(false);
 
-    fetch(`${API_URL}/rooms/${id}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Fehler beim Laden der Preise");
-        return res.json();
-      })
-      .then((data) => {
-        if (!cancelled) setServerRoom(data);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setServerRoom(null);
-          setPriceError(true);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setPriceLoading(false);
-      });
+    fetchRoomPricing(id).then((data) => {
+      if (cancelled) return;
+      if (data) {
+        setServerRoom(data);
+      } else {
+        setServerRoom(null);
+        setPriceError(true);
+      }
+      setPriceLoading(false);
+    });
 
     return () => { cancelled = true; };
   }, [id]);
@@ -303,7 +285,6 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
     return total;
   }, [from, to, nights, effectiveRoom]);
 
-  // ── Курортний збір (Kurtaxe) ──────────────────────────────────────────────
   const kurtaxPayers = useMemo(() => {
     const childrenPayers = guests.childrenAges.filter((age) => age >= KURTAX_MIN_AGE).length;
     return guests.adults + childrenPayers;
@@ -314,7 +295,6 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
     return kurtaxPayers * nights * KURTAX_RATE_PER_NIGHT;
   }, [kurtaxPayers, nights]);
 
-  // ── Знижка ─────────────────────────────────────────────────────────────────
   const discountEligibility = useMemo(() => {
     if (!selectedDiscount) return null;
     return checkDiscountEligibility(selectedDiscount, { from, nights });
@@ -325,13 +305,14 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
     return computeDiscountAmount(selectedDiscount, totalPrice, nights);
   }, [selectedDiscount, discountEligibility, totalPrice, nights]);
 
-  // ── Пакет (бонус, не впливає на ціну) ────────────────────────────────────
   const packageEligibility = useMemo(() => {
     if (!selectedPackage) return null;
     return checkPackageEligibility(selectedPackage, nights);
   }, [selectedPackage, nights]);
 
-  const grandTotal = totalPrice + kurtaxTotal - discountAmount;
+  const petFee = guests.hasDog ? PET_FEE : 0;
+
+  const grandTotal = totalPrice + kurtaxTotal + petFee - discountAmount;
 
   const handleCalSelect = (iso: string) => {
     if (selectingFrom || (from && to) || !from) {
@@ -344,7 +325,6 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
 
   const openCal = (isFrom: boolean) => { setSelectingFrom(isFrom); setCalOpen(true); };
 
-  // ── Перевірка доступності + одразу відкриття модалки бронювання ──────────
   const handleBookClick = () => {
     if (!from || !to || nights <= 0) {
       setStatus("invalid");
@@ -374,14 +354,13 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
       pricePerNight: effectiveRoom.pricePerNight,
       roomTotal: totalPrice,
       kurtaxTotal,
+      petFee,
       discountTitle: selectedDiscount?.title,
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
       discountManualReview: discountEligibility?.manualReview,
-      packageTitle: selectedPackage?.title,
-      packageIncludes: selectedPackage?.includes,
       grandTotal,
     };
-  }, [status, from, to, nights, id, room.name, guests, effectiveRoom.pricePerNight, totalPrice, kurtaxTotal, selectedDiscount, discountAmount, discountEligibility, selectedPackage, grandTotal]);
+  }, [status, from, to, nights, id, room.name, guests, effectiveRoom.pricePerNight, totalPrice, kurtaxTotal, petFee, selectedDiscount, discountAmount, discountEligibility, grandTotal]);
 
   useEffect(() => {
     const qFrom = searchParams.get("from");
@@ -566,6 +545,12 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                       <span>Kurtaxe · {kurtaxPayers} Pers. × {nights} Nacht{nights !== 1 ? "e" : ""}</span>
                       <span>€{kurtaxTotal}</span>
                     </div>
+                    {guests.hasDog && (
+                      <div className="rp-card__summary-row">
+                        <span>🐕 Haustier</span>
+                        <span>€{petFee}</span>
+                      </div>
+                    )}
                     {selectedDiscount && discountEligibility?.eligible && (
                       <div className="rp-card__summary-row">
                         <span>{selectedDiscount.icon} {selectedDiscount.title}</span>

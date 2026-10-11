@@ -9,14 +9,15 @@ import {
 import './index.scss';
 import App from './App';
 import { HomePage } from './pages/homePage';
-
-import { Room } from './types/Room';
 import AngebotePage from './pages/AngebotePage';
 import ContactPage from './pages/ContactPage';
 import ServicePage from './pages/ServicePage';
 import RoomPage2 from './pages/RoomPage2';
 import FreizeitPage from './pages/FreizeitPage';
 import UmgebungPage from './pages/UmgebungPage';
+import AdminLoginPage from './pages/AdminLoginPage';
+import ProtectedAdminRoute from './components/ProtectedAdminRoute';
+import AdminPage from './pages/AdminPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -39,12 +40,15 @@ root.render(
         <Route path="/umgebung" element={<UmgebungPage />} />
         <Route path="/service" element={<ServicePage />} />
         <Route path="/contact" element={<ContactPage />} />
-        {/* <Route path="/accessories/*" element={<ProductDetailsPage />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/favorites" element={<FavouritesPage />} />
-
-          <Route path="*" element={<NotFoundPage />} /> */}
-
+        <Route path="/wilena" element={<AdminLoginPage />} />
+        <Route
+          path="/admin"
+          element={
+            <ProtectedAdminRoute>
+              <AdminPage />
+            </ProtectedAdminRoute>
+          }
+        />
       </Route>
     </Routes>
   </Router>,

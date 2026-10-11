@@ -1,0 +1,501 @@
+.admin-page {
+  background: #f5f0e8;
+  color: #1a1612;
+  min-height: 100vh;
+}
+
+.admin-content {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 24px 80px;
+}
+
+.admin-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.admin-title {
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.admin-logout-btn {
+  padding: 9px 16px;
+  background: none;
+  border: 1.5px solid rgba(26, 22, 18, 0.2);
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1a1612;
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+
+  &:hover {
+    border-color: #a8402c;
+    color: #a8402c;
+  }
+}
+
+.admin-login {
+  // fixed + inset:0 (так само, як .modal у ModalBooking.scss) — гарантує
+  // ідеальне центрування по всьому екрану незалежно від того, який
+  // контейнер/лейаут сидить навколо .admin-page (сайдбар, обмежена
+  // ширина тощо). Раніше через min-height:100vh на звичайному div-і
+  // форму могло зсунути вправо, якщо .admin-page опинявся не на всю
+  // ширину батьківського контейнера.
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+  padding: 24px;
+  overflow-y: auto;
+
+  background:
+    radial-gradient(circle at 15% 15%, rgba(201, 162, 77, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 85%, rgba(201, 162, 77, 0.12), transparent 50%),
+    linear-gradient(160deg, #1a1612 0%, #2b241c 55%, #1a1612 100%);
+  animation: admin-login-fade 0.4s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(245, 240, 232, 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 240, 232, 0.03) 1px, transparent 1px);
+    background-size: 42px 42px;
+    pointer-events: none;
+  }
+
+  &__brand {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    text-align: center;
+  }
+
+  &__brand-mark {
+    width: 52px;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(160deg, #c9a24d, #a9812f);
+    color: #1a1612;
+    font-family: 'Georgia', serif;
+    font-size: 24px;
+    font-weight: 700;
+    box-shadow: 0 8px 24px rgba(201, 162, 77, 0.35);
+    margin-bottom: 6px;
+  }
+
+  &__brand-name {
+    font-family: 'Georgia', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #f5f0e8;
+    letter-spacing: 0.01em;
+  }
+
+  &__brand-sub {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.45);
+  }
+
+  &__box {
+    position: relative;
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    background: #f5f0e8;
+    border-radius: 22px;
+    padding: 26px;
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.35), 0 1px 0 rgba(255, 255, 255, 0.4) inset;
+    animation: admin-login-pop 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  &__tabs {
+    display: flex;
+    gap: 6px;
+    background: rgba(26, 22, 18, 0.06);
+    border-radius: 12px;
+    padding: 4px;
+  }
+
+  &__tab {
+    flex: 1;
+    padding: 9px 10px;
+    background: none;
+    border: none;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: rgba(26, 22, 18, 0.5);
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover { color: #1a1612; }
+
+    &.is-active {
+      background: #fff;
+      color: #1a1612;
+      box-shadow: 0 2px 8px rgba(26, 22, 18, 0.1);
+    }
+  }
+
+  &__input-group {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  &__input-icon {
+    position: absolute;
+    left: 14px;
+    font-size: 14px;
+    opacity: 0.55;
+    pointer-events: none;
+  }
+
+  &__input {
+    width: 100%;
+    padding-left: 40px !important;
+  }
+
+}
+
+// ВАЖЛИВО: селектор тут навмисно ".admin-login .admin-form" (два класи),
+// а не просто "&__form" (=".admin-login__form"). Форма в AdminLoginPage.tsx
+// має ОБИДВА класи: className="admin-form admin-login__form". Клас
+// .admin-form (нижче, з padding:16px/border/background:#fff) має ту саму
+// специфічність (один клас), що й одинарний ".admin-login__form" — і хто
+// саме переміг, залежало від порядку в файлі, через що padding/border
+// поверталися і форма розтягувалась ширше за width:100% та вилазила за
+// межі .admin-login__box. Два класи в селекторі дають вищу специфічність,
+// тож це правило тепер надійно перекриває .admin-form незалежно від порядку.
+.admin-login .admin-form {
+  width: 100%;
+  background: transparent;
+  border: none;
+  padding: 0;
+  box-shadow: none;
+  box-sizing: border-box;
+
+  .admin-form__title {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 4px;
+  }
+
+  .admin-form__submit {
+    align-self: stretch;
+    text-align: center;
+    background: linear-gradient(160deg, #1a1612, #2b241c);
+
+    &:hover:not(:disabled) {
+      background: linear-gradient(160deg, #2b241c, #433c2f);
+    }
+  }
+}
+
+@keyframes admin-login-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes admin-login-pop {
+  from { opacity: 0; transform: translateY(16px) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 28px;
+  border-bottom: 1px solid rgba(26, 22, 18, 0.1);
+
+  &__btn {
+    padding: 12px 18px;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: rgba(26, 22, 18, 0.5);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+
+    &:hover { color: #1a1612; }
+
+    &.is-active {
+      color: #1a1612;
+      border-bottom-color: #c9a24d;
+    }
+  }
+}
+
+.admin-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+  }
+
+  &__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(26, 22, 18, 0.45);
+  }
+
+  &__input,
+  &__textarea {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1.5px solid rgba(26, 22, 18, 0.12);
+    font-size: 14px;
+    color: #1a1612;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    font-family: inherit;
+
+    &:focus {
+      outline: none;
+      border-color: #c9a24d;
+      box-shadow: 0 0 0 3px rgba(201, 162, 77, 0.15);
+    }
+  }
+
+  &__textarea {
+    resize: vertical;
+    width: 100%;
+  }
+
+  &__subtitle {
+    margin-top: 12px;
+    font-family: 'Georgia', serif;
+    font-size: 18px;
+    font-weight: 700;
+  }
+
+  &__note {
+    color: rgba(26, 22, 18, 0.5);
+    font-size: 14px;
+  }
+
+  &__error {
+    font-size: 13px;
+    color: #a8402c;
+    background: rgba(200, 60, 40, 0.08);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 0;
+  }
+
+  &__success {
+    font-size: 13px;
+    color: #2e6b2e;
+    background: rgba(90, 140, 90, 0.1);
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin: 0;
+  }
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 20px;
+  border: 1px solid rgba(26, 22, 18, 0.08);
+
+  &__title {
+    font-family: 'Georgia', serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  &__row {
+    display: flex;
+    gap: 12px;
+
+    > * { flex: 1; }
+  }
+
+  &__submit {
+    align-self: flex-start;
+    padding: 12px 22px;
+    background: #1a1612;
+    color: #f5f0e8;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+
+    &:hover:not(:disabled) {
+      background: #433c2f;
+      transform: translateY(-1px);
+    }
+    &:disabled { opacity: 0.6; cursor: not-allowed; }
+  }
+}
+
+.admin-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  &__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    background: #fff;
+    border-radius: 14px;
+    padding: 14px 18px;
+    border: 1px solid rgba(26, 22, 18, 0.08);
+    flex-wrap: wrap;
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+
+    &--review {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      flex: 1;
+    }
+  }
+
+  &__dates {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  &__price {
+    color: #c9a24d;
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  &__badge {
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(201, 162, 77, 0.15);
+    color: #8a6c1f;
+  }
+
+  &__review-head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+  }
+
+  &__review-name {
+    font-weight: 700;
+    font-size: 14px;
+  }
+
+  &__review-stars {
+    color: #c9a24d;
+    letter-spacing: 1px;
+  }
+
+  &__review-text {
+    font-size: 13px;
+    color: rgba(26, 22, 18, 0.7);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+
+  &__edit-btn,
+  &__delete-btn,
+  &__save,
+  &__cancel {
+    padding: 8px 14px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    border: 1.5px solid transparent;
+    transition: background 0.2s, color 0.2s, border-color 0.2s;
+  }
+
+  &__edit-btn {
+    background: none;
+    border-color: rgba(26, 22, 18, 0.2);
+    color: #1a1612;
+    &:hover { border-color: #1a1612; }
+  }
+
+  &__delete-btn {
+    background: none;
+    border-color: rgba(168, 64, 44, 0.3);
+    color: #a8402c;
+    &:hover { background: rgba(168, 64, 44, 0.08); }
+  }
+
+  &__save {
+    background: #1a1612;
+    color: #f5f0e8;
+    &:hover { background: #433c2f; }
+  }
+
+  &__cancel {
+    background: none;
+    border-color: rgba(26, 22, 18, 0.15);
+    color: rgba(26, 22, 18, 0.6);
+    &:hover { border-color: rgba(26, 22, 18, 0.4); }
+  }
+
+  &__edit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+}

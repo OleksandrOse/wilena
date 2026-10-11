@@ -6,6 +6,7 @@ import { fadeUp, stagger } from "../utils/animations";
 import { categories } from "../data/serviceCategories";
 import "../styles/ServicePage.scss";
 import Contact from "../components/Contact";
+import ContactService from "../components/ContactService";
 
 export const ServicePage: React.FC = () => {
   return (
@@ -27,7 +28,7 @@ export const ServicePage: React.FC = () => {
               Gästeservice nach Anfrage
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Zusätzliche Gästeservices sind nur auf Anfrage und gegen Aufpreis erhältlich.
+              Zusätzliche Gästeservices auf Wunsch organisieren wir gerne zusätzliche Services für einen noch komfortableren Aufenthalt. Einige Leistungen sind gegen Aufpreis und nach Verfügbarkeit erhältlich.
             </motion.p>
           </motion.div>
         </div>
@@ -81,7 +82,7 @@ export const ServicePage: React.FC = () => {
             ))}
           </motion.div>
 
-          <Contact title=" unserem Service" />
+          <ContactService title="Service" />
         </div>
       </section>
 

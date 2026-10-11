@@ -6,31 +6,19 @@ import { discounts, packages } from "../data/discounts";
 import { Discount } from "../types/Discount";
 import { Package } from "../types/Package";
 import "../styles/ModalBooking.scss";
-import "../styles/RoomPage2.scss"; // для стилів .rp-discount / .rp-cal-popup, які тут теж використовуються
+import "../styles/RoomPage2.scss";
+import { APARTMENTS } from "../data/apartments";
+import { ServerRoom } from "../services/serverRoomService";
+import { addDays, buildNightlyPrices, fetchRoomPricing, fmtDate, isoDate, rangesOverlap } from "../utils/pricing";
 
 type Props = {
   isOpen: boolean;
   setIsOpen: Dispatch<SetStateAction<boolean>>;
 };
 
-const APARTMENTS = [
-  { id: "1", label: "Apartment 166", path: "/apartment1" },
-  { id: "2", label: "Apartment 172", path: "/apartment2" },
-];
-
-const API_URL = "http://localhost:8080";
-
-function isoDate(d: Date) { return d.toISOString().slice(0, 10); }
-function addDays(d: Date, n: number) { const r = new Date(d); r.setDate(r.getDate() + n); return r; }
-function fmtDate(iso: string) { const [y, m, d] = iso.split("-"); return `${d}.${m}.${y}`; }
-
 function nightsBetween(a: string, b: string) {
   if (!a || !b) return 0;
   return Math.round((new Date(b).getTime() - new Date(a).getTime()) / 86400000);
-}
-
-function rangesOverlap(aF: Date, aT: Date, bF: Date, bT: Date) {
-  return aF <= bT && bF <= aT;
 }
 
 const MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
@@ -49,13 +37,6 @@ function buildMatrix(year: number, month: number) {
   return rows;
 }
 
-type ServerRoom = {
-  pricePerNight: number;
-  dayPrices?: { date: string; price: number }[];
-  bookedRanges?: { from: string; to: string }[];
-};
-
-// ── Calendar Popup (той самий патерн, що й на RoomPage2) ──────────────────────
 function CalendarPopup({
   room,
   from,
@@ -102,10 +83,6 @@ function CalendarPopup({
 
   return (
     <motion.div className="rp-cal-popup" ref={ref}
-      // інлайн-стилі навмисно перекривають абсолютне позиціонування
-      // .rp-cal-popup з RoomPage2.scss (там воно розраховане під верстку
-      // rp-card), щоб календар завжди відкривався одразу під полями дат
-      // всередині модалки, а не ховався поза видимою областю.
       style={{ position: "relative", top: "auto", left: "auto", right: "auto", marginTop: 10, zIndex: 20 }}
       initial={{ opacity: 0, y: -8, scale: 0.97 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -166,38 +143,31 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
   const [calOpen, setCalOpen] = useState(false);
   const [selectingFrom, setSelectingFrom] = useState(true);
 
-  // ── Актуальна ціна з сервера, підвантажується по днях (як на RoomPage2) ───
   const [serverRoom, setServerRoom] = useState<ServerRoom | null>(null);
   const [priceLoading, setPriceLoading] = useState(true);
   const [priceError, setPriceError] = useState(false);
 
   useEffect(() => {
+    if (!isOpen) return;
+
     let cancelled = false;
     setPriceLoading(true);
     setPriceError(false);
 
-    fetch(`${API_URL}/rooms/${apartmentId}`)
-      .then((res) => {
-        if (!res.ok) throw new Error("Fehler beim Laden der Preise");
-        return res.json();
-      })
-      .then((data) => {
-        if (!cancelled) setServerRoom(data);
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setServerRoom(null);
-          setPriceError(true);
-        }
-      })
-      .finally(() => {
-        if (!cancelled) setPriceLoading(false);
-      });
+    fetchRoomPricing(apartmentId).then((data) => {
+      if (cancelled) return;
+      if (data) {
+        setServerRoom(data);
+      } else {
+        setServerRoom(null);
+        setPriceError(true);
+      }
+      setPriceLoading(false);
+    });
 
     return () => { cancelled = true; };
-  }, [apartmentId]);
+  }, [apartmentId, isOpen]);
 
-  // при зміні апартаменту скидаємо обрані дати — ціни/зайнятість для них уже не актуальні
   useEffect(() => {
     setFrom("");
     setTo("");
@@ -208,27 +178,15 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
     [serverRoom]
   );
 
-  const dayPriceMap = useMemo(() => {
-    const m: Record<string, number> = {};
-    (effectiveRoom.dayPrices ?? []).forEach((dp) => { m[dp.date] = dp.price; });
-    return m;
-  }, [effectiveRoom]);
-
   const pricePerNight = serverRoom?.pricePerNight ?? null;
 
   const nights = nightsBetween(from, to);
 
   const totalPrice = useMemo(() => {
-    if (!from || !to || nights <= 0 || pricePerNight === null) return 0;
-    let total = 0;
-    let cur = new Date(from);
-    const end = new Date(to);
-    while (cur < end) {
-      total += dayPriceMap[isoDate(cur)] ?? pricePerNight;
-      cur = addDays(cur, 1);
-    }
-    return total;
-  }, [from, to, nights, dayPriceMap, pricePerNight]);
+    if (!from || !to || nights <= 0) return 0;
+    const nightly = buildNightlyPrices(from, to, effectiveRoom);
+    return nightly.reduce((sum, n) => sum + n.price, 0);
+  }, [from, to, nights, effectiveRoom]);
 
   const isBooked = useMemo(() => {
     if (!from || !to || nights <= 0) return false;
@@ -355,10 +313,6 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                     </span>
                   </div>
                 </div>
-
-                {/* Календар рендериться прямо в потоці під полями дат
-                    (не абсолютним попапом), щоб точно бути видимим
-                    у скролованій модалці незалежно від верстки rp-card */}
                 <AnimatePresence>
                   {calOpen && (
                     <CalendarPopup

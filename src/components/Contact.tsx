@@ -14,9 +14,9 @@ const Contact: React.FC<Props> = ({ title }) => {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h3 className="service-cta__title">Fragen zu{title}?</h3>
+            <h3 className="service-cta__title">Noch Fragen zu{title}?</h3>
             <p className="service-cta__text">
-              Wir geben Ihnen gerne persönliche Empfehlungen. Kontaktieren Sie uns.
+            Gerne geben wir Ihnen persönliche Tipps und Empfehlungen für Ihren Aufenthalt. Sprechen Sie uns einfach an - wir helfen Ihnen gerne weiter
             </p>
             <div className="service-cta__actions">
               <a href="tel:+436647378488" className="service-cta__btn service-cta__btn--primary">

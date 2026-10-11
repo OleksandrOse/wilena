@@ -32,7 +32,7 @@ export const AngebotePage: React.FC = () => {
             </motion.h1>
 
             <motion.p className="angebote-hero__subtitle" variants={fadeUp}>
-              Exklusive Deals für unvergessliche Aufenthalte in Warmbad Villach
+              Besondere Angebote für Ihren Aufenthalt in Warmbad Villach
             </motion.p>
           </motion.div>
         </div>
@@ -44,7 +44,6 @@ export const AngebotePage: React.FC = () => {
         <div className="angebote-body__container">
           {HAS_OFFERS ? (
             <>
-              {/* ─── RABATTE ───────────────────────────── */}
               <motion.div
                 className="angebote-section"
                 initial="hidden"
@@ -87,7 +86,7 @@ export const AngebotePage: React.FC = () => {
                 variants={stagger}
               >
                 <motion.h2 className="angebote-section__title" variants={fadeUp}>
-                  Pauschalangebote
+                  Unsere Urlaubspakete
                 </motion.h2>
 
                 <div className="angebote-grid">

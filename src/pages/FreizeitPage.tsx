@@ -24,10 +24,10 @@ export const FreizeitPage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Freizeit
+              Freizeit & Erholung
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Therme, Seen, Skigebiete und Freizeitparks rund um Warmbad Villach
+              Therme, Seen, Berge und vielfältige Freizeitmöglichkeiten rund um Warmbad Villach
             </motion.p>
           </motion.div>
         </div>
@@ -70,36 +70,28 @@ export const FreizeitPage: React.FC = () => {
                         Die Region mit dem Rad entdecken
                       </motion.h2>
                       <motion.p className="service-highlight__desc" variants={fadeUp}>
-                        Kärnten ist ein tolles Ziel zum Radfahren. Es gibt viele flache Wege an Seen und Flüssen.
-                        Auch schöne Berge für E-Bikes sind da. Die Kärnten Seen-Schleife zeigt Ihnen viele
-                        Gewässer auf einmal. In Kärnten beginnt die Radsaison ein bisschen früher.
-                        Schon ab Ende März sieht man Mountainbiker, Rennradfahrer,
-                        E-Biker und Genussradfahrer auf zahlreichen Trails,
-                        Radwegen und Routen ihre Runden drehen. Denn drei Dinge sind beim Radfahren
-                        in Kärnten immer mit dabei: das herrliche Berg-Seepanorama,
-                        die Alpen-Adria-Küche und die Möglichkeit, sich in einem der zahlreichen Kärntner
-                        Seen zu erfrischen. Kärnten – ein Land für Radbegeisterte, die das Radangebot,
-                        die Natur, das Essen und das Wetter zu schätzen wissen.
+                        Kärnten ist wie geschaffen für Urlaub auf zwei Rädern. Gemütliche Radwege entlang von Seen und Flüssen, sportliche Mountainbike-Strecken und abwechslungsreiche Touren für E-Bikes bieten für jeden das Richtige.
+                        Besonders schön: Unterwegs begleiten Sie immer wieder beeindruckende Berg- und Seepanoramen - und an warmen Tagen lädt einer der zahlreichen Kärntner Seen zu einer erfrischenden Pause ein.
                       </motion.p>
                       <motion.p className="service-highlight__routes-title" variants={fadeUp}>
-                        Bekannte Radwege:
+                        Beliebte Radwege:
                       </motion.p>
                       <motion.div className="service-highlight__routes" variants={fadeUp}>
                         <div className="service-highlight__route">
                           <strong>Drauradweg</strong>
-                          <span>Führt am Fluss entlang durch das ganze Land.</span>
+                          <span>Entspannt entlang der Drau - ideal für Genussradler und Familien.</span>
                         </div>
                         <div className="service-highlight__route">
                           <strong>Alpe-Adria-Radweg</strong>
-                          <span>Geht durch die Berge bis nach Italien.</span>
+                          <span>Eine der schönsten Radrouten der Region - von den Alpen Richtung Italien.</span>
                         </div>
                         <div className="service-highlight__route">
                           <strong>Kärnten Seen-Schleife</strong>
-                          <span>Eine große Tour von etwa 420 km an 20 Seen.</span>
+                          <span>Eine abwechslungsreiche Rundtour, die zahlreiche Kärntner Seen miteinander verbindet.</span>
                         </div>
                         <div className="service-highlight__route">
                           <strong>Millstätter See Radweg</strong>
-                          <span>Etwa 30 km rund um den See.</span>
+                          <span>Eine landschaftlich besonders schöne Runde rund um den Millstätter See.</span>
                         </div>
                       </motion.div>
                       <motion.p className="service-highlight__desc" variants={fadeUp}>

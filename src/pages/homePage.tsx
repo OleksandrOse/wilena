@@ -6,13 +6,17 @@ import Footer from '../components/Footer';
 import QuickBookingModal from '../components/QuickBookingModal';
 import Testimonials from '../components/Testimonials';
 import { Stat } from '../types/Stat';
+import {
+  ComfortIcon, LakesMountainsIcon, ThermalIcon, CyclingIcon,
+  WinterIcon, WellnessIcon, ShoppingIcon,
+} from '../components/FeatureIcons';
 import { fadeUp, stagger } from "../utils/animations";
 import '../styles/HomePage.scss';
 
 const stats: Stat[] = [
   { value: "24/7", label: "Gästeunterstützung" },
   { value: "9,2/10", label: "Booking.com" },
-   { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
+  { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
 ];
 
 const apartments = [
@@ -68,14 +72,13 @@ const apartments = [
 ];
 
 const features = [
-  
-  { icon: '✨', title: 'Komfort & Stil', desc: 'Moderne Ausstattung, Balkon, Vollküche und Klimanlage in jedem Apartment.' },
-  { icon: '🏔️', title: 'Seen & Berge', desc: 'Umgebend von Kärntner Alpen und kristallklaren Seen.' },
-  { icon: "♨️", title: "Therme in der Nähe", desc: "Kärnten Therme ist nur 5 Minuten entfernt." },
-  { icon: "🚴", title: "Fahrradwege und Wanderwege", desc: "Fahrradstellplatz ist vorhanden." },
-   { icon: '⛷️', title: 'Wintersport', desc: 'Langlaufloipe und Ski Lift in der Nähe.' },
-  { icon: '💆', title: 'Wellness und Reha', desc: 'Kurzentrum, Rehazentrum und Privatklinik für Gesundheit sind in der Nähe.' },
-  { icon: '🛍️', title: 'Shopping und Essen', desc: 'Atrio Einkaufszentrum und kärntnerische Küche für jeden Geschmack.' },
+  { icon: <ComfortIcon />, title: 'Komfort & Wohlfühlen', desc: 'Moderne Ausstattung, Balkon, voll ausgestattete Küche und Klimaanlage - für einen entspannten Aufenthalt zu jeder Jahreszeit.' },
+  { icon: <LakesMountainsIcon />, title: 'Seen & Berge', desc: 'Kärntner Seen und beeindruckende Berglandschaften liegen ganz in der Nähe - ideal für Natur, Ausflüge und aktive Urlaubstage.' },
+  { icon: <ThermalIcon />, title: "Thermalbad & Entspannung", desc: "Die KärntenTherme mit Thermalbad, Saunawelt und Erlebnisbereich ist nur etwa 5 Gehminuten entfernt." },
+  { icon: <CyclingIcon />, title: "Radfahren & Wandern", desc: "Zahlreiche Rad- und Wanderwege laden dazu ein, die Natur rund um Warmbad Villach aktiv zu entdecken. Ein Fahrradabstellplatz ist vorhanden." },
+  { icon: <WinterIcon />, title: 'Winter & Berge', desc: 'Skigebiete und Langlaufmöglichkeiten sind schnell erreichbar - perfekt für aktive Wintertage in Kärnten.' },
+  { icon: <WellnessIcon />, title: 'Wellness & Gesundheit', desc: 'Kurzentrum, Reha-Angebote und medizinische Einrichtungen befinden sich in unmittelbarer Umgebung - ideal, um Erholung und Gesundheit miteinander zu verbinden.' },
+  { icon: <ShoppingIcon />, title: 'Genuss & Shopping', desc: 'Das ATRIO Einkaufszentrum sowie Restaurants mit regionaler und internationaler Küche sind schnell erreichbar.' },
 ];
 
 // ─── page ─────────────────────────────────────────────────────────────────────
@@ -108,8 +111,12 @@ export const HomePage: FC = () => {
               Wilena<br />
               <span>apartments</span>
             </motion.h1>
+            <motion.p className="home-hero__sub-title" variants={fadeUp}>
+              Ankommen. Durchatmen. Wohlfühlen.
+            </motion.p>
             <motion.p className="home-hero__subtitle" variants={fadeUp}>
-              Ihr gemütliches Zuhause in Kärnten: — Thermen, Seen, Alpen, Dreiländereck (Österreich, Slowenien, Italien).
+              Ihr Zuhause auf Zeit - zwischen Thermen, Seen und Bergen,
+              im Herzen des Dreiländerecks Österreich - Italien - Slowenien.
             </motion.p>
             <motion.div className="home-hero__actions" variants={fadeUp}>
               <button
@@ -162,37 +169,51 @@ export const HomePage: FC = () => {
               Herzlich willkommen<br />zu Hause!
             </motion.h2>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Willkommen in die  Wilena Apartments — Ihrem Rückzugsort für Erholung,
-              Komfort und unvergessliche Urlaubsmomente.
-               Unsere Apartments vereinen moderne Ausstattung mit einer ruhigen Lage inmitten der Natur.
+              Willkommen in den Wilena Apartments Ihr Rückzugsort für Erholung, Komfort und besondere Urlaubsmomente.
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Die Wilena Apartments befinden sich im Kurort Warmbad Villach,
-              in dem Familienresidenz. Warmbad liegt in einem einzigartigen Bergtal am Dreiländereck Österreich,
-              Slowenien und Italien, unweit der Kärntner Seen und Gerlitzen Alpen.
-              Die Kärntner Therme mit Aquapark und Saunen ist fußläufig erreichbar. 
-              Ein Wald mit antiken römischen Thermalquellen, in dem man inmitten der Natur baden kann, 
-              beginnt direkt vor der Tür. Die Umgebung bietet zahlreiche Möglichkeiten für einen aktiven, 
-              erholsamen oder Wellness Urlaub – ob für Familien mit Kindern oder für eine romantische Reise 
-              für zwei . Dank unserer Autobahnanbindung sind wir besonders praktisch für Gäste, 
-              die auf der Durchreise in den Süden sind. Die kärntnerische  Küche ist wertvoll und vereint die 
-              besten Traditionen der österreichischen Küche mit Einflüssen aus der slowenischen und italienischen 
-              Küche. Hier findet jeder Gast etwas nach seinem Geschmack in jeder Jahreszeit. Wir freuen uns, 
-              Sie bei uns in Wilena Apartments begrüßen zu dürfen.
+              Die Wilena Apartments verbinden modernen Komfort mit einer ruhigen Lage mitten in der Natur - ein Ort zum Ankommen, Abschalten und Genießen.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Unsere Apartments befinden sich im Kurort Warmbad Villach, eingebettet in die wunderschöne Berg- und Seenlandschaft Kärntens. Die besondere Lage nahe dem Dreiländereck Österreich, Italien und Slowenien macht Warmbad Villach zu einem idealen Ausgangspunkt für einen abwechslungsreichen Urlaub zu jeder Jahreszeit.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Die KärntenTherme mit Thermalbad, Aquapark und großzügiger Saunalandschaft ist bequem zu Fuß erreichbar.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Ein ganz besonderes Naturerlebnis beginnt direkt vor der Haustür: Im angrenzenden Wald befinden sich natürliche Thermalquellen, die bereits seit der Römerzeit bekannt sind. Hier kann man mitten in der Natur im warmen Thermalwasser baden - ein außergewöhnliches Erlebnis, das Warmbad Villach so besonders macht.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Auch die bekannten Kärntner Seen sowie die Villacher Alpe und die Gerlitzen sind schnell erreichbar. Im Sommer erwarten Sie Schwimmen, Wandern, Radfahren und zahlreiche Ausflugsmöglichkeiten. Im Winter locken Skigebiete, verschneite Berglandschaften und entspannte Stunden in der Therme.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Die Wilena Apartments sind ideal für Familien mit Kindern, Paare, Aktivurlauber und Wellness-Liebhaber. Und wer einfach Ruhe sucht, findet hier ebenso den richtigen Ort.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Dank der guten Autobahnanbindung sind unsere Apartments außerdem eine komfortable Wahl für Gäste auf dem Weg nach Italien, Slowenien, Kroatien oder weiter Richtung Süden - vielleicht für eine Nacht, vielleicht aber auch für ein paar Tage mehr.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Und natürlich gehört zu Kärnten auch der Genuss. Die regionale Küche verbindet österreichische Tradition mit mediterranen Einflüssen aus Italien und Slowenien - abwechslungsreich, authentisch und überraschend vielfältig.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Natur, Berge, Seen und Thermalwasser. Drei Länder zum Greifen nah. Und mittendrin ein Ort, an dem man sich einfach wohlfühlt.
+            </motion.p>
+            <motion.p className="home-intro__desc" variants={fadeUp}>
+              Wir freuen uns darauf, Sie in den Wilena Apartments willkommen zu heißen.
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
-  {stats.map((stat) => (
-    <div className="home-intro__stat" key={stat.label}>
-      <span className="home-intro__stat-value">
-        {stat.icon && (
-          <img src={stat.icon} alt="" className="home-intro__stat-icon" />
-        )}
-        {stat.value}
-      </span>
-      {stat.label}
-    </div>
-  ))}
-</motion.div>
+              {stats.map((stat) => (
+                <div className="home-intro__stat" key={stat.label}>
+                  <span className="home-intro__stat-value">
+                    {stat.icon && (
+                      <img src={stat.icon} alt="" className="home-intro__stat-icon" />
+                    )}
+                    {stat.value}
+                  </span>
+                  {stat.label}
+                </div>
+              ))}
+            </motion.div>
           </motion.div>
 
           <motion.div
@@ -209,7 +230,17 @@ export const HomePage: FC = () => {
             />
             <img
               className="home-intro__img home-intro__img--accent"
-              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/WhatsApp Image 2026-07-04 at 08.59.51 (6).jpeg`}
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/2.jpg`}
+              alt="Piran"
+            />
+            <img
+              className="home-intro__img home-intro__img--third"
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/3.jpg`}
+              alt="Villach"
+            />
+            <img
+              className="home-intro__img home-intro__img--fourth"
+              src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/5.jpg`}
               alt="Piran"
             />
           </motion.div>
@@ -277,7 +308,7 @@ export const HomePage: FC = () => {
             transition={{ duration: 0.6 }}
           >
             {/* Ihr perfekter Urlaub — <em>Ihre Wahl</em> */}
-            Für die gute Laune sorgen:
+            Alles für eine schöne Auszeit:
           </motion.h2>
           <motion.div
             className="home-features__grid"
@@ -320,7 +351,7 @@ export const HomePage: FC = () => {
             {/* Bereit für Ihren Traumurlaub? */}
             Ihre Zuhause in Kärnten wartet auf Sie!
           </h2>
-          <p className="home-cta__text">Buchen Sie jetzt direkt und sichern Sie sich die besten Preise.</p>
+          <p className="home-cta__text">Buchen Sie direkt und genießen Sie Ihren Aufenthalt in den Wilena Apartments zum besten Preis.</p>
           <button className="home-cta__btn" onClick={() => setIsOpen(true)}>
             Jetzt buchen
           </button>

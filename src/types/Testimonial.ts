@@ -1,5 +1,9 @@
 export interface Testimonial {
-  text: string;
-  author: string;
-  rating: number;
-};
+  id?: string;
+  name: string;
+  surname: string;
+  stars: number;
+  description: string;
+}
+
+export type NewTestimonial = Omit<Testimonial, "id">;
