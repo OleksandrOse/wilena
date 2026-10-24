@@ -1,0 +1,92 @@
+.nr-offer {
+  max-width: 880px;
+  margin: 48px auto;
+  padding: 36px 32px;
+  background: #1a1612;
+  color: #f5f0e8;
+  border-radius: 20px;
+  border: 1px solid rgba(201, 162, 77, 0.35);
+  text-align: left;
+  box-sizing: border-box;
+
+  &__eyebrow {
+    margin: 0 0 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: #c9a24d;
+  }
+
+  &__title {
+    margin: 0 0 14px;
+    font-size: clamp(24px, 3.4vw, 34px);
+    line-height: 1.2;
+    font-weight: 600;
+
+    span { color: #c9a24d; }
+  }
+
+  &__text {
+    margin: 0 0 20px;
+    max-width: 60ch;
+    font-size: 15px;
+    line-height: 1.65;
+    color: rgba(245, 240, 232, 0.8);
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0 0 26px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    font-size: 14px;
+
+    span { color: #c9a24d; font-weight: 700; margin-right: 4px; }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 18px;
+    margin-bottom: 18px;
+  }
+
+  &__cta-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(245, 240, 232, 0.6);
+  }
+
+  &__buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+
+  &__btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #c9a24d;
+    color: #1a1612;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform 0.2s, background 0.2s;
+
+    &:hover { background: #d8b45f; transform: translateY(-1px); }
+  }
+
+  &__note {
+    margin: 0;
+    font-size: 12px;
+    color: rgba(245, 240, 232, 0.5);
+  }
+
+  @media (max-width: 600px) {
+    margin: 32px 16px;
+    padding: 28px 20px;
+    &__list { flex-direction: column; }
+  }
+}

@@ -1,0 +1,89 @@
+// Стилі юридичних сторінок. Підключається разом з ServicePage.scss
+.service-hero--compact {
+  min-height: 260px;
+  height: auto;
+
+  .service-hero__overlay {
+    min-height: inherit;
+    padding: 110px 24px 40px;
+  }
+
+  .service-hero__title {
+    font-size: clamp(32px, 6vw, 56px);
+    line-height: 1.1;
+  }
+}
+
+.legal {
+  max-width: 820px;
+  margin: 0 auto;
+  padding: 24px 0 64px;
+  color: #1a1612;
+
+  &__intro {
+    font-size: 17px;
+    line-height: 1.8;
+    color: rgba(26, 22, 18, 0.7);
+    margin-bottom: 36px;
+  }
+
+  &__section {
+    padding: 28px 0;
+    border-top: 1px solid rgba(26, 22, 18, 0.1);
+
+    &:first-of-type { border-top: none; padding-top: 0; }
+  }
+
+  &__heading {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: clamp(20px, 2.6vw, 26px);
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+
+  &__p {
+    font-size: 16px;
+    line-height: 1.8;
+    color: rgba(26, 22, 18, 0.7);
+    margin-bottom: 12px;
+
+    &--lines span { display: block; }
+  }
+
+  &__list {
+    margin: 0 0 12px;
+    padding: 0;
+    list-style: none;
+
+    li {
+      position: relative;
+      padding-left: 22px;
+      margin-bottom: 10px;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(26, 22, 18, 0.7);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0.7em;
+        width: 8px;
+        height: 1px;
+        background: #c9a24d;
+      }
+    }
+  }
+
+  &__outro {
+    margin-top: 12px;
+    padding-top: 28px;
+    border-top: 1px solid rgba(26, 22, 18, 0.1);
+    font-family: 'Georgia', serif;
+    font-style: italic;
+    font-size: 17px;
+    line-height: 1.7;
+  }
+
+  a { color: #c9a24d; }
+}

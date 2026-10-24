@@ -1,20 +1,11 @@
 export const categories = [
   {
-    title: "Sommersaison",
-    subtitle: "Mai bis Ende September",
+    title: "Flexible An- und Abreise",
+    subtitle: " ",
     icon: "☀️",
     services: [
-      { name: "Check-in ab 16:00 Uhr", desc: "Early Check-in oder Late Check-in nach Verfügbarkeit und auf Anfrage möglich." },
-      { name: "Check-out bis 10:00 Uhr", desc: " " },
-    ],
-  },
-  {
-    title: " Wintersaison",
-    subtitle: "Oktober bis Ende April",
-    icon: "❄️",
-    services: [
-      { name: "Check-in ab 15:00 Uhr", desc: "Early Check-in oder Late Check-in nach Verfügbarkeit und auf Anfrage möglich." },
-      { name: "Check-out bis 11:00 Uhr", desc: "Late Check-out nach Verfügbarkeit kostenfrei möglich." },
+      { name: "Early Check-in", desc: "Nach Verfügbarkeit und vorheriger Absprache möglich." },
+      { name: "Late Check-out", desc: "Nach Verfügbarkeit und vorheriger Absprache möglich." },
     ],
   },
   {

@@ -1,11 +1,21 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import { Guests } from "../types/Guests";
 import "../styles/ModalBooking.scss";
 import { buildNightlyPrices, fetchRoomPricing, fmtDate, groupPriceSegments, PriceSegment } from "../utils/pricing";
 import { ServerRoom } from "../services/serverRoomService";
 import { createBooking, NewBooking } from "../services/bookingService";
 
-const PET_FEE = 20;
+const PET_FEE = 20; // € одноразово за бронювання, якщо є домашня тварина
+const NR_DISCOUNT_RATE = 0.1; // Non-Refundable: −10 % від ціни за ночі
+
+const round2 = (n: number) => Math.round(n * 100) / 100;
+const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
+
+const RATE_LABELS = {
+  flexible: "Flexible Rate",
+  nonrefundable: "Non-Refundable Rate",
+} as const;
 
 export type BookingSummary = {
   roomId: string;
@@ -18,6 +28,9 @@ export type BookingSummary = {
   roomTotal: number;
   kurtaxTotal: number;
   petFee?: number;
+  rateType?: "flexible" | "nonrefundable";
+  rateDiscount?: number;
+  wishes?: string;
   discountTitle?: string;
   discountAmount?: number;
   discountManualReview?: boolean;
@@ -40,6 +53,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
+  const [accepted, setAccepted] = useState(false);
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -82,6 +96,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
     if (!isOpen) {
       setError(null);
       setSubmitting(false);
+      setAccepted(false);
     }
   }, [isOpen]);
 
@@ -90,6 +105,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
     setLastName("");
     setEmail("");
     setPhone("");
+    setAccepted(false);
     setError(null);
   };
 
@@ -120,12 +136,21 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
     [priceSegments]
   );
 
+  // −10 % рахуємо від актуальної ціни за ночі (liveRoomTotal), а не від RoomPage
+  const liveRateDiscount = useMemo(
+    () => (summary?.rateType === "nonrefundable" ? round2(liveRoomTotal * NR_DISCOUNT_RATE) : 0),
+    [summary?.rateType, liveRoomTotal]
+  );
+
   const liveGrandTotal = useMemo(() => {
     if (!summary) return 0;
     const discount = summary.discountAmount ?? 0;
+    // Доплата за домашню тварину (summary.petFee, якщо прийшла з RoomPage) —
+    // а якщо його нема, рахуємо напряму з guests.hasDog, щоб +€20 завжди
+    // потрапляло в підсумок, незалежно від того, звідки відкрита модалка.
     const petFee = summary.petFee ?? (summary.guests.hasDog ? PET_FEE : 0);
-    return liveRoomTotal + summary.kurtaxTotal + petFee - discount;
-  }, [summary, liveRoomTotal]);
+    return round2(liveRoomTotal + summary.kurtaxTotal + petFee - discount - liveRateDiscount);
+  }, [summary, liveRoomTotal, liveRateDiscount]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -133,6 +158,11 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
 
     if (!firstName || !lastName || !email || !phone) {
       setError("Bitte füllen Sie alle Felder aus.");
+      return;
+    }
+
+    if (!accepted) {
+      setError("Bitte akzeptieren Sie die Buchungs- & Stornobedingungen und die Hausordnung.");
       return;
     }
 
@@ -151,6 +181,9 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
       adults: summary.guests.adults,
       children: summary.guests.children,
       childrenAges: summary.guests.childrenAges,
+      // Booking/NewBooking зберігають це поле як `hasDog`, а не `pets` —
+      // раніше тут був невірний ключ `pets`, через що значення губилось і
+      // доплата за тварину не долітала до бекенду.
       hasDog: summary.guests.hasDog,
       dateFrom: summary.dateFrom,
       dateTo: summary.dateTo,
@@ -160,6 +193,9 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
       kurtaxTotal: summary.kurtaxTotal,
       discountTitle: summary.discountTitle,
       discountAmount: summary.discountAmount,
+      rateType: summary.rateType ?? "flexible",
+      rateDiscount: liveRateDiscount > 0 ? liveRateDiscount : undefined,
+      wishes: summary.wishes,
       grandTotal: liveGrandTotal,
     };
 
@@ -194,7 +230,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               ×
             </button>
 
-            <h2 className="modal__title">Zimmerreservierung</h2>
+            <h2 className="modal__title">Buchungsanfrage</h2>
 
             <div className="modal__summary">
               <div className="modal__summary-row">
@@ -226,6 +262,10 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               )}
 
               <div className="modal__summary-row">
+                <span>Tarif</span>
+                <span>{RATE_LABELS[summary.rateType ?? "flexible"]}</span>
+              </div>
+              <div className="modal__summary-row">
                 <span>Kurtaxe</span>
                 <span>€{summary.kurtaxTotal}</span>
               </div>
@@ -233,6 +273,12 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
                 <div className="modal__summary-row">
                   <span>🐕 Haustier</span>
                   <span>€{summary.petFee ?? PET_FEE}</span>
+                </div>
+              )}
+              {liveRateDiscount > 0 && (
+                <div className="modal__summary-row">
+                  <span>Non-Refundable-Tarif · –10 %</span>
+                  <span>–€{eur(liveRateDiscount)}</span>
                 </div>
               )}
               {summary.discountTitle && (
@@ -244,9 +290,15 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
                   <span>{summary.discountAmount ? `–€${summary.discountAmount}` : "–"}</span>
                 </div>
               )}
+              {summary.wishes && (
+                <div className="modal__summary-row modal__summary-row--wishes">
+                  <span>Besondere Wünsche</span>
+                  <span>{summary.wishes}</span>
+                </div>
+              )}
               <div className="modal__summary-total">
                 <span>Gesamt</span>
-                <strong>€{liveGrandTotal}</strong>
+                <strong>€{eur(liveGrandTotal)}</strong>
               </div>
             </div>
 
@@ -284,10 +336,40 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
                 required
               />
 
+              <label className="modal__consent">
+                <input
+                  type="checkbox"
+                  checked={accepted}
+                  onChange={(e) => setAccepted(e.target.checked)}
+                  required
+                />
+                <span>
+                  Ich habe die{" "}
+                  <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
+                    Buchungs- &amp; Stornobedingungen
+                  </Link>{" "}
+                  sowie die{" "}
+                  <Link to="/hausordnung" target="_blank" rel="noopener noreferrer">
+                    Hausordnung
+                  </Link>{" "}
+                  gelesen und akzeptiere diese.
+                </span>
+              </label>
+
+              <p className="modal__privacy">
+                Ihre persönlichen Daten werden vertraulich behandelt und ausschließlich zur
+                Bearbeitung Ihrer Anfrage und Buchung verwendet. Weitere Informationen finden
+                Sie in unserer{" "}
+                <Link to="/datenschutz" target="_blank" rel="noopener noreferrer">
+                  Datenschutzerklärung
+                </Link>
+                .
+              </p>
+
               {error && <p className="modal__error">{error}</p>}
 
               <button className="modal__submit" type="submit" disabled={submitting}>
-                {submitting ? "Wird gesendet…" : "Bestätigen"}
+                {submitting ? "Wird gesendet…" : "Buchungsanfrage senden"}
               </button>
             </form>
           </div>

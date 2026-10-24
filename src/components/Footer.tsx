@@ -1,7 +1,7 @@
 'use client';
 
-import { useState } from 'react';
-import { Mail, Phone, MapPin, Landmark, Copy, Check } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Mail, Phone, MapPin } from 'lucide-react';
 import '../styles/Footer.scss';
 
 const socials = [
@@ -33,7 +33,7 @@ const socials = [
   },
   {
     name: 'WhatsApp',
-    href: 'https://wa.me/436647378488',
+    href: 'https://wa.me/436647374888',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path
@@ -64,100 +64,111 @@ const socials = [
   },
 ];
 
-const bankDetails = [
-  { label: 'Empfänger', value: 'Wilena Apartment' },
-  { label: 'Inhaber', value: 'Dr. Elena Schollenberg' },
-  { label: 'Bank', value: 'Hypo Salzburg' },
-  { label: 'IBAN', value: 'AT57 3400 0647 0449 3128' },
-  { label: 'BIC', value: 'RZOOAT2L' },
+const navLinks = [
+  { to: '/apartment1', label: 'Apartment 166' },
+  { to: '/apartment2', label: 'Apartment 172' },
+  { to: '/angebote', label: 'Angebote' },
+  { to: '/freizeit', label: 'Freizeit' },
+  { to: '/umgebung', label: 'Umgebung' },
+  { to: '/service', label: 'Service' },
+  { to: '/contact', label: 'Kontakt' },
+];
+
+const legalLinks = [
+  { to: '/stornobedingungen', label: 'Buchungs- & Stornobedingungen' },
+  { to: '/hausordnung', label: 'Hausordnung' },
+  { to: '/impressum', label: 'Impressum' },
+  { to: '/datenschutz', label: 'Datenschutz' },
+  { to: '/cookies', label: 'Cookies' },
 ];
 
 export default function Footer() {
-  const [copiedField, setCopiedField] = useState<string | null>(null);
-
-  const handleCopy = async (label: string, value: string) => {
-    try {
-      await navigator.clipboard.writeText(value.replace(/\s/g, ''));
-      setCopiedField(label);
-      setTimeout(() => setCopiedField(null), 2000);
-    } catch (err) {
-      console.error('Copy failed', err);
-    }
-  };
-
   return (
     <footer className="footer" id="contact">
-      <div className="footer__content">
+      <div className="footer__inner">
+        <div className="footer__grid">
 
-        <div className="footer__block footer__block--center">
-          <h3 className="footer__title footer__title--center">Wilena Apartments</h3>
-          <p>
-            <MapPin size={16} />
-            <a
-              href="https://www.google.com/maps/search/?api=1&query=Warmbader+Allee+53%2C+9504+Villach"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Warmbader Allee 53, 9504 Villach
-            </a>
-          </p>
-
-          <h3 className="footer__title footer__title--center">Kontakt</h3>
-          <p>
-            <Mail size={16} />
-            <a href="mailto:wilena@speed.at">wilena@speed.at</a>
-          </p>
-          <p>
-            <Phone size={16} />
-            <a href="tel:+436647378488">+43 664 7378 4888</a>
-          </p>
-
-          <div className="footer__socials">
-            {socials.map((s) => (
-              <a
-                key={s.name}
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.name}
-                className="footer__social"
-              >
-                {s.icon}
-              </a>
-            ))}
+          {/* Brand */}
+          <div className="footer__col footer__col--brand">
+            <h2 className="footer__brand">Wilena Apartments</h2>
+            <p className="footer__tagline">
+              Ankommen. Durchatmen. Wohlfühlen.
+              <br />
+              Ihr Zuhause auf Zeit in Warmbad Villach.
+            </p>
+            <div className="footer__socials">
+              {socials.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
+                  className="footer__social"
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
+
+          {/* Navigation */}
+          <nav className="footer__col" aria-label="Navigation">
+            <h3 className="footer__heading">Entdecken</h3>
+            <ul className="footer__list">
+              {navLinks.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to}>{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          {/* Kontakt */}
+          <div className="footer__col">
+            <h3 className="footer__heading">Kontakt</h3>
+            <ul className="footer__list footer__list--icons">
+              <li>
+                <MapPin size={16} />
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Warmbader+Allee+53%2C+9504+Villach"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Warmbader Allee 53
+                  <br />
+                  9504 Villach, Österreich
+                </a>
+              </li>
+              <li>
+                <Phone size={16} />
+                <a href="tel:+436647374888">+43 664 737 48 88</a>
+              </li>
+              <li>
+                <Mail size={16} />
+                <a href="mailto:wilena@speed.at">wilena@speed.at</a>
+              </li>
+            </ul>
+          </div>
+
+          {/* Rechtliches */}
+          <nav className="footer__col" aria-label="Rechtliches">
+            <h3 className="footer__heading">Rechtliches &amp; Informationen</h3>
+            <ul className="footer__list">
+              {legalLinks.map((l) => (
+                <li key={l.to}>
+                  <Link to={l.to}>{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
         </div>
 
-
-        <div className="footer__block footer__block--center footer__block--bank">
-          <h3 className="footer__title footer__title--center">
-            <Landmark size={16} />
-            <span>Bankverbindung</span>
-          </h3>
-          <div className="footer__bank">
-            {bankDetails.map((item) => (
-              <div className="footer__bank-row" key={item.label}>
-                <span className="footer__bank-label">{item.label}</span>
-                <span className="footer__bank-value">
-                  {item.value}
-                  <button
-                    type="button"
-                    className="footer__copy-btn"
-                    onClick={() => handleCopy(item.label, item.value)}
-                    aria-label={`${item.label} kopieren`}
-                  >
-                    {copiedField === item.label ? (
-                      <Check size={13} />
-                    ) : (
-                      <Copy size={13} />
-                    )}
-                  </button>
-                </span>
-              </div>
-            ))}
-          </div>
+        <div className="footer__bottom">
+          <span>© {new Date().getFullYear()} Wilena Apartments · Dr. Elena Schollenberg</span>
+          <span>Warmbad Villach · Kärnten · Österreich</span>
         </div>
-
       </div>
     </footer>
   );

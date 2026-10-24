@@ -318,7 +318,7 @@
   color: #1a1612;
   line-height: 1.15;
   margin-bottom: 12px;
-}K
+}
 
 .rp-tagline {
   font-size: 17px;
@@ -969,4 +969,237 @@
   font-size: 12px;
   color: #a8402c;
   margin: -6px 0 12px;
+}
+
+
+// ─── RATE PICKER (Flexible / Non-Refundable) ──────────────────────────────────
+.rp-rate {
+  margin-bottom: 16px;
+
+  &__label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.4);
+    margin-bottom: 8px;
+  }
+
+  &__options {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  &__option {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    width: 100%;
+    text-align: left;
+    background: #f5f0e8;
+    border: 1.5px solid rgba(26,22,18,0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+
+    &:hover { border-color: #c9a24d; }
+    &.is-active {
+      border-color: #c9a24d;
+      background: rgba(201,162,77,0.08);
+    }
+  }
+
+  &__radio {
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+    margin-top: 2px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(26,22,18,0.35);
+    position: relative;
+    transition: border-color 0.2s;
+  }
+  &__option.is-active &__radio {
+    border-color: #1a1612;
+    &::after {
+      content: "";
+      position: absolute;
+      inset: 3px;
+      border-radius: 50%;
+      background: #1a1612;
+    }
+  }
+
+  &__text { display: flex; flex-direction: column; gap: 2px; }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1612;
+  }
+
+  &__badge {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #1a1612;
+    background: #c9a24d;
+    border-radius: 100px;
+    padding: 2px 8px;
+  }
+
+  &__sub { font-size: 12px; color: rgba(26,22,18,0.5); line-height: 1.4; }
+
+  &__terms {
+    margin-top: 10px;
+    padding: 12px 14px;
+    border-left: 2px solid #c9a24d;
+    background: #faf8f4;
+    border-radius: 0 10px 10px 0;
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(26,22,18,0.65);
+
+    strong { display: block; color: #1a1612; font-size: 13px; margin-bottom: 4px; }
+    p { margin: 0 0 8px; }
+    a {
+      font-size: 13px;
+      font-weight: 600;
+      color: #1a1612;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,162,77,0.6);
+      transition: color 0.2s;
+      &:hover { color: #c9a24d; }
+    }
+  }
+
+  &__nodiscount {
+    font-size: 12px;
+    line-height: 1.5;
+    color: rgba(26,22,18,0.5);
+    margin: -4px 0 16px;
+  }
+}
+
+.rp-know {
+  background: #fff;
+  border: 1px solid rgba(26,22,18,0.08);
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(26,22,18,0.05);
+
+  &__list {
+    list-style: none;
+    margin: 0 0 20px;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px 32px;
+    @media (max-width: 640px) { grid-template-columns: 1fr; }
+
+    li {
+      position: relative;
+      padding-left: 22px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: rgba(26,22,18,0.75);
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0.75em;
+        width: 9px;
+        height: 1px;
+        background: #c9a24d;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    padding-top: 18px;
+    border-top: 1px solid rgba(26,22,18,0.08);
+
+    a {
+      font-size: 14px;
+      font-weight: 600;
+      color: #1a1612;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(201,162,77,0.6);
+      transition: color 0.2s;
+      &:hover { color: #c9a24d; }
+    }
+  }
+}
+
+
+// ─── BESONDERE WÜNSCHE (optional) ─────────────────────────────────────────────
+.rp-wishes {
+  margin-bottom: 16px;
+
+  &__toggle {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: 1.5px dashed rgba(26,22,18,0.2);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: rgba(26,22,18,0.65);
+    cursor: pointer;
+    transition: border-color 0.2s, color 0.2s, background 0.2s;
+
+    span { color: #c9a24d; font-size: 16px; margin-right: 4px; }
+    em { font-style: normal; font-weight: 400; color: rgba(26,22,18,0.4); }
+
+    &:hover { border-color: #c9a24d; color: #1a1612; background: #faf8f4; }
+  }
+
+  &__label {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: rgba(26,22,18,0.4);
+    margin-bottom: 8px;
+
+    em { font-style: normal; font-weight: 400; letter-spacing: 0.04em; }
+  }
+
+  &__input {
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    min-height: 84px;
+    background: #f5f0e8;
+    border: 1.5px solid rgba(26,22,18,0.1);
+    border-radius: 12px;
+    padding: 12px 14px;
+    font-family: inherit;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #1a1612;
+    transition: border-color 0.2s, background 0.2s;
+
+    &::placeholder { color: rgba(26,22,18,0.35); }
+    &:focus { outline: none; border-color: #c9a24d; background: #fff; }
+  }
+
+  &__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 6px;
+    font-size: 11px;
+    color: rgba(26,22,18,0.4);
+  }
 }

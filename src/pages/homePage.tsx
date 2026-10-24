@@ -41,7 +41,7 @@ const apartments = [
            Strandtasche und Handtücher zur Verfügung. Ein Safe für Ihre persönlichen Gegenstände 
            ist ebenfalls vorhanden.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
-    path: '/apartment1',
+    path: '/apartment-166',
     accent: '#6a9b6e',
   },
   {
@@ -66,7 +66,7 @@ const apartments = [
           für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
           Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
-    path: '/apartment2',
+    path: '/apartment-172',
     accent: '#c9a24d',
   },
 ];

@@ -81,7 +81,7 @@ export default function Header() {
                   transition={{ duration: 0.18 }}
                 >
                   <Link
-                    to="/apartment1"
+                    to="/apartment-166"
                     className="header-place__dropdown-item"
                     onClick={() => setApartmentsOpen(false)}
                   >
@@ -90,7 +90,7 @@ export default function Header() {
                     </div>
                   </Link>
                   <Link
-                    to="/apartment2"
+                    to="/apartment-172"
                     className="header-place__dropdown-item"
                     onClick={() => setApartmentsOpen(false)}
                   >

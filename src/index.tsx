@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {
   HashRouter as Router,
@@ -18,6 +17,15 @@ import UmgebungPage from './pages/UmgebungPage';
 import AdminLoginPage from './pages/AdminLoginPage';
 import ProtectedAdminRoute from './components/ProtectedAdminRoute';
 import AdminPage from './pages/AdminPage';
+import LegalPage from './pages/LegalPage';
+import {
+  stornoDoc,
+  hausordnungDoc,
+  impressumDoc,
+  datenschutzDoc,
+  cookiesDoc
+} from './data/legalContent';
+import NotFoundPage from './pages/NotFoundPage';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -30,8 +38,8 @@ root.render(
         <Route index element={<HomePage />} />
         <Route path="home" element={<Navigate to="/" replace />} />
 
-        <Route path="/apartment1" element={<RoomPage2 key="apt1" apartmentId="1" />} />
-        <Route path="/apartment2" element={<RoomPage2 key="apt2" apartmentId="2" />} />
+        <Route path="/apartment-166" element={<RoomPage2 key="apt1" apartmentId="1" />} />
+        <Route path="/apartment-172" element={<RoomPage2 key="apt2" apartmentId="2" />} />
         <Route
           path="/angebote"
           element={<AngebotePage />}
@@ -40,6 +48,11 @@ root.render(
         <Route path="/umgebung" element={<UmgebungPage />} />
         <Route path="/service" element={<ServicePage />} />
         <Route path="/contact" element={<ContactPage />} />
+        <Route path="/stornobedingungen" element={<LegalPage doc={stornoDoc} />} />
+        <Route path="/hausordnung" element={<LegalPage doc={hausordnungDoc} />} />
+        <Route path="/impressum" element={<LegalPage doc={impressumDoc} />} />
+        <Route path="/datenschutz" element={<LegalPage doc={datenschutzDoc} />} />
+        <Route path="/cookies" element={<LegalPage doc={cookiesDoc} />} />
         <Route path="/wilena" element={<AdminLoginPage />} />
         <Route
           path="/admin"
@@ -49,6 +62,7 @@ root.render(
             </ProtectedAdminRoute>
           }
         />
+        <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
   </Router>,

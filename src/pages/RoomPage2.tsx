@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from "framer-motion";
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useMemo, useState, useEffect, useRef } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -22,11 +22,25 @@ import { Package } from "../types/Package";
 import { isoDate, addDays, nightsBetween, rangesOverlap, fmtDate, fetchRoomPricing } from "../utils/pricing";
 import { ServerRoom } from "../services/serverRoomService";
 
+const GOOD_TO_KNOW = [
+  "Nichtraucher-Apartment",
+  "Ruhezeiten von 22:00 bis 07:00 Uhr",
+  "Keine Partys oder Veranstaltungen",
+  "Haustiere nur nach vorheriger Anfrage",
+  "Check-in & Check-out je nach Saison",
+];
+
 type AvailabilityStatus = "idle" | "available" | "unavailable" | "invalid";
 
 const KURTAX_RATE_PER_NIGHT = 3;
 const KURTAX_MIN_AGE = 17; 
 const PET_FEE = 20;
+const NR_DISCOUNT_RATE = 0.1; // Non-Refundable: 10 % auf den Übernachtungspreis
+
+type RateType = "flexible" | "nonrefundable";
+
+const round2 = (n: number) => Math.round(n * 100) / 100;
+const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
 
 const MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
 const DAYS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
@@ -218,6 +232,106 @@ function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guest
   );
 }
 
+// ── Rate Picker (Flexible / Non-Refundable) ───────────────────────────────────
+function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateType) => void }) {
+  return (
+    <div className="rp-rate">
+      <div className="rp-rate__label">TARIF</div>
+
+      <div className="rp-rate__options" role="radiogroup" aria-label="Tarif wählen">
+        <button
+          type="button"
+          role="radio"
+          aria-checked={value === "flexible"}
+          className={`rp-rate__option ${value === "flexible" ? "is-active" : ""}`}
+          onClick={() => onChange("flexible")}
+        >
+          <span className="rp-rate__radio" />
+          <span className="rp-rate__text">
+            <span className="rp-rate__title">Flexible Rate</span>
+            <span className="rp-rate__sub">Für Gäste, die flexibel bleiben möchten.</span>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          role="radio"
+          aria-checked={value === "nonrefundable"}
+          className={`rp-rate__option ${value === "nonrefundable" ? "is-active" : ""}`}
+          onClick={() => onChange("nonrefundable")}
+        >
+          <span className="rp-rate__radio" />
+          <span className="rp-rate__text">
+            <span className="rp-rate__title">
+              Non-Refundable Rate
+              <span className="rp-rate__badge">–10 %</span>
+            </span>
+            <span className="rp-rate__sub">Sicher planen &amp; sparen</span>
+          </span>
+        </button>
+      </div>
+
+      <div className="rp-rate__terms">
+        {value === "flexible" ? (
+          <>
+            <strong>Stornobedingungen</strong>
+            <p>Kostenfreie Stornierung bis 30 Tage vor Anreise. Danach gelten die entsprechenden Stornogebühren.</p>
+            <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
+              Buchungs- &amp; Stornobedingungen anzeigen →
+            </Link>
+          </>
+        ) : (
+          <>
+            <strong>Nicht stornierbarer Tarif</strong>
+            <p>Diese Buchung ist nicht stornierbar und nicht erstattungsfähig.</p>
+            <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
+              Tarifbedingungen anzeigen →
+            </Link>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ── Besondere Wünsche (optional) ──────────────────────────────────────────────
+const WISHES_MAX = 1000;
+
+function WishesField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const [open, setOpen] = useState(false);
+  const visible = open || value.length > 0;
+
+  return (
+    <div className="rp-wishes">
+      {!visible ? (
+        <button type="button" className="rp-wishes__toggle" onClick={() => setOpen(true)}>
+          <span aria-hidden="true">+</span> Besondere Wünsche hinzufügen <em>(optional)</em>
+        </button>
+      ) : (
+        <>
+          <label className="rp-wishes__label" htmlFor="rp-wishes">
+            BESONDERE WÜNSCHE <em>(optional)</em>
+          </label>
+          <textarea
+            id="rp-wishes"
+            className="rp-wishes__input"
+            rows={3}
+            maxLength={WISHES_MAX}
+            placeholder="z. B. später Check-in, Babybett, ruhige Lage …"
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            autoFocus={open && value.length === 0}
+          />
+          <div className="rp-wishes__meta">
+            <span>Bitte keine sensiblen Gesundheitsdaten angeben.</span>
+            <span>{value.length} / {WISHES_MAX}</span>
+          </div>
+        </>
+      )}
+    </div>
+  );
+}
+
 // ── Main ──────────────────────────────────────────────────────────────────────
 interface RoomPage2Props { apartmentId?: string; }
 
@@ -273,6 +387,8 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [selectedDiscount, setSelectedDiscount] = useState<Discount | null>(null);
   const [selectedPackage, setSelectedPackage] = useState<Package | null>(null);
+  const [rateType, setRateType] = useState<RateType>("flexible");
+  const [wishes, setWishes] = useState("");
 
   const nights = useMemo(() => (!from || !to) ? 0 : nightsBetween(new Date(from), new Date(to)), [from, to]);
 
@@ -312,7 +428,20 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
 
   const petFee = guests.hasDog ? PET_FEE : 0;
 
-  const grandTotal = totalPrice + kurtaxTotal + petFee - discountAmount;
+  const isNonRefundable = rateType === "nonrefundable";
+  // −10 % nur auf den Übernachtungspreis (ohne Kurtaxe und Haustier-Gebühr)
+  const rateDiscount = isNonRefundable ? round2(totalPrice * NR_DISCOUNT_RATE) : 0;
+
+  const grandTotal = round2(totalPrice + kurtaxTotal + petFee - discountAmount - rateDiscount);
+
+  // Non-Refundable ist nicht mit anderen Rabatten/Sonderangeboten kombinierbar
+  const handleRateChange = (r: RateType) => {
+    setRateType(r);
+    if (r === "nonrefundable") {
+      setSelectedDiscount(null);
+      setSelectedPackage(null);
+    }
+  };
 
   const handleCalSelect = (iso: string) => {
     if (selectingFrom || (from && to) || !from) {
@@ -355,12 +484,15 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
       roomTotal: totalPrice,
       kurtaxTotal,
       petFee,
+      rateType,
+      rateDiscount: rateDiscount > 0 ? rateDiscount : undefined,
       discountTitle: selectedDiscount?.title,
       discountAmount: discountAmount > 0 ? discountAmount : undefined,
       discountManualReview: discountEligibility?.manualReview,
+      wishes: wishes.trim() || undefined,
       grandTotal,
     };
-  }, [status, from, to, nights, id, room.name, guests, effectiveRoom.pricePerNight, totalPrice, kurtaxTotal, petFee, selectedDiscount, discountAmount, discountEligibility, grandTotal]);
+  }, [status, from, to, nights, id, room.name, guests, effectiveRoom.pricePerNight, totalPrice, kurtaxTotal, petFee, rateType, rateDiscount, wishes, selectedDiscount, discountAmount, discountEligibility, grandTotal]);
 
   useEffect(() => {
     const qFrom = searchParams.get("from");
@@ -371,6 +503,9 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
     const qChildrenAges = searchParams.get("childrenAges");
     const qDiscount = searchParams.get("discount");
     const qPackage = searchParams.get("package");
+    const qRate = searchParams.get("rate");
+    const nonRefundableFromUrl = qRate === "nonrefundable";
+    if (nonRefundableFromUrl) setRateType("nonrefundable");
 
     if (qFrom) setFrom(qFrom);
     if (qTo) setTo(qTo);
@@ -390,11 +525,11 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
       });
     }
 
-    if (qDiscount) {
+    if (qDiscount && !nonRefundableFromUrl) {
       const d = discounts.find((x) => x.title === qDiscount);
       if (d) setSelectedDiscount(d);
     }
-    if (qPackage) {
+    if (qPackage && !nonRefundableFromUrl) {
       const p = packages.find((x) => x.title === qPackage);
       if (p) setSelectedPackage(p);
     }
@@ -521,16 +656,26 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
 
               <GuestPicker guests={guests} onChange={setGuests} />
 
-              <DiscountPicker
-                discounts={discounts}
-                selected={selectedDiscount}
-                onChange={setSelectedDiscount}
-                packages={packages}
-                selectedPackage={selectedPackage}
-                onPackageChange={setSelectedPackage}
-                from={from}
-                nights={nights}
-              />
+              <RatePicker value={rateType} onChange={handleRateChange} />
+
+              {isNonRefundable ? (
+                <p className="rp-rate__nodiscount">
+                  Der Non-Refundable-Tarif ist nicht mit anderen Rabatten oder Sonderangeboten kombinierbar.
+                </p>
+              ) : (
+                <DiscountPicker
+                  discounts={discounts}
+                  selected={selectedDiscount}
+                  onChange={setSelectedDiscount}
+                  packages={packages}
+                  selectedPackage={selectedPackage}
+                  onPackageChange={setSelectedPackage}
+                  from={from}
+                  nights={nights}
+                />
+              )}
+
+              <WishesField value={wishes} onChange={setWishes} />
 
               <AnimatePresence>
                 {from && to && nights > 0 && (
@@ -551,6 +696,12 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                         <span>€{petFee}</span>
                       </div>
                     )}
+                    {isNonRefundable && rateDiscount > 0 && (
+                      <div className="rp-card__summary-row">
+                        <span>Non-Refundable-Tarif · –10 %</span>
+                        <span>–€{eur(rateDiscount)}</span>
+                      </div>
+                    )}
                     {selectedDiscount && discountEligibility?.eligible && (
                       <div className="rp-card__summary-row">
                         <span>{selectedDiscount.icon} {selectedDiscount.title}</span>
@@ -565,7 +716,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                     )}
                     <div className="rp-card__summary-total">
                       <span>Gesamt</span>
-                      <strong>€{grandTotal}</strong>
+                      <strong>€{eur(grandTotal)}</strong>
                     </div>
                   </motion.div>
                 )}
@@ -616,6 +767,27 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                 <span className="rp-amenity__label">{a.label}</span>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+
+        <div className="rp-full">
+          <motion.h2 className="rp-section-title"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+          >
+            Gut zu wissen
+          </motion.h2>
+          <motion.div className="rp-know"
+            initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
+          >
+            <ul className="rp-know__list">
+              {GOOD_TO_KNOW.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+            <div className="rp-know__links">
+              <Link to="/hausordnung">Hausordnung ansehen →</Link>
+              <Link to="/stornobedingungen">Buchungs- &amp; Stornobedingungen ansehen →</Link>
+            </div>
           </motion.div>
         </div>
 

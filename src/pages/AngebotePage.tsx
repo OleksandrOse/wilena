@@ -6,6 +6,7 @@ import { discounts, packages } from "../data/discounts";
 import { fadeUp, stagger } from "../utils/animations";
 import "../styles/AngebotePage.scss";
 import Contact from "../components/Contact";
+import NonRefundableOffer from "../components/NonRefundableOffer";
 
 const HAS_OFFERS = true;
 
@@ -42,6 +43,9 @@ export const AngebotePage: React.FC = () => {
 
       <section className="angebote-body">
         <div className="angebote-body__container">
+          {/* Non-Refundable-Tarif: immer sichtbar, auch ohne Sonderangebote */}
+          <NonRefundableOffer />
+
           {HAS_OFFERS ? (
             <>
               <motion.div
