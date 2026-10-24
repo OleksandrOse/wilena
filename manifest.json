@@ -1,0 +1,8 @@
+{
+  "short_name": "Wilena",
+  "name": "Wilena Apartments",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#1a1612",
+  "background_color": "#f5f0e8"
+}
