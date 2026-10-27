@@ -3,11 +3,13 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { fadeUp, stagger } from "../utils/animations";
 import { contacts, MAP_SEARCH_URL, MAP_EMBED_URL } from "../data/contacts";
 import "../styles/ContactPage.scss";
 
 export const ContactPage: React.FC = () => {
+  const { t } = useTranslation();
   const [form, setForm] = useState({ name: "", email: "", phone: "", message: "" });
   const [sent, setSent] = useState(false);
 
@@ -33,10 +35,10 @@ export const ContactPage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="contact-hero__title" variants={fadeUp}>
-              Kontakt
+              {t("nav.contact")}
             </motion.h1>
             <motion.p className="contact-hero__subtitle" variants={fadeUp}>
-              Wir freuen uns auf Ihre Nachricht und sind gerne für Sie da.
+              {t("contactPage.subtitle")}
             </motion.p>
           </motion.div>
         </div>
@@ -86,9 +88,9 @@ export const ContactPage: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: "easeOut" }}
             >
-              <h2 className="contact-form-wrap__title">Nachricht senden</h2>
+              <h2 className="contact-form-wrap__title">{t("contactPage.formTitle")}</h2>
               <p className="contact-form-wrap__desc">
-                Füllen Sie das Formular aus — wir antworten innerhalb von 24 Stunden.
+                {t("contactPage.formDesc")}
               </p>
 
               {sent ? (
@@ -99,27 +101,27 @@ export const ContactPage: React.FC = () => {
                   transition={{ duration: 0.4 }}
                 >
                   <div className="contact-success__icon">✓</div>
-                  <h3>Nachricht gesendet!</h3>
-                  <p>Wir melden uns so schnell wie möglich bei Ihnen.</p>
+                  <h3>{t("contactPage.sentTitle")}</h3>
+                  <p>{t("contactPage.sentText")}</p>
                   <button onClick={() => { setSent(false); setForm({ name: "", email: "", phone: "", message: "" }); }}>
-                    Neue Nachricht
+                    {t("contactPage.newMessage")}
                   </button>
                 </motion.div>
               ) : (
                 <form className="contact-form" onSubmit={handleSubmit}>
                   <div className="contact-form__row">
                     <label className="contact-form__field">
-                      <span>Vorname & Nachname *</span>
+                      <span>{t("contactPage.name")}</span>
                       <input
                         type="text"
-                        placeholder="Max Mustermann"
+                        placeholder={t("contactPage.namePh")}
                         value={form.name}
                         onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
                         required
                       />
                     </label>
                     <label className="contact-form__field">
-                      <span>E-Mail *</span>
+                      <span>{t("contactPage.email")}</span>
                       <input
                         type="email"
                         placeholder="max@example.com"
@@ -130,7 +132,7 @@ export const ContactPage: React.FC = () => {
                     </label>
                   </div>
                   <label className="contact-form__field">
-                    <span>Telefon</span>
+                    <span>{t("contactPage.phone")}</span>
                     <input
                       type="tel"
                       placeholder="+43 ..."
@@ -139,9 +141,9 @@ export const ContactPage: React.FC = () => {
                     />
                   </label>
                   <label className="contact-form__field">
-                    <span>Nachricht *</span>
+                    <span>{t("contactPage.message")}</span>
                     <textarea
-                      placeholder="Ihre Nachricht..."
+                      placeholder={t("contactPage.messagePh")}
                       rows={5}
                       value={form.message}
                       onChange={e => setForm(f => ({ ...f, message: e.target.value }))}
@@ -154,7 +156,7 @@ export const ContactPage: React.FC = () => {
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
                   >
-                    Nachricht senden
+                    {t("contactPage.send")}
                   </motion.button>
                 </form>
               )}
@@ -168,7 +170,7 @@ export const ContactPage: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.7, ease: "easeOut", delay: 0.15 }}
             >
-              <h2 className="contact-map__title">Unsere Standorte</h2>
+              <h2 className="contact-map__title">{t("contactPage.locations")}</h2>
               <div className="contact-map__tabs">
                 <a
                   className="contact-map__tab"

@@ -1,3 +1,4 @@
+import './i118';
 import ReactDOM from 'react-dom/client';
 import {
   HashRouter as Router,

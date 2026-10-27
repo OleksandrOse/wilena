@@ -21,7 +21,7 @@ export const BookingForm: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: логіка відправки/перевірки доступності
+    
     console.log({ arrivalDate, departureDate, guests, rooms });
   };
 

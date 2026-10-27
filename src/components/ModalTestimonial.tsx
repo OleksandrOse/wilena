@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/ModalBooking.scss";
 import { NewTestimonial } from "../types/Testimonial";
 
@@ -9,6 +10,7 @@ type Props = {
 };
 
 const ModalTestimonial: React.FC<Props> = ({ isOpen, setIsOpen, onSubmit }) => {
+  const { t } = useTranslation();
   const [newDescription, setNewDescription] = useState("");
   const [newName, setNewName] = useState("");
   const [newSurname, setNewSurname] = useState("");
@@ -37,7 +39,7 @@ const ModalTestimonial: React.FC<Props> = ({ isOpen, setIsOpen, onSubmit }) => {
       setNewStars(5);
       setIsOpen(false);
     } catch {
-      setError("Не вдалося зберегти відгук. Спробуйте ще раз.");
+      setError(t("testimonialModal.errSave"));
     } finally {
       setIsSubmitting(false);
     }
@@ -61,26 +63,32 @@ const ModalTestimonial: React.FC<Props> = ({ isOpen, setIsOpen, onSubmit }) => {
         <div className="modal">
           <div className="modal__overlay" onClick={() => setIsOpen(false)} />
           <div className="modal__content">
-            <button className="modal__close" onClick={() => setIsOpen(false)}>×</button>
-            <h3 className="modal__title">Bewertung hinzufügen</h3>
+            <button
+              className="modal__close"
+              aria-label={t("common.close")}
+              onClick={() => setIsOpen(false)}
+            >
+              ×
+            </button>
+            <h3 className="modal__title">{t("testimonialModal.title")}</h3>
             <form className="modal__form" onSubmit={addTestimonial}>
               <textarea
                 className="modal__textarea"
-                placeholder="Ihre Bewertung"
+                placeholder={t("testimonialModal.review")}
                 value={newDescription}
                 onChange={(e) => setNewDescription(e.target.value)}
               />
               <input
                 className="modal__input"
                 type="text"
-                placeholder="Ihr Vorname"
+                placeholder={t("testimonialModal.firstName")}
                 value={newName}
                 onChange={(e) => setNewName(e.target.value)}
               />
               <input
                 className="modal__input"
                 type="text"
-                placeholder="Ihr Nachname"
+                placeholder={t("testimonialModal.lastName")}
                 value={newSurname}
                 onChange={(e) => setNewSurname(e.target.value)}
               />
@@ -97,7 +105,7 @@ const ModalTestimonial: React.FC<Props> = ({ isOpen, setIsOpen, onSubmit }) => {
               </select>
               {error && <p className="modal__error">{error}</p>}
               <button className="modal__submit" type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Wird gesendet…" : "Submit"}
+                {isSubmitting ? t("testimonialModal.sending") : t("testimonialModal.submit")}
               </button>
             </form>
           </div>

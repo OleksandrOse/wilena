@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import DiscountPicker from "./DiscountPicker";
 import { discounts, packages } from "../data/discounts";
 import { Discount } from "../types/Discount";
@@ -20,9 +21,6 @@ function nightsBetween(a: string, b: string) {
   if (!a || !b) return 0;
   return Math.round((new Date(b).getTime() - new Date(a).getTime()) / 86400000);
 }
-
-const MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-const DAYS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
 function buildMatrix(year: number, month: number) {
   const first = new Date(year, month, 1);
@@ -52,6 +50,9 @@ function CalendarPopup({
   onClose: () => void;
   selectingFrom: boolean;
 }) {
+  const { t } = useTranslation();
+  const months = t("quickBooking.months", { returnObjects: true }) as unknown as string[];
+  const dayNames = t("quickBooking.days", { returnObjects: true }) as unknown as string[];
   const today = new Date();
   const [offset, setOffset] = useState(0);
   const viewDate = new Date(today.getFullYear(), today.getMonth() + offset, 1);
@@ -90,16 +91,16 @@ function CalendarPopup({
       transition={{ duration: 0.18 }}
     >
       <div className="rp-cal-popup__header">
-        <span>{selectingFrom ? "Anreisedatum wählen" : "Abreisedatum wählen"}</span>
+        <span>{selectingFrom ? t("quickBooking.pickArrival") : t("quickBooking.pickDeparture")}</span>
         <button onClick={onClose}>✕</button>
       </div>
       <div className="rp-cal-popup__nav">
         <button onClick={() => setOffset((o) => Math.max(0, o - 1))} disabled={offset === 0}>‹</button>
-        <span>{MONTHS_DE[viewDate.getMonth()]} {viewDate.getFullYear()}</span>
+        <span>{months[viewDate.getMonth()]} {viewDate.getFullYear()}</span>
         <button onClick={() => setOffset((o) => o + 1)}>›</button>
       </div>
       <div className="rp-cal-popup__grid">
-        {DAYS_DE.map((d) => <div key={d} className="rp-cal-popup__dayname">{d}</div>)}
+        {dayNames.map((d) => <div key={d} className="rp-cal-popup__dayname">{d}</div>)}
         {matrix.flat().map((date, i) => {
           if (!date) return <div key={i} className="rp-cal-popup__cell rp-cal-popup__cell--empty" />;
           const iso = isoDate(date);
@@ -118,7 +119,7 @@ function CalendarPopup({
             >
               <span className="rp-cal-popup__day">{date.getDate()}</span>
               {!isPast && !isBooked && <span className="rp-cal-popup__price">€{price}</span>}
-              {isBooked && <span className="rp-cal-popup__booked">Belegt</span>}
+              {isBooked && <span className="rp-cal-popup__booked">{t("quickBooking.booked")}</span>}
             </button>
           );
         })}
@@ -128,6 +129,7 @@ function CalendarPopup({
 }
 
 const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [apartmentId, setApartmentId] = useState("1");
   const [from, setFrom] = useState("");
@@ -232,15 +234,15 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
     e.preventDefault();
 
     if (!from || !to) {
-      setError("Bitte wählen Sie Anreise- und Abreisedatum.");
+      setError(t("quickBooking.errDates"));
       return;
     }
     if (from >= to) {
-      setError("Das Abreisedatum muss nach dem Anreisedatum liegen.");
+      setError(t("quickBooking.errOrder"));
       return;
     }
     if (isBooked) {
-      setError("Für diesen Zeitraum ist das Apartment leider bereits belegt.");
+      setError(t("quickBooking.errBooked"));
       return;
     }
 
@@ -276,11 +278,11 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
           <div className="modal__overlay" onClick={() => setIsOpen(false)}></div>
 
           <div className="modal__content">
-            <button className="modal__close" onClick={() => setIsOpen(false)}>
+            <button className="modal__close" aria-label={t("common.close")} onClick={() => setIsOpen(false)}>
               ×
             </button>
 
-            <h2 className="modal__title">Ihren Aufenthalt planen</h2>
+            <h2 className="modal__title">{t("quickBooking.title")}</h2>
 
             <form className="modal__form" onSubmit={handleSubmit}>
               <div className="modal__field">
@@ -297,19 +299,19 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
               </div>
 
               <div className="modal__field">
-                <label className="modal__label">Zeitraum</label>
+                <label className="modal__label">{t("quickBooking.period")}</label>
                 <div className="rp-card__dates">
                   <div className="rp-card__date-field" onClick={() => openCal(true)}>
-                    <span className="rp-card__date-label">ANREISE</span>
+                    <span className="rp-card__date-label">{t("quickBooking.arrival")}</span>
                     <span className={`rp-card__date-val ${from ? "" : "rp-card__date-val--placeholder"}`}>
-                      {from ? fmtDate(from) : "Datum wählen"}
+                      {from ? fmtDate(from) : t("quickBooking.pickDate")}
                     </span>
                   </div>
                   <div className="rp-card__date-sep">→</div>
                   <div className="rp-card__date-field" onClick={() => openCal(false)}>
-                    <span className="rp-card__date-label">ABREISE</span>
+                    <span className="rp-card__date-label">{t("quickBooking.departure")}</span>
                     <span className={`rp-card__date-val ${to ? "" : "rp-card__date-val--placeholder"}`}>
-                      {to ? fmtDate(to) : "Datum wählen"}
+                      {to ? fmtDate(to) : t("quickBooking.pickDate")}
                     </span>
                   </div>
                 </div>
@@ -329,21 +331,21 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 
               <div className="modal__price">
                 {priceLoading ? (
-                  <span className="modal__price-note">Preise werden geladen…</span>
+                  <span className="modal__price-note">{t("modalBooking.loadingPrices")}</span>
                 ) : priceError ? (
                   <span className="modal__price-note">
-                    Aktueller Preis konnte nicht geladen werden.
+                    {t("quickBooking.priceError")}
                   </span>
                 ) : (
                   <>
                     <span className="modal__price-per-night">
-                      ab €{pricePerNight} / Nacht
+                      {t("quickBooking.from", { price: pricePerNight })}
                     </span>
                     {from && to && nights > 0 && (
                       <span className="modal__price-total">
                         {isBooked
-                          ? "Für diesen Zeitraum leider belegt"
-                          : `€${totalPrice} für ${nights} Nacht${nights !== 1 ? "e" : ""}`}
+                          ? t("quickBooking.unavailable")
+                          : t("quickBooking.totalFor", { total: totalPrice, count: nights })}
                       </span>
                     )}
                   </>
@@ -352,7 +354,7 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 
               <div className="modal__counter-row">
                 <div className="modal__counter-field">
-                  <span className="modal__label">Erwachsene</span>
+                  <span className="modal__label">{t("quickBooking.adults")}</span>
                   <div className="modal__counter">
                     <button
                       type="button"
@@ -369,7 +371,7 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                 </div>
 
                 <div className="modal__counter-field">
-                  <span className="modal__label">Kinder</span>
+                  <span className="modal__label">{t("quickBooking.children")}</span>
                   <div className="modal__counter">
                     <button
                       type="button"
@@ -390,14 +392,14 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
                 <div className="modal__ages">
                   {childrenAges.map((age, i) => (
                     <div className="modal__age-row" key={i}>
-                      <span className="modal__age-label">Alter – Kind {i + 1}</span>
+                      <span className="modal__age-label">{t("quickBooking.childAge", { n: i + 1 })}</span>
                       <select
                         className="modal__age-select"
                         value={age}
                         onChange={(e) => setChildAge(i, Number(e.target.value))}
                       >
                         {Array.from({ length: 18 }).map((_, a) => (
-                          <option key={a} value={a}>{a} {a === 1 ? "Jahr" : "Jahre"}</option>
+                          <option key={a} value={a}>{t("quickBooking.years", { count: a })}</option>
                         ))}
                       </select>
                     </div>
@@ -407,8 +409,8 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
 
               <div className="modal__field modal__field--dog">
                 <div>
-                  <span className="modal__label">🐕 Haustier</span>
-                  <div className="modal__sublabel">Reisen Sie mit einem Hund?</div>
+                  <span className="modal__label">🐕 {t("modalBooking.pet")}</span>
+                  <div className="modal__sublabel">{t("quickBooking.dogQuestion")}</div>
                 </div>
                 <button
                   type="button"
@@ -434,7 +436,7 @@ const QuickBookingModal: React.FC<Props> = ({ isOpen, setIsOpen }) => {
               {error && <p className="modal__error">{error}</p>}
 
               <button className="modal__submit" type="submit" disabled={isBooked}>
-                Weiter zur Buchung
+                {t("quickBooking.next")}
               </button>
             </form>
           </div>

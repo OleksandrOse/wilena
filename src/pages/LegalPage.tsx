@@ -1,10 +1,12 @@
 import { FC } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslation } from 'react-i18next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import Breadcrumbs from '../components/Breadcrumbs';
 import { fadeUp, stagger } from '../utils/animations';
 import { LegalDoc, LegalBlock } from '../data/legalContent';
+import { legalDocsEn, LegalDocEn } from '../data/legalContent.en';
 import '../styles/ServicePage.scss';
 import '../styles/LegalPage.scss';
 
@@ -24,47 +26,55 @@ const renderBlock = (b: LegalBlock, i: number) => {
   );
 };
 
-const LegalPage: FC<{ doc: LegalDoc }> = ({ doc }) => (
-  <div className="service-page">
-    <Header />
+const LegalPage: FC<{ doc: LegalDoc }> = ({ doc: deDoc }) => {
+  const { i18n } = useTranslation();
+  const isEn = i18n.resolvedLanguage?.startsWith('en');
+  // Англійська версія, якщо є; інакше (і для німецької) — оригінал без змін
+  const doc: LegalDocEn = (isEn && legalDocsEn[deDoc.slug]) || deDoc;
 
-    <section className="service-hero service-hero--compact">
-      <div className="service-hero__overlay">
-        <motion.div className="service-hero__content" initial="hidden" animate="visible" variants={stagger}>
-          <motion.p className="service-hero__eyebrow" variants={fadeUp}>WILENA APARTMENTS</motion.p>
-          <motion.h1 className="service-hero__title" variants={fadeUp}>{doc.title}</motion.h1>
-        </motion.div>
-      </div>
-    </section>
+  return (
+    <div className="service-page">
+      <Header />
 
-    <Breadcrumbs />
+      <section className="service-hero service-hero--compact">
+        <div className="service-hero__overlay">
+          <motion.div className="service-hero__content" initial="hidden" animate="visible" variants={stagger}>
+            <motion.p className="service-hero__eyebrow" variants={fadeUp}>WILENA APARTMENTS</motion.p>
+            <motion.h1 className="service-hero__title" variants={fadeUp}>{doc.title}</motion.h1>
+          </motion.div>
+        </div>
+      </section>
 
-    <section className="service-body">
-      <div className="service-body__container">
-        <article className="legal">
-          {doc.intro && <p className="legal__intro">{doc.intro}</p>}
+      <Breadcrumbs />
 
-          {doc.sections.map((s, i) => (
-            <motion.section
-              key={`${s.heading}-${i}`}
-              className="legal__section"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.2 }}
-              transition={{ duration: 0.5 }}
-            >
-              {s.heading && <h2 className="legal__heading">{s.heading}</h2>}
-              {s.blocks.map(renderBlock)}
-            </motion.section>
-          ))}
+      <section className="service-body">
+        <div className="service-body__container">
+          <article className="legal">
+            {doc.note && <p className="legal__intro"><em>{doc.note}</em></p>}
+            {doc.intro && <p className="legal__intro">{doc.intro}</p>}
 
-          {doc.outro && <p className="legal__outro">{doc.outro}</p>}
-        </article>
-      </div>
-    </section>
+            {doc.sections.map((s, i) => (
+              <motion.section
+                key={`${s.heading}-${i}`}
+                className="legal__section"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5 }}
+              >
+                {s.heading && <h2 className="legal__heading">{s.heading}</h2>}
+                {s.blocks.map(renderBlock)}
+              </motion.section>
+            ))}
 
-    <Footer />
-  </div>
-);
+            {doc.outro && <p className="legal__outro">{doc.outro}</p>}
+          </article>
+        </div>
+      </section>
+
+      <Footer />
+    </div>
+  );
+};
 
 export default LegalPage;

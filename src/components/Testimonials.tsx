@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/Testimonials.scss";
 import ModalTestimonial from "./ModalTestimonial";
 import TestimonialsCard from "./TestimonialsCard";
@@ -12,6 +13,7 @@ const AUTOPLAY_DELAY = 5000;
 const getVisibleCount = () => (window.innerWidth >= 1024 ? 3 : 1);
 
 export default function Testimonials() {
+  const { t } = useTranslation();
   const [testimonials, setTestimonials] = useState<Testimonial[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -74,12 +76,13 @@ export default function Testimonials() {
 
   return (
     <section className="testimonials">
-      <h2 className="testimonials__title">Was unsere Gäste sagen</h2>
+      <h2 className="testimonials__title">{t("testimonials.title")}</h2>
 
       {!isLoading && testimonials.length > 0 && (
         <div className="testimonials__carousel">
           <button
             className="testimonials__arrow"
+            aria-label={t("testimonials.prev")}
             onClick={() =>
               setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1))
             }
@@ -90,6 +93,7 @@ export default function Testimonials() {
           <div className="testimonials__track">
             {visibleTestimonials.map(({ item, realIndex }) => (
               <TestimonialsCard
+                key={realIndex}
                 item={item}
                 isExpanded={expandedIndex === realIndex}
                 onToggle={() =>
@@ -105,6 +109,7 @@ export default function Testimonials() {
 
           <button
             className="testimonials__arrow"
+            aria-label={t("testimonials.next")}
             onClick={() =>
               setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1))
             }
@@ -114,7 +119,7 @@ export default function Testimonials() {
         </div>
       )}
 
-      <Button onClick={() => setIsModalOpen(true)}>Bewertung hinzufügen</Button>
+      <Button onClick={() => setIsModalOpen(true)}>{t("testimonials.add")}</Button>
 
       <ModalTestimonial
         isOpen={isModalOpen}

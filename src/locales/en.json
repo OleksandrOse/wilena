@@ -1,0 +1,842 @@
+{
+  "common": {
+    "bookNow": "Book now",
+    "send": "Send",
+    "close": "Close",
+    "back": "Back",
+    "nights": "nights",
+    "perNight": "per night"
+  },
+  "nav": {
+    "home": "Home",
+    "apartments": "Apartments",
+    "offers": "Offers",
+    "service": "Service",
+    "contact": "Contact",
+    "freizeit": "Leisure",
+    "umgebung": "Surroundings",
+    "language": "Language",
+    "chooseLanguage": "Choose language",
+    "menu": "Menu"
+  },
+  "booking": {
+    "title": "Booking request",
+    "submit": "Send booking request",
+    "wishes": "Special requests (optional)",
+    "consent": "I have read the privacy policy and agree."
+  },
+  "footer": {
+    "tagline1": "Arrive. Breathe. Feel at home.",
+    "tagline2": "Your home away from home in Warmbad Villach.",
+    "discover": "Discover",
+    "navAria": "Navigation",
+    "legalAria": "Legal",
+    "legalHeading": "Legal & Information",
+    "terms": "Booking & Cancellation Terms",
+    "houseRules": "House Rules",
+    "imprint": "Legal Notice",
+    "privacy": "Privacy Policy",
+    "cookies": "Cookies",
+    "addressCountry": "9504 Villach, Austria",
+    "region": "Warmbad Villach · Carinthia · Austria"
+  },
+  "crumbs": {
+    "aria": "Breadcrumb",
+    "apartment1": "Apartment 166",
+    "apartment2": "Apartment 172",
+    "apartment-166": "Apartment 166",
+    "apartment-172": "Apartment 172",
+    "freizeit": "Leisure",
+    "umgebung": "Surroundings",
+    "service": "Service",
+    "angebote": "Offers",
+    "contact": "Contact",
+    "stornobedingungen": "Booking & Cancellation Terms",
+    "hausordnung": "House Rules",
+    "impressum": "Legal Notice",
+    "datenschutz": "Privacy Policy",
+    "cookies": "Cookies",
+    "admin": "Admin"
+  },
+  "contactCta": {
+    "title": "Questions about {{title}}?",
+    "text": "We are happy to give you personal tips and recommendations for your stay. Just get in touch – we are glad to help."
+  },
+  "contactService": {
+    "title": "Would you like an additional {{title}}?",
+    "text": "Please get in touch. We do our best to make your stay as pleasant and uncomplicated as possible."
+  },
+  "discountPicker": {
+    "label": "Discounts & packages",
+    "none": "Nothing selected",
+    "discounts": "Discounts",
+    "packages": "Packages",
+    "allOffers": "View all offers →"
+  },
+  "modalBooking": {
+    "title": "Booking request",
+    "nights_one": "{{count}} night",
+    "nights_other": "{{count}} nights",
+    "loadingPrices": "Loading prices…",
+    "rate": "Rate",
+    "tax": "Tourist tax",
+    "pet": "Pet",
+    "nrDiscount": "Non-Refundable rate · –10 %",
+    "discount": "Discount",
+    "underReview": "(under review)",
+    "wishes": "Special requests",
+    "total": "Total",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "email": "E-mail",
+    "phone": "Phone number",
+    "consent": "I have read and accept the <terms>Booking & Cancellation Terms</terms> and the <rules>House Rules</rules>.",
+    "privacy": "Your personal data is treated confidentially and used solely to process your enquiry and booking. For more information, see our <privacy>Privacy Policy</privacy>.",
+    "sending": "Sending…",
+    "submit": "Send booking request",
+    "errFields": "Please fill in all fields.",
+    "errConsent": "Please accept the Booking & Cancellation Terms and the House Rules.",
+    "errSend": "There was a problem sending your request. Please try again."
+  },
+  "testimonialModal": {
+    "title": "Add a review",
+    "review": "Your review",
+    "firstName": "Your first name",
+    "lastName": "Your last name",
+    "sending": "Sending…",
+    "submit": "Submit",
+    "errSave": "Your review could not be saved. Please try again."
+  },
+  "thankYou": {
+    "title": "Thank you for your booking request!",
+    "text1": "We have received your request and are checking the availability of the apartment you selected.",
+    "text2": "Your booking is not yet confirmed at this stage. Once we have checked availability, you will receive a booking confirmation from us with all further information on payment."
+  },
+  "nrOffer": {
+    "eyebrow": "FLEXIBLE OR CHEAPER",
+    "title": "Non-cancellable – <hl>save 10 %</hl>",
+    "text": "Already know your travel dates? Book at the lower Non-Refundable rate and save 10 % on the regular nightly price.",
+    "benefit1": "10 % price advantage",
+    "benefit2": "Payment at booking",
+    "benefit3": "Non-cancellable and non-refundable",
+    "note": "This offer cannot be combined with other discounts or special offers."
+  },
+  "quickBooking": {
+    "pickArrival": "Select arrival date",
+    "pickDeparture": "Select departure date",
+    "months": [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ],
+    "days": [
+      "Mo",
+      "Tu",
+      "We",
+      "Th",
+      "Fr",
+      "Sa",
+      "Su"
+    ],
+    "booked": "Booked",
+    "errDates": "Please select an arrival and a departure date.",
+    "errOrder": "The departure date must be after the arrival date.",
+    "errBooked": "Unfortunately, the apartment is already booked for this period.",
+    "title": "Plan your stay",
+    "period": "Dates",
+    "arrival": "ARRIVAL",
+    "departure": "DEPARTURE",
+    "pickDate": "Select date",
+    "priceError": "The current price could not be loaded.",
+    "from": "from €{{price}} / night",
+    "unavailable": "Unfortunately booked for this period",
+    "totalFor_one": "€{{total}} for {{count}} night",
+    "totalFor_other": "€{{total}} for {{count}} nights",
+    "adults": "Adults",
+    "children": "Children",
+    "childAge": "Age – child {{n}}",
+    "years_one": "{{count}} year",
+    "years_other": "{{count}} years",
+    "dogQuestion": "Are you travelling with a dog?",
+    "next": "Continue to booking"
+  },
+  "testimonials": {
+    "title": "What our guests say",
+    "add": "Add a review",
+    "prev": "Previous review",
+    "next": "Next review",
+    "more": "Read more",
+    "less": "Show less",
+    "starsLabel_one": "{{count}} out of 5 stars",
+    "starsLabel_other": "{{count}} out of 5 stars"
+  },
+  "freizeit": {
+    "therme": {
+      "title": "Kärntner Therme",
+      "walk": {
+        "name": "Within easy walking distance",
+        "desc": "Just a few minutes' walk away. The KärntenTherme is easily reached on foot from Wilena Apartments – you are there in about 5 minutes."
+      },
+      "fun": {
+        "name": "Bathing fun & wellness",
+        "desc": "Water slides and adventure areas for the whole family, soothing thermal water and a spacious sauna world – this is where an active holiday meets relaxation."
+      },
+      "towels": {
+        "name": "Towels included",
+        "desc": "Bath bag & towels included: for your visit to the KärntenTherme we provide a bath bag and additional towels free of charge."
+      }
+    },
+    "bike": {
+      "title": "Cycling",
+      "region": {
+        "name": "Discover the region by bike",
+        "desc": "Carinthia is a great destination for cycling. There are plenty of flat paths along lakes and rivers, and beautiful mountains for e-bikes too. The Kärnten Seen-Schleife (Carinthian Lakes Loop) shows you many lakes at once. In Carinthia the cycling season starts a little earlier: from the end of March you can already see mountain bikers, road cyclists, e-bikers and leisure cyclists riding on numerous trails, cycle paths and routes. Three things always come along when cycling in Carinthia: the magnificent mountain-and-lake panorama, Alpe-Adria cuisine and the chance to cool off in one of the many Carinthian lakes. Carinthia – a land for cycling enthusiasts who appreciate the cycling offer, the nature, the food and the weather. Well-known cycle routes:"
+      }
+    },
+    "lakes": {
+      "title": "Lakes & swimming",
+      "faaker": {
+        "name": "Faakersee",
+        "desc": "Turquoise water and an impressive mountain backdrop – ideal for swimming and relaxing."
+      },
+      "ossiacher": {
+        "name": "Ossiacher See",
+        "desc": "Swimming, water sports, boat trips and plenty of leisure activities around the lake."
+      },
+      "woerthersee": {
+        "name": "Wörthersee",
+        "desc": "One of Carinthia's best-known lakes – with lido beaches, boat trips and a Mediterranean holiday feel."
+      }
+    },
+    "ski": {
+      "title": "Skiing",
+      "gerlitzen": {
+        "name": "Gerlitzen Alpe",
+        "desc": "Family-friendly ski area with varied slopes and magnificent panoramic views."
+      },
+      "nassfeld": {
+        "name": "Nassfeld",
+        "desc": "Large ski area with a wide range of slopes and plenty of options for an active winter day."
+      },
+      "alpenarena": {
+        "name": "Alpenarena Villach",
+        "desc": "Cross-country skiing, ski jumping and winter activities right in Villach – ideal for anyone who wants to experience Nordic winter sports."
+      }
+    },
+    "parks": {
+      "title": "Leisure parks for the whole family",
+      "familypark": {
+        "name": "Familypark Ossiacher See",
+        "desc": "Familywald Ossiacher See: adventure, exercise and fun in nature for the whole family."
+      },
+      "affenberg": {
+        "name": "Adventure Affenberg (Monkey Mountain)",
+        "desc": "Experience free-living Japanese macaques up close – a special experience for young and old."
+      },
+      "kletterwald": {
+        "name": "Ossiacher See climbing forest",
+        "desc": "Varied climbing courses for children and adults – with a magnificent view of Lake Ossiach."
+      },
+      "adler": {
+        "name": "Eagle Arena Landskron Castle",
+        "desc": "Experience impressive birds of prey up close – against the historic backdrop of Landskron Castle."
+      },
+      "rosegg": {
+        "name": "Rosegg Wildlife Park",
+        "desc": "A near-natural wildlife park with native and exotic animals – a lovely excursion for the whole family."
+      },
+      "minimundus": {
+        "name": "Minimundus Klagenfurt",
+        "desc": "The world in miniature."
+      },
+      "pyramidenkogel": {
+        "name": "Pyramidenkogel",
+        "desc": "The tallest wooden observation tower in the world, with a slide."
+      }
+    },
+    "rain": {
+      "title": "Bad weather? No problem!",
+      "therme": {
+        "name": "Kärnten Therme",
+        "desc": "Thermal water, wellness and bathing fun – perfect for relaxing hours in any weather."
+      },
+      "reptilien": {
+        "name": "Happ Reptile Zoo Klagenfurt",
+        "desc": "Discover fascinating reptiles and amphibians up close."
+      },
+      "planetarium": {
+        "name": "Planetarium Klagenfurt",
+        "desc": "An exciting journey through stars, planets and the universe."
+      },
+      "jump": {
+        "name": "Jump Dome Klagenfurt",
+        "desc": "Trampoline fun, exercise and action for children and adults."
+      },
+      "terra": {
+        "name": "Terra Mystica show mine",
+        "desc": "A fascinating journey into the mining history of Bad Bleiberg."
+      },
+      "granatium": {
+        "name": "Granatium Radenthein",
+        "desc": "Discover the fascinating world of the Carinthian garnet – including an experience area all about the gemstone."
+      },
+      "obir": {
+        "name": "Obir stalactite caves",
+        "desc": "An impressive underground world of rock, water and stalactites."
+      },
+      "kart": {
+        "name": "Rosental indoor kart track",
+        "desc": "Karting fun and action – regardless of weather and season."
+      },
+      "kletterhalle": {
+        "name": "Villach climbing hall",
+        "desc": "Climbing and bouldering for beginners and advanced climbers – weather-independent and for the whole family."
+      }
+    }
+  },
+  "offers": {
+    "discounts": {
+      "early": {
+        "title": "Early-bird discount",
+        "desc": "When booking at least 30 days before arrival.",
+        "badge": "–10%"
+      },
+      "winter7": {
+        "title": "Winter holiday – 7 nights for the price of 6",
+        "desc": "Book 7 nights and pay for only 6. Valid from 1 November to 31 March, excluding Christmas and Easter holidays.",
+        "badge": "7 days for the price of 6",
+        "note": "Excluded: 24 December to 6 January and 20 March to 29 March."
+      },
+      "twoApartments": {
+        "title": "Travelling together – book two apartments",
+        "desc": "When you book two apartments at the same time, you receive a 15 % discount.",
+        "badge": "–15%"
+      },
+      "stopover": {
+        "title": "Stopover on the way there and back",
+        "desc": "Book 2 nights each on your outbound and return journey and receive a 15 % discount plus a bottle of Prosecco as a welcome gift.",
+        "badge": "–15% + 🍾"
+      },
+      "long10": {
+        "title": "Long stay – 10 to 15 nights",
+        "desc": "For a stay of 10 to 14 nights you receive a 20 % discount.",
+        "badge": "–20%"
+      },
+      "long15": {
+        "title": "Long stay – from 15 nights",
+        "desc": "For a stay of 15 nights or more you receive a 30 % discount.",
+        "badge": "–30%"
+      }
+    },
+    "packages": {
+      "romantik": {
+        "tag": "💑 Romance package",
+        "title": "Romance package",
+        "desc": "Bookable from 2 nights.",
+        "includes": [
+          "Bottle of Prosecco",
+          "Fruit basket",
+          "Additional towels",
+          "Sauna scrub"
+        ]
+      },
+      "ski": {
+        "tag": "⛷️ Ski package",
+        "title": "Ski holiday in the heart of Carinthia",
+        "desc": "Gerlitzen Alpe, Nassfeld, Katschberg, Heiligenblut and the Mölltal Glacier – several of Carinthia's most beautiful ski areas are easily reached from Wilena Apartments. For stays of 6 nights or more you also receive 3 hours of free admission to the KärntenTherme and a free interim cleaning.",
+        "includes": [
+          "3 hours' admission to the KärntenTherme included",
+          "Free interim cleaning",
+          "Offer for 2 adults + max. 3 children or up to 4 adults"
+        ],
+        "badge": "from 6 days"
+      },
+      "birthday": {
+        "tag": "🎂 Birthday package",
+        "title": "Birthday at Wilena",
+        "desc": "Celebrate your special day with us – we provide little extras that make your stay even nicer.",
+        "includes": [
+          "A bottle of Prosecco or alcohol-free sparkling wine",
+          "A small birthday surprise",
+          "Sweets",
+          "Late check-out subject to availability"
+        ]
+      }
+    }
+  },
+  "angebote": {
+    "eyebrow": "SPECIAL OFFERS",
+    "title": "Offers",
+    "subtitle": "Special offers for your stay in Warmbad Villach",
+    "discounts": "Discounts",
+    "packages": "Our holiday packages",
+    "request": "Enquire now",
+    "contactTitle": "our offers",
+    "emptyTitle": "No special offers at the moment",
+    "emptyText": "We currently have no active offers. Please check back soon — we are working on exclusive deals for your next holiday in Villach.",
+    "emptyTip": "For exclusive early-bird deals, please contact us directly:"
+  },
+  "contactPage": {
+    "subtitle": "We look forward to hearing from you and are happy to help.",
+    "formTitle": "Send a message",
+    "formDesc": "Fill in the form — we will reply within 24 hours.",
+    "sentTitle": "Message sent!",
+    "sentText": "We will get back to you as soon as possible.",
+    "newMessage": "New message",
+    "name": "First & last name *",
+    "namePh": "John Smith",
+    "email": "E-mail *",
+    "phone": "Phone",
+    "message": "Message *",
+    "messagePh": "Your message...",
+    "send": "Send message",
+    "locations": "Our locations"
+  },
+  "freizeitPage": {
+    "title": "Leisure & relaxation",
+    "subtitle": "Thermal spa, lakes, mountains and a wide range of leisure activities around Warmbad Villach",
+    "bikeAlt": "Bicycle rental on site",
+    "bikeTitle": "Discover the region by bike",
+    "bikeDesc": "Carinthia is made for a holiday on two wheels. Leisurely cycle paths along lakes and rivers, sporty mountain-bike trails and varied e-bike tours offer something for everyone. Especially lovely: along the way you are repeatedly accompanied by impressive mountain and lake panoramas – and on warm days one of the many Carinthian lakes invites you to take a refreshing break.",
+    "routesTitle": "Popular cycle routes:",
+    "route1Name": "Drau Cycle Path",
+    "route1Desc": "Relaxed along the Drau – ideal for leisure cyclists and families.",
+    "route2Name": "Alpe-Adria Cycle Path",
+    "route2Desc": "One of the region's most beautiful cycling routes – from the Alps towards Italy.",
+    "route3Name": "Carinthian Lakes Loop",
+    "route3Desc": "A varied circular tour that links numerous Carinthian lakes.",
+    "route4Name": "Lake Millstatt Cycle Path",
+    "route4Desc": "A scenically especially beautiful loop around Lake Millstatt.",
+    "bikeOutro": "If you prefer something sportier, cycle along the Drau to Villach or further towards the Alpe-Adria cycle path — a classic for everyone who wants to experience Carinthia actively.",
+    "contactTitle": "excursions & activities"
+  },
+  "home": {
+    "eyebrow": "WELCOME!",
+    "tagline": "Arrive. Breathe. Feel at home.",
+    "heroSub": "Your home away from home – between thermal spas, lakes and mountains, in the heart of the three-country region of Austria – Italy – Slovenia.",
+    "stats": {
+      "support": "Guest support"
+    },
+    "aboutTag": "About us",
+    "introTitle": "Welcome<br />home!",
+    "intro": {
+      "p1": "Welcome to Wilena Apartments – your retreat for relaxation, comfort and special holiday moments.",
+      "p2": "Wilena Apartments combine modern comfort with a quiet location in the heart of nature – a place to arrive, switch off and enjoy.",
+      "p3": "Our apartments are located in the spa town of Warmbad Villach, nestled in Carinthia's beautiful landscape of mountains and lakes. The special location close to the border triangle of Austria, Italy and Slovenia makes Warmbad Villach an ideal starting point for a varied holiday in any season.",
+      "p4": "The KärntenTherme with its thermal bath, aqua park and spacious sauna world is within easy walking distance.",
+      "p5": "A very special nature experience begins right on the doorstep: in the neighbouring forest there are natural thermal springs that have been known since Roman times. Here you can bathe in warm thermal water in the middle of nature – an extraordinary experience that makes Warmbad Villach so special.",
+      "p6": "The well-known Carinthian lakes as well as the Villacher Alpe and the Gerlitzen are also quickly reached. In summer, swimming, hiking, cycling and numerous excursions await you. In winter, ski areas, snow-covered mountain landscapes and relaxing hours in the thermal spa are the draw.",
+      "p7": "Wilena Apartments are ideal for families with children, couples, active holidaymakers and wellness lovers. And anyone who simply wants peace and quiet will find the right place here too.",
+      "p8": "Thanks to the good motorway connections, our apartments are also a comfortable choice for guests on their way to Italy, Slovenia, Croatia or further south – perhaps for one night, perhaps for a few days more.",
+      "p9": "And of course, Carinthia is also about enjoyment. The regional cuisine combines Austrian tradition with Mediterranean influences from Italy and Slovenia – varied, authentic and surprisingly diverse.",
+      "p10": "Nature, mountains, lakes and thermal water. Three countries within easy reach. And in the middle, a place where you simply feel at home.",
+      "p11": "We look forward to welcoming you to Wilena Apartments."
+    },
+    "apartmentsTag": "Our apartments",
+    "apartmentsTitle": "Two unique apartments",
+    "apartments": {
+      "1": {
+        "desc": "This cosy, modern apartment in warm tones has a balcony overlooking the green garden – ideal for relaxed evenings. It offers air conditioning, central heating, internet and everything you need for a comfortable stay or a short stopover in the south. The apartment consists of a living room with a sofa bed and a separate bedroom with a double bed and a single sofa bed. The kitchen is small but fully equipped with everything you need for a comfortable stay. This includes a coffee machine, kettle, microwave, oven, dishwasher, toaster, tableware, coffee, tea, oil, salt, sugar, ice in the freezer and all necessary cleaning products. The bathroom is equipped with a shower, washing machine and all the essentials, including a hairdryer, detergent, clothes pegs, tumble dryer, air freshener, shower gel, shower cap, toiletries and several towels. Toys and board games are available for children, and the apartment also has a TV. For your visit to the thermal spas in Carinthia we provide a beach bag and towels. A safe for your personal belongings is also available."
+      },
+      "2": {
+        "desc": "Spacious apartment with a natural wood floor and stylish mountain-themed décor, a balcony and air conditioning. The apartment has central heating, internet and everything you need for a comfortable stay or a short stopover on the way south. It consists of a living room with a sofa bed for 2 people and an additional single sofa bed, as well as a separate bedroom with a double bed and a single sofa bed. If required, an extra bed can be provided. The kitchen is fully equipped with a coffee machine, kettle, microwave, oven, dishwasher, toaster, tableware, as well as coffee, tea, oil, salt, sugar, ice in the freezer and the necessary cleaning products. The bathroom is equipped with a shower, washing machine and all necessary bathroom items, including a hairdryer, detergent, clothes pegs, air freshener, shower gel, shower cap, toiletries and several sets of towels. For longer stays we provide a vacuum cleaner and cleaning products. Toys and board games for children are available, and the apartment has a TV and a DVD player. We also provide a beach bag and towels for your visit to the Carinthian thermal spas. The apartment also has a safe for storing your personal belongings."
+      }
+    },
+    "discover": "Discover →",
+    "featuresTitle": "Everything for a lovely break:",
+    "features": {
+      "comfort": {
+        "title": "Comfort & well-being",
+        "desc": "Modern amenities, balcony, fully equipped kitchen and air conditioning – for a relaxing stay in every season."
+      },
+      "lakes": {
+        "title": "Lakes & mountains",
+        "desc": "Carinthian lakes and impressive mountain landscapes are right nearby – ideal for nature, excursions and active holiday days."
+      },
+      "thermal": {
+        "title": "Thermal spa & relaxation",
+        "desc": "The KärntenTherme with its thermal bath, sauna world and adventure area is only about a 5-minute walk away."
+      },
+      "cycling": {
+        "title": "Cycling & hiking",
+        "desc": "Numerous cycling and hiking trails invite you to actively discover the nature around Warmbad Villach. A bicycle storage area is available."
+      },
+      "winter": {
+        "title": "Winter & mountains",
+        "desc": "Ski areas and cross-country skiing are quickly reached – perfect for active winter days in Carinthia."
+      },
+      "wellness": {
+        "title": "Wellness & health",
+        "desc": "A spa centre, rehabilitation facilities and medical services are in the immediate vicinity – ideal for combining relaxation and health."
+      },
+      "shopping": {
+        "title": "Enjoyment & shopping",
+        "desc": "The ATRIO shopping centre and restaurants serving regional and international cuisine are quickly reached."
+      }
+    },
+    "ctaTitle": "Your home in Carinthia is waiting for you!",
+    "ctaText": "Book directly and enjoy your stay at Wilena Apartments at the best price."
+  },
+  "contacts": {
+    "address": {
+      "title": "Villach",
+      "line0": "Warmbader Allee 53",
+      "line1": "9504 Villach, Austria",
+      "linkLabel": "Open on map"
+    },
+    "phone": {
+      "title": "Phone",
+      "subtitle": "Viber, Whatsapp, Telegram",
+      "line0": "+43 664 737 48 88",
+      "linkLabel": "Call"
+    },
+    "email": {
+      "title": "E-mail",
+      "line0": "wilena@speed.at",
+      "linkLabel": "Send e-mail"
+    }
+  },
+  "notFound": {
+    "home": "Home",
+    "title": "Page not found",
+    "text": "The page you are looking for does not exist or has been moved. Here is the way back:",
+    "toHome": "Back to home page"
+  },
+  "roomPage": {
+    "guests": "Guests",
+    "guestCount_one": "{{count}} guest",
+    "guestCount_other": "{{count}} guests",
+    "adultsShort_one": "{{count}} adult",
+    "adultsShort_other": "{{count}} adults",
+    "childCount_one": "{{count}} child",
+    "childCount_other": "{{count}} children",
+    "abbrevDot": "",
+    "dogShort": "Dog",
+    "adults": "Adults",
+    "adultsSub": "From 18 years",
+    "children": "Children",
+    "childrenSub": "0–17 years",
+    "rate": "RATE",
+    "chooseRate": "Choose rate",
+    "flexSub": "For guests who want to stay flexible.",
+    "nrSub": "Plan safely & save",
+    "flexTermsTitle": "Cancellation terms",
+    "flexTermsText": "Free cancellation up to 30 days before arrival. After that, the applicable cancellation fees apply.",
+    "flexTermsLink": "View booking & cancellation terms →",
+    "nrTermsTitle": "Non-cancellable rate",
+    "nrTermsText": "This booking is non-cancellable and non-refundable.",
+    "nrTermsLink": "View rate conditions →",
+    "wishesAdd": "Add special requests <em>(optional)</em>",
+    "wishesLabel": "SPECIAL REQUESTS <em>(optional)</em>",
+    "wishesPlaceholder": "e.g. late check-in, baby cot, quiet location …",
+    "wishesNote": "Please do not provide any sensitive health data.",
+    "area": "Area",
+    "upTo": "up to",
+    "guestsCot": "guests + cot",
+    "rooms": "Rooms",
+    "parking": "Parking included",
+    "about": "About this apartment",
+    "fromPrice": "from €{{price}}",
+    "perNightSlash": "/ night",
+    "priceError": "The current price could not be loaded — an indicative price is shown.",
+    "nrNoDiscount": "The Non-Refundable rate cannot be combined with other discounts or special offers.",
+    "taxRow": "Tourist tax · {{persons}} pers. × {{nightsText}}",
+    "underReview": "under review",
+    "included": "included",
+    "errInvalid": "Please select valid dates.",
+    "errUnavailable": "Unfortunately already booked for these dates.",
+    "directNote": "Direct booking, no additional fees",
+    "amenities": "Amenities",
+    "goodToKnow": "Good to know",
+    "know1": "Non-smoking apartment",
+    "know2": "Quiet hours from 22:00 to 07:00",
+    "know3": "No parties or events",
+    "know4": "Pets only upon prior request",
+    "know5": "Check-in & check-out depending on season",
+    "houseRulesLink": "View house rules →",
+    "floorplan": "Floor plan",
+    "contactTitle": "this apartment"
+  },
+  "service": {
+    "flex": {
+      "title": "Flexible arrival & departure",
+      "early": {
+        "name": "Early check-in",
+        "desc": "Subject to availability and prior agreement."
+      },
+      "late": {
+        "name": "Late check-out",
+        "desc": "Subject to availability and prior agreement."
+      }
+    },
+    "transfer": {
+      "title": "Transfer",
+      "airport": {
+        "name": "Airport transfers",
+        "desc": "Transfer from and to Klagenfurt or Ljubljana airport on request."
+      },
+      "station": {
+        "name": "Railway station transfers",
+        "desc": "Pick-up from Villach main station or Villach Warmbad station on request."
+      },
+      "pickup": {
+        "name": "Individual pick-up",
+        "desc": "Personal pick-up by arrangement and at your preferred time."
+      }
+    },
+    "tours": {
+      "title": "Guided excursions",
+      "custom": {
+        "name": "Individual excursions",
+        "desc": "On request we organise individual excursions to selected destinations in Carinthia, Italy and Slovenia."
+      },
+      "hiking": {
+        "name": "Guided hikes",
+        "desc": "Guided hikes in the Carinthian mountains on request."
+      },
+      "city": {
+        "name": "City tours",
+        "desc": "Individual tours of Villach, Klagenfurt and other selected places."
+      }
+    },
+    "laundry": {
+      "title": "Laundry & ironing service",
+      "laundry": {
+        "name": "Laundry service",
+        "desc": "Washing and ironing of your laundry on request and for an additional charge."
+      }
+    },
+    "cleaning": {
+      "title": "Cleaning",
+      "extra": {
+        "name": "Additional cleaning",
+        "desc": "Additional cleaning of the apartment during your stay on request."
+      }
+    },
+    "pets": {
+      "title": "Pets",
+      "stay": {
+        "name": "Stay with a pet",
+        "desc": "Pets are welcome after prior agreement and for an additional charge."
+      },
+      "care": {
+        "name": "Pet sitting",
+        "desc": "Hourly care for your pet during your excursions on request."
+      }
+    },
+    "shopping": {
+      "title": "Shopping",
+      "shop": {
+        "name": "Shopping service",
+        "desc": "We are happy to do your shopping before your arrival or during your stay."
+      },
+      "fridge": {
+        "name": "Fridge stocked on arrival",
+        "desc": "On request we provide a basic selection of groceries before your arrival."
+      },
+      "drinks": {
+        "name": "Drinks service",
+        "desc": "On request we place drinks of your choice in the apartment before your arrival."
+      }
+    },
+    "car": {
+      "title": "Car rental",
+      "rental": {
+        "name": "Rental car service",
+        "desc": "We are happy to help you find and reserve a suitable rental car."
+      }
+    },
+    "bike": {
+      "title": "Bike rental",
+      "rental": {
+        "name": "Bicycle & e-bike rental",
+        "desc": "We are happy to help you find and reserve bicycles and e-bikes in the area."
+      }
+    },
+    "organisation": {
+      "title": "Appointments & personal arrangements",
+      "doctor": {
+        "name": "Doctor & rehabilitation",
+        "desc": "On request we help you organise doctor's appointments as well as medical and rehabilitation treatments in the area."
+      },
+      "beauty": {
+        "name": "Beauty & wellness",
+        "desc": "We are happy to help you choose and book beauty, wellness and cosmetic treatments."
+      },
+      "garage": {
+        "name": "Car workshop",
+        "desc": "If needed, we help you find a suitable workshop in the area."
+      }
+    }
+  },
+  "servicePage": {
+    "title": "Guest services on request",
+    "subtitle": "Additional guest services on request – we are happy to organise additional services for an even more comfortable stay. Some services are available for an additional charge and subject to availability.",
+    "contactTitle": "service"
+  },
+  "umgebungPage": {
+    "subtitle": "Shopping, dining, excursion destinations and logistics around Warmbad Villach",
+    "contactTitle": "the surroundings"
+  },
+  "seo": {
+    "home": {
+      "title": "Wilena Apartments Villach – holiday apartments in Warmbad Villach, Carinthia",
+      "description": "Modern holiday apartments in Warmbad Villach, just a 5-minute walk from the KärntenTherme. Two apartments for families, couples and wellness guests – book direct."
+    },
+    "apartment166": {
+      "title": "Apartment 166 – holiday apartment in Warmbad Villach | Wilena Apartments",
+      "description": "Cosy apartment with balcony, air conditioning and a fully equipped kitchen in Warmbad Villach. Close to the KärntenTherme, lakes and ski areas – book direct."
+    },
+    "apartment172": {
+      "title": "Apartment 172 – holiday apartment in Warmbad Villach | Wilena Apartments",
+      "description": "Spacious apartment with natural wood floor, balcony and air conditioning in Warmbad Villach – ideal for families. Close to the KärntenTherme and lakes, book direct."
+    },
+    "angebote": {
+      "title": "Offers & holiday packages | Wilena Apartments Villach",
+      "description": "Early-bird discount, winter holiday 7 nights for the price of 6, long-stay discounts and holiday packages for your stay in Warmbad Villach."
+    },
+    "service": {
+      "title": "Guest services on request | Wilena Apartments Villach",
+      "description": "Transfers, excursions, laundry service, shopping service, bike rental and more – additional services for your stay in Warmbad Villach."
+    },
+    "freizeit": {
+      "title": "Leisure & relaxation in Carinthia | Wilena Apartments Villach",
+      "description": "KärntenTherme, lakes, ski areas, cycle routes and leisure parks – excursion tips around Warmbad Villach."
+    },
+    "umgebung": {
+      "title": "Around Warmbad Villach | Wilena Apartments",
+      "description": "Shopping, dining, excursion destinations and logistics around Wilena Apartments in Warmbad Villach."
+    },
+    "contact": {
+      "title": "Contact | Wilena Apartments Villach",
+      "description": "Get in touch with Wilena Apartments in Warmbad Villach – Warmbader Allee 53, 9504 Villach. Phone, e-mail and directions."
+    },
+    "legal": {
+      "title": "Wilena Apartments Villach",
+      "description": "Legal information, house rules and booking terms of Wilena Apartments in Warmbad Villach."
+    }
+  },
+  "umgebung": {
+    "shopping": {
+      "title": "Shopping",
+      "billa": {
+        "name": "Billa",
+        "desc": "Villacher Schächtestraße 33 — supermarket within walking distance."
+      },
+      "atrio": {
+        "name": "ATRIO Shopping Centre",
+        "desc": "Large shopping centre with numerous shops and food courts."
+      }
+    },
+    "food": {
+      "title": "Dining",
+      "atrioFood": {
+        "name": "ATRIO Villach",
+        "desc": "A variety of food courts in the shopping centre."
+      },
+      "gasser": {
+        "name": "Gasthof Gasser",
+        "desc": "Traditional Carinthian cuisine."
+      },
+      "sterierhof": {
+        "name": "Villacher Sterierhof",
+        "desc": "Cosy inn serving regional cuisine."
+      },
+      "caldarium": {
+        "name": "Caldarium",
+        "desc": "Restaurant with Italian-inspired cuisine."
+      },
+      "haikky": {
+        "name": "HAIKKY Asia Cooking Villach",
+        "desc": "Asian cuisine in the heart of Villach."
+      },
+      "fruhmann": {
+        "name": "Gasthaus Fruhmann",
+        "desc": "Classic Carinthian inn."
+      },
+      "brauhof": {
+        "name": "Villacher Brauhof",
+        "desc": "Regional cuisine and house-brewed beer."
+      },
+      "warmbaderhof": {
+        "name": "Café-Konditorei & Restaurant Hotel Warmbaderhof",
+        "desc": "Fine pastry shop right next to the thermal spa."
+      }
+    },
+    "trips": {
+      "title": "Excursions",
+      "villach": {
+        "name": "Villach city",
+        "desc": "Historic old town with the Drau riverside promenade."
+      },
+      "klagenfurt": {
+        "name": "Klagenfurt city",
+        "desc": "Carinthia's state capital on Lake Wörthersee."
+      },
+      "velden": {
+        "name": "Velden am Wörthersee",
+        "desc": "Well-known lakeside resort with a glamorous flair."
+      },
+      "poertschach": {
+        "name": "Pörtschach am Wörthersee",
+        "desc": "Elegant lakeside promenade and bathing beaches."
+      },
+      "grossglockner": {
+        "name": "Grossglockner High Alpine Road",
+        "desc": "Austria's most famous panoramic road."
+      },
+      "alpenstrasse": {
+        "name": "Villacher Alpenstraße",
+        "desc": "Scenic road with panoramic views over Villach."
+      },
+      "weissensee": {
+        "name": "Weissensee",
+        "desc": "Crystal-clear mountain lake in an idyllic setting."
+      },
+      "maltatal": {
+        "name": "Maltatal",
+        "desc": "Picturesque valley with reservoirs and waterfalls."
+      },
+      "tarvisio": {
+        "name": "Tarvisio (Italy)",
+        "desc": "Day trip to Italy just across the border."
+      },
+      "kranjska": {
+        "name": "Kranjska Gora (Slovenia)",
+        "desc": "Day trip to Slovenia just across the border."
+      }
+    },
+    "transport": {
+      "title": "Transport",
+      "klu": {
+        "name": "Klagenfurt Airport",
+        "desc": "Nearest airport, about 30 minutes by car."
+      },
+      "lju": {
+        "name": "Ljubljana International Airport",
+        "desc": "Alternative route of arrival via Slovenia, 85 km, about 1 hour away."
+      },
+      "hbf": {
+        "name": "Villach Main Station",
+        "desc": "Central station with national and international connections."
+      },
+      "warmbad": {
+        "name": "Villach Warmbad Station",
+        "desc": "Local station right next to the apartments."
+      },
+      "bus": {
+        "name": "Bus stop Villach Jesenfeldrein",
+        "desc": "Nearest bus stop for local public transport."
+      }
+    }
+  }
+}

@@ -2,12 +2,16 @@ import { motion } from "framer-motion";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
-import { categories } from "../data/categories";
+import { useTranslation } from "react-i18next";
+import { useCategories } from "../data/useCategories";
 import { fadeUp, stagger } from "../utils/animations";
 import Contact from "../components/Contact";
 import "../styles/ServicePage.scss";
 
 export const FreizeitPage: React.FC = () => {
+  const { t } = useTranslation();
+  const categories = useCategories();
+
   return (
     <div className="service-page">
       <Header />
@@ -24,10 +28,10 @@ export const FreizeitPage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Freizeit & Erholung
+              {t("freizeitPage.title")}
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Therme, Seen, Berge und vielfältige Freizeitmöglichkeiten rund um Warmbad Villach
+              {t("freizeitPage.subtitle")}
             </motion.p>
           </motion.div>
         </div>
@@ -44,18 +48,18 @@ export const FreizeitPage: React.FC = () => {
             variants={stagger}
           >
             {categories.map((cat) => (
-              <motion.div key={cat.title} className="service-category" variants={fadeUp}>
+              <motion.div key={cat.id} className="service-category" variants={fadeUp}>
                 <div className="service-category__header">
                   <span className="service-category__icon">{cat.icon}</span>
                   <h2 className="service-category__title">{cat.title}</h2>
                 </div>
 
-                {cat.title === "Fahrrad" ? (
+                {cat.id === "bike" ? (
                   <section className="service-highlight">
                     <div className="service-highlight__media">
                       <img
                         src={`${process.env.PUBLIC_URL}/Wilena/Rezidenz/1.jpg`}
-                        alt="Fahrradverleih vor Ort"
+                        alt={t("freizeitPage.bikeAlt")}
                         className="service-highlight__img"
                       />
                     </div>
@@ -67,37 +71,34 @@ export const FreizeitPage: React.FC = () => {
                       variants={stagger}
                     >
                       <motion.h2 className="service-highlight__title" variants={fadeUp}>
-                        Die Region mit dem Rad entdecken
+                        {t("freizeitPage.bikeTitle")}
                       </motion.h2>
                       <motion.p className="service-highlight__desc" variants={fadeUp}>
-                        Kärnten ist wie geschaffen für Urlaub auf zwei Rädern. Gemütliche Radwege entlang von Seen und Flüssen, sportliche Mountainbike-Strecken und abwechslungsreiche Touren für E-Bikes bieten für jeden das Richtige.
-                        Besonders schön: Unterwegs begleiten Sie immer wieder beeindruckende Berg- und Seepanoramen - und an warmen Tagen lädt einer der zahlreichen Kärntner Seen zu einer erfrischenden Pause ein.
+                        {t("freizeitPage.bikeDesc")}
                       </motion.p>
                       <motion.p className="service-highlight__routes-title" variants={fadeUp}>
-                        Beliebte Radwege:
+                        {t("freizeitPage.routesTitle")}
                       </motion.p>
                       <motion.div className="service-highlight__routes" variants={fadeUp}>
                         <div className="service-highlight__route">
-                          <strong>Drauradweg</strong>
-                          <span>Entspannt entlang der Drau - ideal für Genussradler und Familien.</span>
+                          <strong>{t("freizeitPage.route1Name")}</strong>
+                          <span>{t("freizeitPage.route1Desc")}</span>
                         </div>
                         <div className="service-highlight__route">
-                          <strong>Alpe-Adria-Radweg</strong>
-                          <span>Eine der schönsten Radrouten der Region - von den Alpen Richtung Italien.</span>
+                          <strong>{t("freizeitPage.route2Name")}</strong>
+                          <span>{t("freizeitPage.route2Desc")}</span>
                         </div>
                         <div className="service-highlight__route">
-                          <strong>Kärnten Seen-Schleife</strong>
-                          <span>Eine abwechslungsreiche Rundtour, die zahlreiche Kärntner Seen miteinander verbindet.</span>
+                          <strong>{t("freizeitPage.route3Name")}</strong>
+                          <span>{t("freizeitPage.route3Desc")}</span>
                         </div>
                         <div className="service-highlight__route">
-                          <strong>Millstätter See Radweg</strong>
-                          <span>Eine landschaftlich besonders schöne Runde rund um den Millstätter See.</span>
+                          <strong>{t("freizeitPage.route4Name")}</strong>
+                          <span>{t("freizeitPage.route4Desc")}</span>
                         </div>
                       </motion.div>
                       <motion.p className="service-highlight__desc" variants={fadeUp}>
-                        Wer es sportlicher mag, radelt entlang der Drau bis nach Villach
-                        oder weiter Richtung Alpe-Adria-Radweg — ein Klassiker für alle,
-                        die Kärnten aktiv erleben möchten.
+                        {t("freizeitPage.bikeOutro")}
                       </motion.p>
                     </motion.div>
                   </section>
@@ -150,7 +151,7 @@ export const FreizeitPage: React.FC = () => {
             ))}
           </motion.div>
 
-          <Contact title=" Ausflügen & Aktivitäten" />
+          <Contact title={t("freizeitPage.contactTitle")} />
         </div>
       </section>
 

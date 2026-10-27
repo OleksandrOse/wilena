@@ -1,32 +1,26 @@
 import { Link, useLocation } from "react-router-dom";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import "../styles/Breadcrumbs.scss";
-
-const labels: Record<string, string> = {
-  "": "Home",
-  piran: "Piran",
-  villach: "Villach",
-  angebote: "Angebote",
-  service: "Service",
-  room1: "Zimmer 1",
-  room2: "Zimmer 2",
-  room3: "Zimmer 3",
-  room4: "Zimmer 4",
-  room5: "Zimmer 5",
-};
 
 const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export default function Breadcrumbs() {
   const location = useLocation();
+  const { t, i18n } = useTranslation();
   const parts = location.pathname.split("/").filter(Boolean);
 
   if (parts.length === 0) return null;
 
+  const labelFor = (part: string) => {
+    const key = `crumbs.${part}`;
+    return i18n.exists(key) ? t(key) : capitalize(decodeURIComponent(part));
+  };
+
   const crumbs = [
-    { label: "Home", path: "/" },
+    { label: t("nav.home"), path: "/" },
     ...parts.map((part, i) => ({
-      label: capitalize(labels[part] ?? decodeURIComponent(part)),
+      label: labelFor(part),
       path: "/" + parts.slice(0, i + 1).join("/"),
     })),
   ];
@@ -34,7 +28,7 @@ export default function Breadcrumbs() {
   return (
     <motion.nav
       className="breadcrumbs"
-      aria-label="Breadcrumb"
+      aria-label={t("crumbs.aria")}
       initial={{ opacity: 0, y: -4 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.3, duration: 0.4 }}

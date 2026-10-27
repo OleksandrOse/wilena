@@ -1,0 +1,23 @@
+.lang-switch {
+  display: inline-flex;
+  border: 1px solid #c9a24d;
+  border-radius: 999px;
+  overflow: hidden;
+ 
+  &__btn {
+    background: transparent;
+    border: 0;
+    padding: 4px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: #c9a24d;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+ 
+    &.is-active {
+      background: #c9a24d;
+      color: #1a1612;
+    }
+  }
+}

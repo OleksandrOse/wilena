@@ -1,14 +1,17 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { fadeUp, stagger } from "../utils/animations";
-import { categories } from "../data/serviceCategories";
+import { useServiceCategories } from "../data/useServiceCategories";
 import "../styles/ServicePage.scss";
-import Contact from "../components/Contact";
 import ContactService from "../components/ContactService";
 
 export const ServicePage: React.FC = () => {
+  const { t } = useTranslation();
+  const categories = useServiceCategories();
+
   return (
     <div className="service-page">
       <Header />
@@ -25,10 +28,10 @@ export const ServicePage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Gästeservice nach Anfrage
+              {t("servicePage.title")}
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Zusätzliche Gästeservices auf Wunsch organisieren wir gerne zusätzliche Services für einen noch komfortableren Aufenthalt. Einige Leistungen sind gegen Aufpreis und nach Verfügbarkeit erhältlich.
+              {t("servicePage.subtitle")}
             </motion.p>
           </motion.div>
         </div>
@@ -44,9 +47,9 @@ export const ServicePage: React.FC = () => {
             animate="visible"
             variants={stagger}
           >
-            {categories.map((cat, ci) => (
+            {categories.map((cat) => (
               <motion.div
-                key={cat.title}
+                key={cat.id}
                 className="service-category"
                 variants={fadeUp}
               >
@@ -62,7 +65,7 @@ export const ServicePage: React.FC = () => {
                 <div className="service-category__grid">
                   {cat.services.map((s, si) => (
                     <motion.div
-                      key={s.name}
+                      key={s.id}
                       className="service-item"
                       initial={{ opacity: 0, y: 20 }}
                       whileInView={{ opacity: 1, y: 0 }}
@@ -82,7 +85,7 @@ export const ServicePage: React.FC = () => {
             ))}
           </motion.div>
 
-          <ContactService title="Service" />
+          <ContactService title={t("servicePage.contactTitle")} />
         </div>
       </section>
 

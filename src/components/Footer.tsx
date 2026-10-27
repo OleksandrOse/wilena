@@ -1,6 +1,7 @@
 'use client';
 
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Mail, Phone, MapPin } from 'lucide-react';
 import '../styles/Footer.scss';
 
@@ -64,25 +65,27 @@ const socials = [
   },
 ];
 
-const navLinks = [
-  { to: '/apartment1', label: 'Apartment 166' },
-  { to: '/apartment2', label: 'Apartment 172' },
-  { to: '/angebote', label: 'Angebote' },
-  { to: '/freizeit', label: 'Freizeit' },
-  { to: '/umgebung', label: 'Umgebung' },
-  { to: '/service', label: 'Service' },
-  { to: '/contact', label: 'Kontakt' },
-];
-
-const legalLinks = [
-  { to: '/stornobedingungen', label: 'Buchungs- & Stornobedingungen' },
-  { to: '/hausordnung', label: 'Hausordnung' },
-  { to: '/impressum', label: 'Impressum' },
-  { to: '/datenschutz', label: 'Datenschutz' },
-  { to: '/cookies', label: 'Cookies' },
-];
-
 export default function Footer() {
+  const { t } = useTranslation();
+
+  const navLinks = [
+    { to: '/apartment-166', label: 'Apartment 166' },
+    { to: '/apartment-172', label: 'Apartment 172' },
+    { to: '/angebote', label: t('nav.offers') },
+    { to: '/freizeit', label: t('nav.freizeit') },
+    { to: '/umgebung', label: t('nav.umgebung') },
+    { to: '/service', label: t('nav.service') },
+    { to: '/contact', label: t('nav.contact') },
+  ];
+
+  const legalLinks = [
+    { to: '/stornobedingungen', label: t('footer.terms') },
+    { to: '/hausordnung', label: t('footer.houseRules') },
+    { to: '/impressum', label: t('footer.imprint') },
+    { to: '/datenschutz', label: t('footer.privacy') },
+    { to: '/cookies', label: t('footer.cookies') },
+  ];
+
   return (
     <footer className="footer" id="contact">
       <div className="footer__inner">
@@ -92,9 +95,9 @@ export default function Footer() {
           <div className="footer__col footer__col--brand">
             <h2 className="footer__brand">Wilena Apartments</h2>
             <p className="footer__tagline">
-              Ankommen. Durchatmen. Wohlfühlen.
+              {t('footer.tagline1')}
               <br />
-              Ihr Zuhause auf Zeit in Warmbad Villach.
+              {t('footer.tagline2')}
             </p>
             <div className="footer__socials">
               {socials.map((s) => (
@@ -113,8 +116,8 @@ export default function Footer() {
           </div>
 
           {/* Navigation */}
-          <nav className="footer__col" aria-label="Navigation">
-            <h3 className="footer__heading">Entdecken</h3>
+          <nav className="footer__col" aria-label={t('footer.navAria')}>
+            <h3 className="footer__heading">{t('footer.discover')}</h3>
             <ul className="footer__list">
               {navLinks.map((l) => (
                 <li key={l.to}>
@@ -126,7 +129,7 @@ export default function Footer() {
 
           {/* Kontakt */}
           <div className="footer__col">
-            <h3 className="footer__heading">Kontakt</h3>
+            <h3 className="footer__heading">{t('nav.contact')}</h3>
             <ul className="footer__list footer__list--icons">
               <li>
                 <MapPin size={16} />
@@ -137,7 +140,7 @@ export default function Footer() {
                 >
                   Warmbader Allee 53
                   <br />
-                  9504 Villach, Österreich
+                  {t('footer.addressCountry')}
                 </a>
               </li>
               <li>
@@ -152,8 +155,8 @@ export default function Footer() {
           </div>
 
           {/* Rechtliches */}
-          <nav className="footer__col" aria-label="Rechtliches">
-            <h3 className="footer__heading">Rechtliches &amp; Informationen</h3>
+          <nav className="footer__col" aria-label={t('footer.legalAria')}>
+            <h3 className="footer__heading">{t('footer.legalHeading')}</h3>
             <ul className="footer__list">
               {legalLinks.map((l) => (
                 <li key={l.to}>
@@ -167,7 +170,7 @@ export default function Footer() {
 
         <div className="footer__bottom">
           <span>© {new Date().getFullYear()} Wilena Apartments · Dr. Elena Schollenberg</span>
-          <span>Warmbad Villach · Kärnten · Österreich</span>
+          <span>{t('footer.region')}</span>
         </div>
       </div>
     </footer>

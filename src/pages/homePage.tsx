@@ -1,6 +1,7 @@
 import { FC, useState, useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation, Trans } from 'react-i18next';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import QuickBookingModal from '../components/QuickBookingModal';
@@ -13,33 +14,11 @@ import {
 import { fadeUp, stagger } from "../utils/animations";
 import '../styles/HomePage.scss';
 
-const stats: Stat[] = [
-  { value: "24/7", label: "Gästeunterstützung" },
-  { value: "9,2/10", label: "Booking.com" },
-  { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
-];
-
 const apartments = [
   {
     id: '1',
     title: 'Apartment 166',
     tag: 'Villach Warmbad',
-    desc: `Dieses gemütliche, moderne Apartment in warmen Farbtönen bietet einen Balkon mit Blick 
-           auf den grünen Garten – ideal für entspannte Abende. Es verfügt über Klimaanlage, 
-           Zentralheizung, Internet und alles, was Sie für einen komfortablen Aufenthalt oder 
-           einen kurzen Zwischenstopp im Süden benötigen. Das Apartment besteht aus einem 
-           Wohnzimmer mit Schlafcouch und einem separaten Schlafzimmer mit Doppelbett und 
-           Einzelschlafcouch. Die Küche ist klein, aber komplett ausgestattet mit allem, 
-           was Sie für einen komfortablen Aufenthalt brauchen. Dazu gehören Kaffeemaschine, 
-           Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, Toaster, Geschirr, Kaffee, 
-           Tee, Öl, Salz, Zucker, Eis im Gefrierfach und alle notwendigen Reinigungsmittel. 
-           Das Badezimmer ist mit Dusche, Waschmaschine und allem Notwendigen ausgestattet, 
-           darunter Föhn, Waschmittel, Wäscheklammern, Wäschetrockner, Lufterfrischer, 
-           Duschgel, Duschhaube, Toilettenartikel und mehrere Handtücher. Spielzeug und 
-           Brettspiele stehen für Kinder bereit, und das Apartment verfügt außerdem über 
-           einen Fernseher. Für Ihren Besuch der Thermen in Kärnten stellen wir Ihnen eine 
-           Strandtasche und Handtücher zur Verfügung. Ein Safe für Ihre persönlichen Gegenstände 
-           ist ebenfalls vorhanden.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment1/image00013.jpeg`,
     path: '/apartment-166',
     accent: '#6a9b6e',
@@ -48,23 +27,6 @@ const apartments = [
     id: '2',
     title: 'Apartment 172',
     tag: 'Villach Warmbad',
-    desc: `Geräumiges Apartment mit Naturholzboden und Deko mit stilvollen Bergmotiven, 
-          Balkon und Klimaanlage. Das Apartment verfügt über Zentralheizung, 
-          Internet und alles, was Sie für einen komfortablen Aufenthalt oder einen kurzen 
-          Zwischenstopp auf dem Weg in den Süden benötigen. Es besteht aus einem Wohnzimmer 
-          mit einem Schlafsofa für 2 Personen und eine zusätzliche Einzelschlafsofa, 
-          sowie einen separaten Schlafzimmer mit einem Doppelbett und einer Einzelschlafsofa. 
-          Bei Bedarf kann noch ein Zustellbett bereitgestellt werden. Die Küche ist komplett 
-          ausgestattet mit Kaffeemaschine, Wasserkocher, Mikrowelle, Backofen, Geschirrspüler, 
-          Toaster, Geschirr sowie Kaffee, Tee, Öl , Salz, Zucker, Eis im Gefrierschrank und den 
-          notwendigen Reinigungsmitteln. Das Badezimmer ist mit Dusche, Waschmaschine und allen 
-          notwendigen Badartikeln ausgestattet, darunter Föhn, Waschmittel, Wäscheklammern, 
-          Lufterfrischer, Duschgel, Duschhaube, Toilettenartikel und mehrere Handtuchsets. 
-          Für längere Aufenthalte stellen wir einen Staubsauger und Reinigungsmittel zur Verfügung. 
-          Spielzeug und Brettspiele für Kinder sind vorhanden, und das Apartment verfügt über einen 
-          Fernseher und einen DVD-Player. Wir stellen Ihnen außerdem eine Strandtasche und Handtücher 
-          für Ihren Besuch der Kärntner Thermen zur Verfügung. Die Wohnung verfügt zudem über einen 
-          Safe zur Aufbewahrung Ihrer persönlichen Gegenstände.`,
     img: `${process.env.PUBLIC_URL}/Wilena/Apartment2/21.jpeg`,
     path: '/apartment-172',
     accent: '#c9a24d',
@@ -72,17 +34,23 @@ const apartments = [
 ];
 
 const features = [
-  { icon: <ComfortIcon />, title: 'Komfort & Wohlfühlen', desc: 'Moderne Ausstattung, Balkon, voll ausgestattete Küche und Klimaanlage - für einen entspannten Aufenthalt zu jeder Jahreszeit.' },
-  { icon: <LakesMountainsIcon />, title: 'Seen & Berge', desc: 'Kärntner Seen und beeindruckende Berglandschaften liegen ganz in der Nähe - ideal für Natur, Ausflüge und aktive Urlaubstage.' },
-  { icon: <ThermalIcon />, title: "Thermalbad & Entspannung", desc: "Die KärntenTherme mit Thermalbad, Saunawelt und Erlebnisbereich ist nur etwa 5 Gehminuten entfernt." },
-  { icon: <CyclingIcon />, title: "Radfahren & Wandern", desc: "Zahlreiche Rad- und Wanderwege laden dazu ein, die Natur rund um Warmbad Villach aktiv zu entdecken. Ein Fahrradabstellplatz ist vorhanden." },
-  { icon: <WinterIcon />, title: 'Winter & Berge', desc: 'Skigebiete und Langlaufmöglichkeiten sind schnell erreichbar - perfekt für aktive Wintertage in Kärnten.' },
-  { icon: <WellnessIcon />, title: 'Wellness & Gesundheit', desc: 'Kurzentrum, Reha-Angebote und medizinische Einrichtungen befinden sich in unmittelbarer Umgebung - ideal, um Erholung und Gesundheit miteinander zu verbinden.' },
-  { icon: <ShoppingIcon />, title: 'Genuss & Shopping', desc: 'Das ATRIO Einkaufszentrum sowie Restaurants mit regionaler und internationaler Küche sind schnell erreichbar.' },
+  { icon: <ComfortIcon />, key: 'comfort' },
+  { icon: <LakesMountainsIcon />, key: 'lakes' },
+  { icon: <ThermalIcon />, key: 'thermal' },
+  { icon: <CyclingIcon />, key: 'cycling' },
+  { icon: <WinterIcon />, key: 'winter' },
+  { icon: <WellnessIcon />, key: 'wellness' },
+  { icon: <ShoppingIcon />, key: 'shopping' },
 ];
 
 // ─── page ─────────────────────────────────────────────────────────────────────
 export const HomePage: FC = () => {
+  const { t } = useTranslation();
+  const stats: Stat[] = [
+    { value: "24/7", label: t('home.stats.support') },
+    { value: "9,2/10", label: "Booking.com" },
+    { value: "5,0/5", label: "Airbnb", icon: `${process.env.PUBLIC_URL}/superhost-badge.png` },
+  ];
   const [isOpen, setIsOpen] = useState(false);
   const heroRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] });
@@ -105,25 +73,24 @@ export const HomePage: FC = () => {
             variants={stagger}
           >
             <motion.p className="home-hero__eyebrow" variants={fadeUp}>
-              HERZLICH WILLKOMMEN!
+              {t('home.eyebrow')}
             </motion.p>
             <motion.h1 className="home-hero__title" variants={fadeUp}>
               Wilena<br />
               <span>apartments</span>
             </motion.h1>
             <motion.p className="home-hero__sub-title" variants={fadeUp}>
-              Ankommen. Durchatmen. Wohlfühlen.
+              {t('home.tagline')}
             </motion.p>
             <motion.p className="home-hero__subtitle" variants={fadeUp}>
-              Ihr Zuhause auf Zeit - zwischen Thermen, Seen und Bergen,
-              im Herzen des Dreiländerecks Österreich - Italien - Slowenien.
+              {t('home.heroSub')}
             </motion.p>
             <motion.div className="home-hero__actions" variants={fadeUp}>
               <button
                 className="home-hero__btn home-hero__btn--primary"
                 onClick={() => setIsOpen(true)}
               >
-                Jetzt buchen
+                {t('common.bookNow')}
               </button>
             </motion.div>
           </motion.div>
@@ -164,42 +131,42 @@ export const HomePage: FC = () => {
             viewport={{ once: true, amount: 0.3 }}
             variants={stagger}
           >
-            <motion.span className="home-intro__tag" variants={fadeUp}>Über uns</motion.span>
+            <motion.span className="home-intro__tag" variants={fadeUp}>{t('home.aboutTag')}</motion.span>
             <motion.h2 className="home-intro__title" variants={fadeUp}>
-              Herzlich willkommen<br />zu Hause!
+              <Trans i18nKey="home.introTitle" components={{ br: <br /> }} />
             </motion.h2>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Willkommen in den Wilena Apartments Ihr Rückzugsort für Erholung, Komfort und besondere Urlaubsmomente.
+              {t('home.intro.p1')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Die Wilena Apartments verbinden modernen Komfort mit einer ruhigen Lage mitten in der Natur - ein Ort zum Ankommen, Abschalten und Genießen.
+              {t('home.intro.p2')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Unsere Apartments befinden sich im Kurort Warmbad Villach, eingebettet in die wunderschöne Berg- und Seenlandschaft Kärntens. Die besondere Lage nahe dem Dreiländereck Österreich, Italien und Slowenien macht Warmbad Villach zu einem idealen Ausgangspunkt für einen abwechslungsreichen Urlaub zu jeder Jahreszeit.
+              {t('home.intro.p3')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Die KärntenTherme mit Thermalbad, Aquapark und großzügiger Saunalandschaft ist bequem zu Fuß erreichbar.
+              {t('home.intro.p4')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Ein ganz besonderes Naturerlebnis beginnt direkt vor der Haustür: Im angrenzenden Wald befinden sich natürliche Thermalquellen, die bereits seit der Römerzeit bekannt sind. Hier kann man mitten in der Natur im warmen Thermalwasser baden - ein außergewöhnliches Erlebnis, das Warmbad Villach so besonders macht.
+              {t('home.intro.p5')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Auch die bekannten Kärntner Seen sowie die Villacher Alpe und die Gerlitzen sind schnell erreichbar. Im Sommer erwarten Sie Schwimmen, Wandern, Radfahren und zahlreiche Ausflugsmöglichkeiten. Im Winter locken Skigebiete, verschneite Berglandschaften und entspannte Stunden in der Therme.
+              {t('home.intro.p6')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Die Wilena Apartments sind ideal für Familien mit Kindern, Paare, Aktivurlauber und Wellness-Liebhaber. Und wer einfach Ruhe sucht, findet hier ebenso den richtigen Ort.
+              {t('home.intro.p7')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Dank der guten Autobahnanbindung sind unsere Apartments außerdem eine komfortable Wahl für Gäste auf dem Weg nach Italien, Slowenien, Kroatien oder weiter Richtung Süden - vielleicht für eine Nacht, vielleicht aber auch für ein paar Tage mehr.
+              {t('home.intro.p8')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Und natürlich gehört zu Kärnten auch der Genuss. Die regionale Küche verbindet österreichische Tradition mit mediterranen Einflüssen aus Italien und Slowenien - abwechslungsreich, authentisch und überraschend vielfältig.
+              {t('home.intro.p9')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Natur, Berge, Seen und Thermalwasser. Drei Länder zum Greifen nah. Und mittendrin ein Ort, an dem man sich einfach wohlfühlt.
+              {t('home.intro.p10')}
             </motion.p>
             <motion.p className="home-intro__desc" variants={fadeUp}>
-              Wir freuen uns darauf, Sie in den Wilena Apartments willkommen zu heißen.
+              {t('home.intro.p11')}
             </motion.p>
             <motion.div className="home-intro__stats" variants={fadeUp}>
               {stats.map((stat) => (
@@ -256,9 +223,9 @@ export const HomePage: FC = () => {
             viewport={{ once: true }}
             variants={stagger}
           >
-            <motion.span className="home-locations__tag" variants={fadeUp}>Unsere Apartments</motion.span>
+            <motion.span className="home-locations__tag" variants={fadeUp}>{t('home.apartmentsTag')}</motion.span>
             <motion.h2 className="home-locations__title" variants={fadeUp}>
-              Zwei einzigartige Apartments
+              {t('home.apartmentsTitle')}
             </motion.h2>
           </motion.div>
 
@@ -285,9 +252,9 @@ export const HomePage: FC = () => {
                 </div>
                 <div className="home-location-card__body">
                   <h3 className="home-location-card__title">{apt.title}</h3>
-                  <p className="home-location-card__desc">{apt.desc}</p>
+                  <p className="home-location-card__desc">{t(`home.apartments.${apt.id}.desc`)}</p>
                   <span className="home-location-card__cta">
-                    Entdecken →
+                    {t('home.discover')}
                   </span>
                 </div>
               </motion.div>
@@ -308,7 +275,7 @@ export const HomePage: FC = () => {
             transition={{ duration: 0.6 }}
           >
             {/* Ihr perfekter Urlaub — <em>Ihre Wahl</em> */}
-            Alles für eine schöne Auszeit:
+            {t('home.featuresTitle')}
           </motion.h2>
           <motion.div
             className="home-features__grid"
@@ -319,14 +286,14 @@ export const HomePage: FC = () => {
           >
             {features.map((f) => (
               <motion.div
-                key={f.title}
+                key={f.key}
                 className="home-feature-card"
                 variants={fadeUp}
                 whileHover={{ y: -8, transition: { duration: 0.25 } }}
               >
                 <div className="home-feature-card__icon">{f.icon}</div>
-                <h3 className="home-feature-card__title">{f.title}</h3>
-                <p className="home-feature-card__desc">{f.desc}</p>
+                <h3 className="home-feature-card__title">{t(`home.features.${f.key}.title`)}</h3>
+                <p className="home-feature-card__desc">{t(`home.features.${f.key}.desc`)}</p>
               </motion.div>
             ))}
           </motion.div>
@@ -349,11 +316,11 @@ export const HomePage: FC = () => {
         <div className="home-cta__inner">
           <h2 className="home-cta__title">
             {/* Bereit für Ihren Traumurlaub? */}
-            Ihre Zuhause in Kärnten wartet auf Sie!
+            {t('home.ctaTitle')}
           </h2>
-          <p className="home-cta__text">Buchen Sie direkt und genießen Sie Ihren Aufenthalt in den Wilena Apartments zum besten Preis.</p>
+          <p className="home-cta__text">{t('home.ctaText')}</p>
           <button className="home-cta__btn" onClick={() => setIsOpen(true)}>
-            Jetzt buchen
+            {t('common.bookNow')}
           </button>
         </div>
       </motion.section>

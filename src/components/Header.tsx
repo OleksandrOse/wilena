@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import '../styles/Header.scss';
 
 type Lang = "de" | "en";
@@ -11,9 +12,8 @@ export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [apartmentsOpen, setApartmentsOpen] = useState(false);
   const [langOpen, setLangOpen] = useState(false);
-  const [lang, setLang] = useState<Lang>(
-    () => (localStorage.getItem("lang") as Lang) || "de"
-  );
+  const { t, i18n } = useTranslation();
+  const lang: Lang = i18n.resolvedLanguage?.startsWith("en") ? "en" : "de";
   const dropdownRef = useRef<HTMLDivElement>(null);
   const langRef = useRef<HTMLDivElement>(null);
 
@@ -31,10 +31,8 @@ export default function Header() {
   }, []);
 
   const changeLang = (l: Lang) => {
-    setLang(l);
-    localStorage.setItem("lang", l);
+    i18n.changeLanguage(l);
     setLangOpen(false);
-    // тут згодом можна викликати i18n.changeLanguage(l)
   };
 
   return (
@@ -48,7 +46,6 @@ export default function Header() {
         </Link>
 
         {/* Desktop nav */}
-                {/* Desktop nav */}
         <nav className="header-place__nav">
           <a href="tel:+436647378488" className="icon icon--phone">
             <div className="icon__tooltip">+43 664 737 48 88</div>
@@ -103,18 +100,18 @@ export default function Header() {
             </AnimatePresence>
           </div>
 
-          <Link to="/freizeit" className="header-place__nav-item">Freizeit</Link>
-          <Link to="/umgebung" className="header-place__nav-item">Umgebung</Link>
-          <Link to="/service" className="header-place__nav-item">Service</Link>
-          <Link to="/angebote" className="header-place__nav-item">Angebote</Link>
-          <Link to="/contact" className="header-place__nav-item">Kontakt</Link>
+          <Link to="/freizeit" className="header-place__nav-item">{t("nav.freizeit")}</Link>
+          <Link to="/umgebung" className="header-place__nav-item">{t("nav.umgebung")}</Link>
+          <Link to="/service" className="header-place__nav-item">{t("nav.service")}</Link>
+          <Link to="/angebote" className="header-place__nav-item">{t("nav.offers")}</Link>
+          <Link to="/contact" className="header-place__nav-item">{t("nav.contact")}</Link>
 
           {/* Language popup — тепер частина основного nav */}
           <div className="header-place__lang" ref={langRef}>
             <button
               className="header-place__lang-toggle"
               onClick={() => setLangOpen((v) => !v)}
-              aria-label="Sprache wählen"
+              aria-label={t("nav.chooseLanguage")}
             >
               {LANG_LABEL[lang]}
               <svg
@@ -156,7 +153,7 @@ export default function Header() {
         <button
           className={`header-place__burger ${menuOpen ? "is-open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Menü"
+          aria-label={t("nav.menu")}
         >
           <span /><span /><span />
         </button>
@@ -178,14 +175,14 @@ export default function Header() {
             <div className="header-place__mobile-group">
               <div className="header-place__mobile-label">Apartments</div>
               <Link
-                to="/apartment1"
+                to="/apartment-166"
                 onClick={() => setMenuOpen(false)}
                 className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
                 Apartment 166
               </Link>
               <Link
-                to="/apartment2"
+                to="/apartment-172"
                 onClick={() => setMenuOpen(false)}
                 className="header-place__mobile-sub header-place__mobile-sub--villach"
               >
@@ -193,15 +190,15 @@ export default function Header() {
               </Link>
             </div>
 
-            <Link to="/freizeit" onClick={() => setMenuOpen(false)}>Freizeit</Link>
-            <Link to="/umgebung" onClick={() => setMenuOpen(false)}>Umgebung</Link>
-            <Link to="/service" onClick={() => setMenuOpen(false)}>Service</Link>
-            <Link to="/angebote" onClick={() => setMenuOpen(false)}>Angebote</Link>
-            <Link to="/contact" onClick={() => setMenuOpen(false)}>Kontakt</Link>
+            <Link to="/freizeit" onClick={() => setMenuOpen(false)}>{t("nav.freizeit")}</Link>
+            <Link to="/umgebung" onClick={() => setMenuOpen(false)}>{t("nav.umgebung")}</Link>
+            <Link to="/service" onClick={() => setMenuOpen(false)}>{t("nav.service")}</Link>
+            <Link to="/angebote" onClick={() => setMenuOpen(false)}>{t("nav.offers")}</Link>
+            <Link to="/contact" onClick={() => setMenuOpen(false)}>{t("nav.contact")}</Link>
 
             {/* Language switcher inside burger menu */}
             <div className="header-place__mobile-group header-place__mobile-group--lang">
-              <div className="header-place__mobile-label">Sprache</div>
+              <div className="header-place__mobile-label">{t("nav.language")}</div>
               <button
                 className={`header-place__mobile-sub ${lang === "de" ? "is-active" : ""}`}
                 onClick={() => changeLang("de")}
@@ -217,7 +214,7 @@ export default function Header() {
             </div>
 
             <a href="#booking" className="header-place__cta" onClick={() => setMenuOpen(false)}>
-              Jetzt buchen
+              {t("common.bookNow")}
             </a>
           </motion.nav>
         )}

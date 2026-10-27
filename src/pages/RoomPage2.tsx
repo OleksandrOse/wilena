@@ -1,6 +1,8 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useMemo, useState, useEffect, useRef } from "react";
+import { useTranslation, Trans } from "react-i18next";
+import { useOfferText } from "../data/useOfferText";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
@@ -22,13 +24,7 @@ import { Package } from "../types/Package";
 import { isoDate, addDays, nightsBetween, rangesOverlap, fmtDate, fetchRoomPricing } from "../utils/pricing";
 import { ServerRoom } from "../services/serverRoomService";
 
-const GOOD_TO_KNOW = [
-  "Nichtraucher-Apartment",
-  "Ruhezeiten von 22:00 bis 07:00 Uhr",
-  "Keine Partys oder Veranstaltungen",
-  "Haustiere nur nach vorheriger Anfrage",
-  "Check-in & Check-out je nach Saison",
-];
+const GOOD_TO_KNOW_KEYS = ["know1", "know2", "know3", "know4", "know5"] as const;
 
 type AvailabilityStatus = "idle" | "available" | "unavailable" | "invalid";
 
@@ -41,9 +37,6 @@ type RateType = "flexible" | "nonrefundable";
 
 const round2 = (n: number) => Math.round(n * 100) / 100;
 const eur = (n: number) => (Number.isInteger(n) ? String(n) : n.toFixed(2));
-
-const MONTHS_DE = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
-const DAYS_DE = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 
 function buildMatrix(year: number, month: number) {
   const first = new Date(year, month, 1);
@@ -60,6 +53,9 @@ function buildMatrix(year: number, month: number) {
 
 // ── Calendar Popup ────────────────────────────────────────────────────────────
 function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: CalProps) {
+  const { t } = useTranslation();
+  const months = t("quickBooking.months", { returnObjects: true }) as unknown as string[];
+  const dayNames = t("quickBooking.days", { returnObjects: true }) as unknown as string[];
   const today = new Date();
   const [offset, setOffset] = useState(0);
   const viewDate = new Date(today.getFullYear(), today.getMonth() + offset, 1);
@@ -97,16 +93,16 @@ function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: Cal
       transition={{ duration: 0.18 }}
     >
       <div className="rp-cal-popup__header">
-        <span>{selectingFrom ? "Anreisedatum wählen" : "Abreisedatum wählen"}</span>
+        <span>{selectingFrom ? t("quickBooking.pickArrival") : t("quickBooking.pickDeparture")}</span>
         <button onClick={onClose}>✕</button>
       </div>
       <div className="rp-cal-popup__nav">
         <button onClick={() => setOffset(o => Math.max(0, o - 1))} disabled={offset === 0}>‹</button>
-        <span>{MONTHS_DE[viewDate.getMonth()]} {viewDate.getFullYear()}</span>
+        <span>{months[viewDate.getMonth()]} {viewDate.getFullYear()}</span>
         <button onClick={() => setOffset(o => o + 1)}>›</button>
       </div>
       <div className="rp-cal-popup__grid">
-        {DAYS_DE.map(d => <div key={d} className="rp-cal-popup__dayname">{d}</div>)}
+        {dayNames.map(d => <div key={d} className="rp-cal-popup__dayname">{d}</div>)}
         {matrix.flat().map((date, i) => {
           if (!date) return <div key={i} className="rp-cal-popup__cell rp-cal-popup__cell--empty" />;
           const iso = isoDate(date);
@@ -125,7 +121,7 @@ function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: Cal
             >
               <span className="rp-cal-popup__day">{date.getDate()}</span>
               {!isPast && !isBooked && <span className="rp-cal-popup__price">€{price}</span>}
-              {isBooked && <span className="rp-cal-popup__booked">Belegt</span>}
+              {isBooked && <span className="rp-cal-popup__booked">{t("quickBooking.booked")}</span>}
             </button>
           );
         })}
@@ -135,6 +131,7 @@ function CalendarPopup({ room, from, to, onSelect, onClose, selectingFrom }: Cal
 }
 
 function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guests) => void }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -175,10 +172,10 @@ function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guest
     <div className="rp-guests" ref={ref}>
       <button className="rp-guests__trigger" onClick={() => setOpen(o => !o)}>
         <div>
-          <div className="rp-guests__trigger-label">Gäste</div>
+          <div className="rp-guests__trigger-label">{t("roomPage.guests")}</div>
           <div className="rp-guests__trigger-val">
-            👥 {total} Gast{total !== 1 ? "e" : ""} · {guests.adults} Erw{guests.children > 0 ? `, ${guests.children} Kind${guests.children !== 1 ? "er" : ""}` : "."}
-            {guests.hasDog ? " · 🐕 Hund" : ""}
+            👥 {t("roomPage.guestCount", { count: total })} · {t("roomPage.adultsShort", { count: guests.adults })}{guests.children > 0 ? `, ${t("roomPage.childCount", { count: guests.children })}` : t("roomPage.abbrevDot")}
+            {guests.hasDog ? ` · 🐕 ${t("roomPage.dogShort")}` : ""}
           </div>
         </div>
         <span>{open ? "▲" : "▼"}</span>
@@ -189,21 +186,21 @@ function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guest
             initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -6 }} transition={{ duration: 0.15 }}
           >
-            {counter("Erwachsene", "Ab 18 Jahren", guests.adults, 1, v => onChange({ ...guests, adults: v }))}
-            {counter("Kinder", "0–17 Jahre", guests.children, 0, setChildrenCount)}
+            {counter(t("roomPage.adults"), t("roomPage.adultsSub"), guests.adults, 1, v => onChange({ ...guests, adults: v }))}
+            {counter(t("roomPage.children"), t("roomPage.childrenSub"), guests.children, 0, setChildrenCount)}
 
             {guests.children > 0 && (
               <div className="rp-guests__ages">
                 {guests.childrenAges.map((age, i) => (
                   <div className="rp-guests__age-row" key={i}>
-                    <span className="rp-guests__age-label">Alter – Kind {i + 1}</span>
+                    <span className="rp-guests__age-label">{t("quickBooking.childAge", { n: i + 1 })}</span>
                     <select
                       className="rp-guests__age-select"
                       value={age}
                       onChange={(e) => setChildAge(i, Number(e.target.value))}
                     >
                       {Array.from({ length: 18 }).map((_, a) => (
-                        <option key={a} value={a}>{a} {a === 1 ? "Jahr" : "Jahre"}</option>
+                        <option key={a} value={a}>{t("quickBooking.years", { count: a })}</option>
                       ))}
                     </select>
                   </div>
@@ -213,8 +210,8 @@ function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guest
 
             <div className="rp-guests__row rp-guests__row--dog">
               <div>
-                <div className="rp-guests__label">🐕 Haustier</div>
-                <div className="rp-guests__sub">Reisen Sie mit einem Hund?</div>
+                <div className="rp-guests__label">🐕 {t("modalBooking.pet")}</div>
+                <div className="rp-guests__sub">{t("quickBooking.dogQuestion")}</div>
               </div>
               <button
                 type="button"
@@ -234,11 +231,12 @@ function GuestPicker({ guests, onChange }: { guests: Guests; onChange: (g: Guest
 
 // ── Rate Picker (Flexible / Non-Refundable) ───────────────────────────────────
 function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateType) => void }) {
+  const { t } = useTranslation();
   return (
     <div className="rp-rate">
-      <div className="rp-rate__label">TARIF</div>
+      <div className="rp-rate__label">{t("roomPage.rate")}</div>
 
-      <div className="rp-rate__options" role="radiogroup" aria-label="Tarif wählen">
+      <div className="rp-rate__options" role="radiogroup" aria-label={t("roomPage.chooseRate")}>
         <button
           type="button"
           role="radio"
@@ -249,7 +247,7 @@ function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateTy
           <span className="rp-rate__radio" />
           <span className="rp-rate__text">
             <span className="rp-rate__title">Flexible Rate</span>
-            <span className="rp-rate__sub">Für Gäste, die flexibel bleiben möchten.</span>
+            <span className="rp-rate__sub">{t("roomPage.flexSub")}</span>
           </span>
         </button>
 
@@ -266,7 +264,7 @@ function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateTy
               Non-Refundable Rate
               <span className="rp-rate__badge">–10 %</span>
             </span>
-            <span className="rp-rate__sub">Sicher planen &amp; sparen</span>
+            <span className="rp-rate__sub">{t("roomPage.nrSub")}</span>
           </span>
         </button>
       </div>
@@ -274,18 +272,18 @@ function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateTy
       <div className="rp-rate__terms">
         {value === "flexible" ? (
           <>
-            <strong>Stornobedingungen</strong>
-            <p>Kostenfreie Stornierung bis 30 Tage vor Anreise. Danach gelten die entsprechenden Stornogebühren.</p>
+            <strong>{t("roomPage.flexTermsTitle")}</strong>
+            <p>{t("roomPage.flexTermsText")}</p>
             <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
-              Buchungs- &amp; Stornobedingungen anzeigen →
+              {t("roomPage.flexTermsLink")}
             </Link>
           </>
         ) : (
           <>
-            <strong>Nicht stornierbarer Tarif</strong>
-            <p>Diese Buchung ist nicht stornierbar und nicht erstattungsfähig.</p>
+            <strong>{t("roomPage.nrTermsTitle")}</strong>
+            <p>{t("roomPage.nrTermsText")}</p>
             <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
-              Tarifbedingungen anzeigen →
+              {t("roomPage.nrTermsLink")}
             </Link>
           </>
         )}
@@ -298,6 +296,7 @@ function RatePicker({ value, onChange }: { value: RateType; onChange: (r: RateTy
 const WISHES_MAX = 1000;
 
 function WishesField({ value, onChange }: { value: string; onChange: (v: string) => void }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const visible = open || value.length > 0;
 
@@ -305,25 +304,25 @@ function WishesField({ value, onChange }: { value: string; onChange: (v: string)
     <div className="rp-wishes">
       {!visible ? (
         <button type="button" className="rp-wishes__toggle" onClick={() => setOpen(true)}>
-          <span aria-hidden="true">+</span> Besondere Wünsche hinzufügen <em>(optional)</em>
+          <span aria-hidden="true">+</span> <Trans i18nKey="roomPage.wishesAdd" components={{ em: <em /> }} />
         </button>
       ) : (
         <>
           <label className="rp-wishes__label" htmlFor="rp-wishes">
-            BESONDERE WÜNSCHE <em>(optional)</em>
+            <Trans i18nKey="roomPage.wishesLabel" components={{ em: <em /> }} />
           </label>
           <textarea
             id="rp-wishes"
             className="rp-wishes__input"
             rows={3}
             maxLength={WISHES_MAX}
-            placeholder="z. B. später Check-in, Babybett, ruhige Lage …"
+            placeholder={t("roomPage.wishesPlaceholder")}
             value={value}
             onChange={(e) => onChange(e.target.value)}
             autoFocus={open && value.length === 0}
           />
           <div className="rp-wishes__meta">
-            <span>Bitte keine sensiblen Gesundheitsdaten angeben.</span>
+            <span>{t("roomPage.wishesNote")}</span>
             <span>{value.length} / {WISHES_MAX}</span>
           </div>
         </>
@@ -336,6 +335,8 @@ function WishesField({ value, onChange }: { value: string; onChange: (v: string)
 interface RoomPage2Props { apartmentId?: string; }
 
 const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
+  const { t } = useTranslation();
+  const offerText = useOfferText();
   const navigate = useNavigate();
   const { aptId, roomId } = useParams();
   const id = apartmentId ?? aptId ?? roomId ?? "1";
@@ -543,7 +544,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
       <div className="rp-hero">
         <img src={room.images[0]} alt={room.name} className="rp-hero__img" />
         <div className="rp-hero__gradient" />
-        <button className="rp-hero__back" onClick={() => navigate(-1)}>← Zurück</button>
+        <button className="rp-hero__back" onClick={() => navigate(-1)}>← {t("common.back")}</button>
 
         <div className="rp-hero__breadcrumbs">
           <Breadcrumbs />
@@ -562,13 +563,13 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             <motion.h1 className="rp-title" variants={fadeUp}>{room.name}</motion.h1>
             <motion.p className="rp-tagline" variants={fadeUp}>{room.tagline}</motion.p>
             <motion.div className="rp-stats" variants={fadeUp}>
-              <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>Fläche</span></div>
-              <div className="rp-stat"><span>👥</span><strong><strong>bis</strong> {room.capacity}</strong><span>Gäste + Gitterbett</span></div>
-              <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>Zimmer</span></div>
-              <div className="rp-stat"><span>🅿️</span><strong>&nbsp;</strong><span>Parkplatz inklusive</span></div>
+              <div className="rp-stat"><span>🏠</span><strong>{room.size} m²</strong><span>{t("roomPage.area")}</span></div>
+              <div className="rp-stat"><span>👥</span><strong><strong>{t("roomPage.upTo")}</strong> {room.capacity}</strong><span>{t("roomPage.guestsCot")}</span></div>
+              <div className="rp-stat"><span>🛏️</span><strong>{room.bedrooms}</strong><span>{t("roomPage.rooms")}</span></div>
+              <div className="rp-stat"><span>🅿️</span><strong>&nbsp;</strong><span>{t("roomPage.parking")}</span></div>
             </motion.div>
             <motion.div className="rp-divider" variants={fadeUp} />
-            <motion.h2 className="rp-section-title" variants={fadeUp}>Über dieses Apartment</motion.h2>
+            <motion.h2 className="rp-section-title" variants={fadeUp}>{t("roomPage.about")}</motion.h2>
             <motion.p className="rp-desc" variants={fadeUp}>{room.description}</motion.p>
           </motion.div>
         </div>
@@ -618,28 +619,28 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             >
               <div className="rp-card__price">
                 <span className="rp-card__price-num">
-                  {priceLoading ? "…" : `ab €${effectiveRoom.pricePerNight}`}
+                  {priceLoading ? "…" : t("roomPage.fromPrice", { price: effectiveRoom.pricePerNight })}
                 </span>
-                <span className="rp-card__price-label">/ Nacht</span>
+                <span className="rp-card__price-label">{t("roomPage.perNightSlash")}</span>
               </div>
               {priceError && (
                 <p className="rp-card__price-note">
-                  Aktueller Preis konnte nicht geladen werden — es wird ein Richtpreis angezeigt.
+                  {t("roomPage.priceError")}
                 </p>
               )}
 
               <div className="rp-card__dates">
                 <div className="rp-card__date-field" onClick={() => openCal(true)}>
-                  <span className="rp-card__date-label">ANREISE</span>
+                  <span className="rp-card__date-label">{t("quickBooking.arrival")}</span>
                   <span className={`rp-card__date-val ${from ? "" : "rp-card__date-val--placeholder"}`}>
-                    {from ? fmtDate(from) : "Datum wählen"}
+                    {from ? fmtDate(from) : t("quickBooking.pickDate")}
                   </span>
                 </div>
                 <div className="rp-card__date-sep">→</div>
                 <div className="rp-card__date-field" onClick={() => openCal(false)}>
-                  <span className="rp-card__date-label">ABREISE</span>
+                  <span className="rp-card__date-label">{t("quickBooking.departure")}</span>
                   <span className={`rp-card__date-val ${to ? "" : "rp-card__date-val--placeholder"}`}>
-                    {to ? fmtDate(to) : "Datum wählen"}
+                    {to ? fmtDate(to) : t("quickBooking.pickDate")}
                   </span>
                 </div>
               </div>
@@ -660,7 +661,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
 
               {isNonRefundable ? (
                 <p className="rp-rate__nodiscount">
-                  Der Non-Refundable-Tarif ist nicht mit anderen Rabatten oder Sonderangeboten kombinierbar.
+                  {t("roomPage.nrNoDiscount")}
                 </p>
               ) : (
                 <DiscountPicker
@@ -683,46 +684,46 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                     initial={{ opacity: 0, height: 0 }} animate={{ opacity: 1, height: "auto" }} exit={{ opacity: 0, height: 0 }}
                   >
                     <div className="rp-card__summary-row">
-                      <span>€{effectiveRoom.pricePerNight} × {nights} Nacht{nights !== 1 ? "e" : ""}</span>
+                      <span>€{effectiveRoom.pricePerNight} × {t("modalBooking.nights", { count: nights })}</span>
                       <span>€{totalPrice}</span>
                     </div>
                     <div className="rp-card__summary-row">
-                      <span>Kurtaxe · {kurtaxPayers} Pers. × {nights} Nacht{nights !== 1 ? "e" : ""}</span>
+                      <span>{t("roomPage.taxRow", { persons: kurtaxPayers, nightsText: t("modalBooking.nights", { count: nights }) })}</span>
                       <span>€{kurtaxTotal}</span>
                     </div>
                     {guests.hasDog && (
                       <div className="rp-card__summary-row">
-                        <span>🐕 Haustier</span>
+                        <span>🐕 {t("modalBooking.pet")}</span>
                         <span>€{petFee}</span>
                       </div>
                     )}
                     {isNonRefundable && rateDiscount > 0 && (
                       <div className="rp-card__summary-row">
-                        <span>Non-Refundable-Tarif · –10 %</span>
+                        <span>{t("modalBooking.nrDiscount")}</span>
                         <span>–€{eur(rateDiscount)}</span>
                       </div>
                     )}
                     {selectedDiscount && discountEligibility?.eligible && (
                       <div className="rp-card__summary-row">
-                        <span>{selectedDiscount.icon} {selectedDiscount.title}</span>
-                        <span>{discountAmount > 0 ? `–€${discountAmount}` : "wird geprüft"}</span>
+                        <span>{selectedDiscount.icon} {offerText.discount(selectedDiscount).title}</span>
+                        <span>{discountAmount > 0 ? `–€${discountAmount}` : t("roomPage.underReview")}</span>
                       </div>
                     )}
                     {selectedPackage && (
                       <div className="rp-card__summary-row">
-                        <span>{selectedPackage.tag}</span>
-                        <span>inklusive</span>
+                        <span>{offerText.pkg(selectedPackage).tag}</span>
+                        <span>{t("roomPage.included")}</span>
                       </div>
                     )}
                     <div className="rp-card__summary-total">
-                      <span>Gesamt</span>
+                      <span>{t("modalBooking.total")}</span>
                       <strong>€{eur(grandTotal)}</strong>
                     </div>
                   </motion.div>
                 )}
               </AnimatePresence>
 
-              <button className="rp-card__btn" onClick={handleBookClick}>Jetzt buchen</button>
+              <button className="rp-card__btn" onClick={handleBookClick}>{t("common.bookNow")}</button>
 
               {selectedDiscount && discountEligibility && !discountEligibility.eligible && (
                 <p className="rp-card__discount-warn">{discountEligibility.reason}</p>
@@ -735,18 +736,18 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
                 {status === "invalid" && (
                   <motion.p key="inv" className="rp-card__msg rp-card__msg--err"
                     initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    Bitte wählen Sie gültige Daten aus.
+                    {t("roomPage.errInvalid")}
                   </motion.p>
                 )}
                 {status === "unavailable" && (
                   <motion.p key="unav" className="rp-card__msg rp-card__msg--err"
                     initial={{ opacity: 0, y: -4 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }}>
-                    Leider für diese Daten bereits belegt.
+                    {t("roomPage.errUnavailable")}
                   </motion.p>
                 )}
               </AnimatePresence>
 
-              <p className="rp-card__note">Direktbuchung, keine zusätzlichen Gebühren</p>
+              <p className="rp-card__note">{t("roomPage.directNote")}</p>
             </motion.div>
           </div>
 
@@ -756,7 +757,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
           <motion.h2 className="rp-section-title"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           >
-            Ausstattung
+            {t("roomPage.amenities")}
           </motion.h2>
           <motion.div className="rp-amenities"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}
@@ -774,19 +775,19 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
           <motion.h2 className="rp-section-title"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           >
-            Gut zu wissen
+            {t("roomPage.goodToKnow")}
           </motion.h2>
           <motion.div className="rp-know"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           >
             <ul className="rp-know__list">
-              {GOOD_TO_KNOW.map((item) => (
-                <li key={item}>{item}</li>
+              {GOOD_TO_KNOW_KEYS.map((k) => (
+                <li key={k}>{t(`roomPage.${k}`)}</li>
               ))}
             </ul>
             <div className="rp-know__links">
-              <Link to="/hausordnung">Hausordnung ansehen →</Link>
-              <Link to="/stornobedingungen">Buchungs- &amp; Stornobedingungen ansehen →</Link>
+              <Link to="/hausordnung">{t("roomPage.houseRulesLink")}</Link>
+              <Link to="/stornobedingungen">{t("roomPage.flexTermsLink")}</Link>
             </div>
           </motion.div>
         </div>
@@ -795,7 +796,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
           <motion.h2 className="rp-section-title"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
           >
-            Grundriss
+            {t("roomPage.floorplan")}
           </motion.h2>
           <motion.div className="rp-floorplan"
             initial="hidden" whileInView="visible" viewport={{ once: true }} variants={fadeUp}
@@ -803,7 +804,7 @@ const RoomPage2: React.FC<RoomPage2Props> = ({ apartmentId }) => {
             {id === "2" ? <FloorPlan172 /> : <FloorPlan166 />}
           </motion.div>
         </div>
-        <Contact title=" diesem Apartment" />
+        <Contact title={t("roomPage.contactTitle")} />
       </div>
 
       <Footer />

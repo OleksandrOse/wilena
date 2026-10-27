@@ -1,5 +1,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
+import { useOfferText } from "../data/useOfferText";
 import { Guests } from "../types/Guests";
 import "../styles/ModalBooking.scss";
 import { buildNightlyPrices, fetchRoomPricing, fmtDate, groupPriceSegments, PriceSegment } from "../utils/pricing";
@@ -49,6 +51,8 @@ function errorMessage(e: unknown, fallback: string): string {
 }
 
 const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }) => {
+  const { t } = useTranslation();
+  const offerText = useOfferText();
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -157,12 +161,12 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
     if (!summary) return;
 
     if (!firstName || !lastName || !email || !phone) {
-      setError("Bitte füllen Sie alle Felder aus.");
+      setError(t("modalBooking.errFields"));
       return;
     }
 
     if (!accepted) {
-      setError("Bitte akzeptieren Sie die Buchungs- & Stornobedingungen und die Hausordnung.");
+      setError(t("modalBooking.errConsent"));
       return;
     }
 
@@ -205,7 +209,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
       setIsOpen(false);
       onSuccess?.();
     } catch (err) {
-      setError(errorMessage(err, "Es gab ein Problem beim Senden. Bitte versuchen Sie es erneut."));
+      setError(errorMessage(err, t("modalBooking.errSend")));
     } finally {
       setSubmitting(false);
     }
@@ -225,12 +229,13 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
           <div className="modal__content">
             <button
               className="modal__close"
+              aria-label={t("common.close")}
               onClick={() => setIsOpen(false)}
             >
               ×
             </button>
 
-            <h2 className="modal__title">Buchungsanfrage</h2>
+            <h2 className="modal__title">{t("modalBooking.title")}</h2>
 
             <div className="modal__summary">
               <div className="modal__summary-row">
@@ -238,18 +243,18 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               </div>
               <div className="modal__summary-row">
                 <span>{fmtDate(summary.dateFrom)} → {fmtDate(summary.dateTo)}</span>
-                <span>{summary.nights} Nacht{summary.nights !== 1 ? "e" : ""}</span>
+                <span>{t("modalBooking.nights", { count: summary.nights })}</span>
               </div>
 
               {pricingLoading && !pricing ? (
                 <div className="modal__summary-row">
-                  <span>Preise werden geladen…</span>
+                  <span>{t("modalBooking.loadingPrices")}</span>
                 </div>
               ) : (
                 priceSegments.map((seg, i) => (
                   <div className="modal__summary-row modal__summary-row--segment" key={i}>
                     <span>
-                      €{seg.pricePerNight} × {seg.nights} Nacht{seg.nights !== 1 ? "e" : ""}
+                      €{seg.pricePerNight} × {t("modalBooking.nights", { count: seg.nights })}
                       {priceSegments.length > 1 && (
                         <span className="modal__summary-dates">
                           {" "}({fmtDate(seg.from)} – {fmtDate(seg.to)})
@@ -262,42 +267,42 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               )}
 
               <div className="modal__summary-row">
-                <span>Tarif</span>
+                <span>{t("modalBooking.rate")}</span>
                 <span>{RATE_LABELS[summary.rateType ?? "flexible"]}</span>
               </div>
               <div className="modal__summary-row">
-                <span>Kurtaxe</span>
+                <span>{t("modalBooking.tax")}</span>
                 <span>€{summary.kurtaxTotal}</span>
               </div>
               {summary.guests.hasDog && (
                 <div className="modal__summary-row">
-                  <span>🐕 Haustier</span>
+                  <span>🐕 {t("modalBooking.pet")}</span>
                   <span>€{summary.petFee ?? PET_FEE}</span>
                 </div>
               )}
               {liveRateDiscount > 0 && (
                 <div className="modal__summary-row">
-                  <span>Non-Refundable-Tarif · –10 %</span>
+                  <span>{t("modalBooking.nrDiscount")}</span>
                   <span>–€{eur(liveRateDiscount)}</span>
                 </div>
               )}
               {summary.discountTitle && (
                 <div className="modal__summary-row">
                   <span>
-                    Rabatt: {summary.discountTitle}
-                    {summary.discountManualReview ? " (wird geprüft)" : ""}
+                    {t("modalBooking.discount")}: {offerText.discount({ title: summary.discountTitle, desc: "" }).title}
+                    {summary.discountManualReview ? ` ${t("modalBooking.underReview")}` : ""}
                   </span>
                   <span>{summary.discountAmount ? `–€${summary.discountAmount}` : "–"}</span>
                 </div>
               )}
               {summary.wishes && (
                 <div className="modal__summary-row modal__summary-row--wishes">
-                  <span>Besondere Wünsche</span>
+                  <span>{t("modalBooking.wishes")}</span>
                   <span>{summary.wishes}</span>
                 </div>
               )}
               <div className="modal__summary-total">
-                <span>Gesamt</span>
+                <span>{t("modalBooking.total")}</span>
                 <strong>€{eur(liveGrandTotal)}</strong>
               </div>
             </div>
@@ -306,7 +311,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               <input
                 className="modal__input"
                 type="text"
-                placeholder="Vorname"
+                placeholder={t("modalBooking.firstName")}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 required
@@ -314,7 +319,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               <input
                 className="modal__input"
                 type="text"
-                placeholder="Nachname"
+                placeholder={t("modalBooking.lastName")}
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -322,7 +327,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               <input
                 className="modal__input"
                 type="email"
-                placeholder="E-mail"
+                placeholder={t("modalBooking.email")}
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -330,7 +335,7 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
               <input
                 className="modal__input"
                 type="tel"
-                placeholder="Telefonnummer"
+                placeholder={t("modalBooking.phone")}
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
                 required
@@ -344,32 +349,29 @@ const ModalBooking: React.FC<Props> = ({ isOpen, setIsOpen, summary, onSuccess }
                   required
                 />
                 <span>
-                  Ich habe die{" "}
-                  <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer">
-                    Buchungs- &amp; Stornobedingungen
-                  </Link>{" "}
-                  sowie die{" "}
-                  <Link to="/hausordnung" target="_blank" rel="noopener noreferrer">
-                    Hausordnung
-                  </Link>{" "}
-                  gelesen und akzeptiere diese.
+                  <Trans
+                    i18nKey="modalBooking.consent"
+                    components={{
+                      terms: <Link to="/stornobedingungen" target="_blank" rel="noopener noreferrer" />,
+                      rules: <Link to="/hausordnung" target="_blank" rel="noopener noreferrer" />,
+                    }}
+                  />
                 </span>
               </label>
 
               <p className="modal__privacy">
-                Ihre persönlichen Daten werden vertraulich behandelt und ausschließlich zur
-                Bearbeitung Ihrer Anfrage und Buchung verwendet. Weitere Informationen finden
-                Sie in unserer{" "}
-                <Link to="/datenschutz" target="_blank" rel="noopener noreferrer">
-                  Datenschutzerklärung
-                </Link>
-                .
+                <Trans
+                  i18nKey="modalBooking.privacy"
+                  components={{
+                    privacy: <Link to="/datenschutz" target="_blank" rel="noopener noreferrer" />,
+                  }}
+                />
               </p>
 
               {error && <p className="modal__error">{error}</p>}
 
               <button className="modal__submit" type="submit" disabled={submitting}>
-                {submitting ? "Wird gesendet…" : "Buchungsanfrage senden"}
+                {submitting ? t("modalBooking.sending") : t("modalBooking.submit")}
               </button>
             </form>
           </div>

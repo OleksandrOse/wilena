@@ -1,16 +1,20 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Contact from "../components/Contact";
 import { fadeUp, stagger } from "../utils/animations";
-import { categories } from "../data/umgebungCategories";
+import { useUmgebungCategories } from "../data/useUmgebungCategories";
 import "../styles/ServicePage.scss";
 
 const mapUrl = (query: string) =>
   `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(query)}`;
 
 export const UmgebungPage: React.FC = () => {
+  const { t } = useTranslation();
+  const categories = useUmgebungCategories();
+
   return (
     <div className="service-page">
       <Header />
@@ -27,10 +31,10 @@ export const UmgebungPage: React.FC = () => {
               WILENA APARTMENTS
             </motion.p>
             <motion.h1 className="service-hero__title" variants={fadeUp}>
-              Umgebung
+              {t("nav.umgebung")}
             </motion.h1>
             <motion.p className="service-hero__subtitle" variants={fadeUp}>
-              Einkaufen, Essen, Ausflugsziele und Logistik rund um Warmbad Villach
+              {t("umgebungPage.subtitle")}
             </motion.p>
           </motion.div>
         </div>
@@ -47,7 +51,7 @@ export const UmgebungPage: React.FC = () => {
             variants={stagger}
           >
             {categories.map((cat) => (
-              <motion.div key={cat.title} className="service-category" variants={fadeUp}>
+              <motion.div key={cat.id} className="service-category" variants={fadeUp}>
                 <div className="service-category__header">
                   <span className="service-category__icon">{cat.icon}</span>
                   <h2 className="service-category__title">{cat.title}</h2>
@@ -55,7 +59,7 @@ export const UmgebungPage: React.FC = () => {
                 <div className="service-category__grid">
                   {cat.services.map((s, si) => (
                     <motion.a
-                      key={s.name}
+                      key={s.id}
                       href={mapUrl(s.mapQuery)}
                       target="_blank"
                       rel="noopener noreferrer"
@@ -78,7 +82,7 @@ export const UmgebungPage: React.FC = () => {
             ))}
           </motion.div>
 
-          <Contact title="r Umgebung" />
+          <Contact title={t("umgebungPage.contactTitle")} />
         </div>
       </section>
 

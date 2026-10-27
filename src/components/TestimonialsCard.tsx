@@ -1,4 +1,5 @@
 import { SetStateAction } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/TestimonialCard.scss";
 import { Testimonial } from "../types/Testimonial";
 
@@ -17,6 +18,7 @@ const TestimonialsCard: React.FC<Props> = ({
   setIsPaused,
   maxChars,
 }) => {
+  const { t } = useTranslation();
   const isLong = item.description.length > maxChars;
 
   const displayText = isExpanded
@@ -38,10 +40,15 @@ const TestimonialsCard: React.FC<Props> = ({
       onTouchStart={() => setIsPaused(true)}
       onTouchEnd={handleLeave}
     >
-      <div className="testimonial-card__rating">
+      <div
+        className="testimonial-card__rating"
+        role="img"
+        aria-label={t("testimonials.starsLabel", { count: item.stars })}
+      >
         {[1, 2, 3, 4, 5].map((star) => (
           <span
             key={star}
+            aria-hidden="true"
             className={
               star <= item.stars
                 ? "testimonial-card__star testimonial-card__star--active"
@@ -70,7 +77,7 @@ const TestimonialsCard: React.FC<Props> = ({
 
         {isLong ? (
           <button className="testimonial-card__more" onClick={onToggle}>
-            {isExpanded ? "Verstecken" : "Mehr lesen"}
+            {isExpanded ? t("testimonials.less") : t("testimonials.more")}
           </button>
         ) : (
           <span className="testimonial-card__placeholder" />

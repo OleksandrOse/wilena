@@ -1,8 +1,10 @@
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import { discounts, packages } from "../data/discounts";
+import { useOfferText } from "../data/useOfferText";
 import { fadeUp, stagger } from "../utils/animations";
 import "../styles/AngebotePage.scss";
 import Contact from "../components/Contact";
@@ -11,6 +13,9 @@ import NonRefundableOffer from "../components/NonRefundableOffer";
 const HAS_OFFERS = true;
 
 export const AngebotePage: React.FC = () => {
+  const { t } = useTranslation();
+  const text = useOfferText();
+
   return (
     <div className="angebote-page">
       <Header />
@@ -25,15 +30,15 @@ export const AngebotePage: React.FC = () => {
             variants={stagger}
           >
             <motion.p className="angebote-hero__eyebrow" variants={fadeUp}>
-              SONDERANGEBOTE
+              {t("angebote.eyebrow")}
             </motion.p>
 
             <motion.h1 className="angebote-hero__title" variants={fadeUp}>
-              Angebote
+              {t("angebote.title")}
             </motion.h1>
 
             <motion.p className="angebote-hero__subtitle" variants={fadeUp}>
-              Besondere Angebote für Ihren Aufenthalt in Warmbad Villach
+              {t("angebote.subtitle")}
             </motion.p>
           </motion.div>
         </div>
@@ -56,28 +61,31 @@ export const AngebotePage: React.FC = () => {
                 variants={stagger}
               >
                 <motion.h2 className="angebote-section__title" variants={fadeUp}>
-                  Rabatte
+                  {t("angebote.discounts")}
                 </motion.h2>
 
                 <div className="discount-grid">
-                  {discounts.map((d) => (
-                    <motion.div
-                      key={d.title}
-                      className="discount-card"
-                      variants={fadeUp}
-                      whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                    >
-                      <div className="discount-card__top">
-                        <span className="discount-card__icon">{d.icon}</span>
-                        <span className="discount-card__badge">{d.badge}</span>
-                      </div>
-                      <h3 className="discount-card__title">{d.title}</h3>
-                      <p className="discount-card__desc">{d.desc}</p>
-                      {d.note && (
-                        <p className="discount-card__note">🗓 {d.note}</p>
-                      )}
-                    </motion.div>
-                  ))}
+                  {discounts.map((d) => {
+                    const dt = text.discount(d);
+                    return (
+                      <motion.div
+                        key={d.id}
+                        className="discount-card"
+                        variants={fadeUp}
+                        whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                      >
+                        <div className="discount-card__top">
+                          <span className="discount-card__icon">{d.icon}</span>
+                          <span className="discount-card__badge">{dt.badge}</span>
+                        </div>
+                        <h3 className="discount-card__title">{dt.title}</h3>
+                        <p className="discount-card__desc">{dt.desc}</p>
+                        {dt.note && (
+                          <p className="discount-card__note">🗓 {dt.note}</p>
+                        )}
+                      </motion.div>
+                    );
+                  })}
                 </div>
               </motion.div>
 
@@ -90,44 +98,46 @@ export const AngebotePage: React.FC = () => {
                 variants={stagger}
               >
                 <motion.h2 className="angebote-section__title" variants={fadeUp}>
-                  Unsere Urlaubspakete
+                  {t("angebote.packages")}
                 </motion.h2>
 
                 <div className="angebote-grid">
-                  {packages.map((offer) => (
-                    <motion.article
-                      key={offer.title}
-                      className="angebot-card"
-                      variants={fadeUp}
-                      whileHover={{ y: -6, transition: { duration: 0.25 } }}
-                    >
-                      <div className="angebot-card__top">
-                        <span className="angebot-card__tag">{offer.tag}</span>
-                        {offer.badge && (
-                          <span className="angebot-card__badge">{offer.badge}</span>
-                        )}
-                      </div>
+                  {packages.map((offer) => {
+                    const pt = text.pkg(offer);
+                    return (
+                      <motion.article
+                        key={offer.id}
+                        className="angebot-card"
+                        variants={fadeUp}
+                        whileHover={{ y: -6, transition: { duration: 0.25 } }}
+                      >
+                        <div className="angebot-card__top">
+                          <span className="angebot-card__tag">{pt.tag}</span>
+                          {pt.badge && (
+                            <span className="angebot-card__badge">{pt.badge}</span>
+                          )}
+                        </div>
 
-                      <h3 className="angebot-card__title">{offer.title}</h3>
-                      <p className="angebot-card__desc">{offer.desc}</p>
+                        <h3 className="angebot-card__title">{pt.title}</h3>
+                        <p className="angebot-card__desc">{pt.desc}</p>
 
-                      <ul className="angebot-card__includes">
-                        {offer.includes.map((item) => (
-                          <li key={item}>
-                            <span className="angebot-card__includes-check">✓</span>
-                            {item}
-                          </li>
-                        ))}
-                      </ul>
+                        <ul className="angebot-card__includes">
+                          {pt.includes.map((item) => (
+                            <li key={item}>
+                              <span className="angebot-card__includes-check">✓</span>
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
 
-                      <button className="angebot-card__btn">
-                        Jetzt anfragen
-                      </button>
-                    </motion.article>
-                  ))}
-                  
+                        <button className="angebot-card__btn">
+                          {t("angebote.request")}
+                        </button>
+                      </motion.article>
+                    );
+                  })}
                 </div>
-                <Contact title=" unseren Angeboten" />
+                <Contact title={t("angebote.contactTitle")} />
               </motion.div>
             </>
           ) : (
@@ -140,18 +150,12 @@ export const AngebotePage: React.FC = () => {
             >
               <div className="angebote-empty__icon">🌿</div>
 
-              <h2 className="angebote-empty__title">
-                Aktuell keine Sonderangebote
-              </h2>
+              <h2 className="angebote-empty__title">{t("angebote.emptyTitle")}</h2>
 
-              <p className="angebote-empty__text">
-                Im Moment haben wir keine aktiven Angebote. Schauen Sie bald
-                wieder vorbei — wir arbeiten an exklusiven Deals für Ihren
-                nächsten Urlaub in Villach.
-              </p>
+              <p className="angebote-empty__text">{t("angebote.emptyText")}</p>
 
               <div className="angebote-empty__tip">
-                💌 Für exklusive Frühbucher-Deals kontaktieren Sie uns direkt:
+                💌 {t("angebote.emptyTip")}
                 <a href="mailto:wilena@speed.at"> wilena@speed.at</a>
               </div>
             </motion.div>

@@ -4,6 +4,7 @@ export const MAP_EMBED_URL = `https://www.google.com/maps?q=${encodeURIComponent
 
 export const contacts = [
   {
+    id: "address",
     icon: "📍",
     title: "Villach",
     lines: ["Warmbader Allee 53", "9504 Villach, Österreich"],
@@ -11,6 +12,7 @@ export const contacts = [
     linkLabel: "Auf Karte öffnen",
   },
   {
+    id: "phone",
     icon: "📞",
     title: "Telefon",
     subtitle: "Viber, Whatsapp, Telegram",
@@ -19,6 +21,7 @@ export const contacts = [
     linkLabel: "Anrufen",
   },
   {
+    id: "email",
     icon: "✉️",
     title: "E-Mail",
     lines: ["wilena@speed.at"],

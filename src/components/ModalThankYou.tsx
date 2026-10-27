@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import "../styles/ModalBooking.scss";
 
 type Props = {
@@ -7,6 +8,8 @@ type Props = {
 };
 
 const ModalThankYou: React.FC<Props> = ({ isOpen, setIsOpen }) => {
+  const { t } = useTranslation();
+
   useEffect(() => {
     document.body.style.overflow = isOpen ? "hidden" : "";
     return () => {
@@ -21,24 +24,18 @@ const ModalThankYou: React.FC<Props> = ({ isOpen, setIsOpen }) => {
       <div className="modal__overlay" onClick={() => setIsOpen(false)}></div>
 
       <div className="modal__content modal__content--thanks" role="dialog" aria-modal="true">
-        <button className="modal__close" onClick={() => setIsOpen(false)} aria-label="Schließen">
+        <button className="modal__close" onClick={() => setIsOpen(false)} aria-label={t("common.close")}>
           ×
         </button>
 
-        <h2 className="modal__title">Vielen Dank für Ihre Buchungsanfrage!</h2>
+        <h2 className="modal__title">{t("thankYou.title")}</h2>
 
-        <p className="modal__thanks-text">
-          Wir haben Ihre Anfrage erhalten und prüfen die Verfügbarkeit des gewünschten Apartments.
-        </p>
-        <p className="modal__thanks-text">
-          Ihre Buchung ist zu diesem Zeitpunkt noch nicht verbindlich bestätigt. Sie erhalten von
-          uns nach Prüfung der Verfügbarkeit eine Buchungsbestätigung mit allen weiteren
-          Informationen zur Zahlung.
-        </p>
+        <p className="modal__thanks-text">{t("thankYou.text1")}</p>
+        <p className="modal__thanks-text">{t("thankYou.text2")}</p>
         <p className="modal__thanks-sign">Wilena Apartments</p>
 
         <button className="modal__submit" type="button" onClick={() => setIsOpen(false)}>
-          Schließen
+          {t("common.close")}
         </button>
       </div>
     </div>
